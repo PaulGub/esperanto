@@ -58,4 +58,3 @@ export const User = SequelizeClient.define<UserT>(
         experiences: DataTypes.TEXT
     },
 );
-
