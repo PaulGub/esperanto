@@ -1,5 +1,5 @@
 import { Model, DataTypes } from 'sequelize';
-import { SequelizeClient } from "../clients/sequelize";
+import { SequelizeClient } from '@clients/sequelize';
 
 export interface UserT extends Model {
     id: number,
@@ -17,44 +17,42 @@ export const User = SequelizeClient.define<UserT>(
     'user',
     {
         firstname: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(100),
+            allowNull: false,
             validate: {
-                is: /^[a-z]+$/i,
-                min: 1,
-                notNull: true,
+                len: [1, 100],
             }
         },
         lastname: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(100),
+            allowNull: false,
             validate: {
-                is: /^[a-z]+$/i,
-                min: 1,
-                notNull: true,
-            }
+                len: [1, 100],
+            },
         },
         email: {
           type: DataTypes.STRING,
           unique: true,
+          allowNull: false,
           validate: {
             isEmail: true,
-            notNull: true,
           },
         },
         password: {
           type: DataTypes.STRING,
+          allowNull: false,
           validate: {
-            notNull: true,
             notEmpty: true,
           },
         },
         phoneNumber: {
-          type: DataTypes.STRING,
+          type: DataTypes.STRING(10),
           validate: {
             len: [10, 10],
           },
         },
         healthNetwork: DataTypes.STRING,
         professionalStatus: DataTypes.TEXT,
-        experiences: DataTypes.TEXT
+        experiences: DataTypes.TEXT,
     },
 );

@@ -1,12 +1,29 @@
 {
   "compilerOptions": {
-    "rootDirs": ["src"],
-    "outDir": "dist",
-    "lib": ["es2020"],
-    "target": "es2020",
-    "module": "esnext",
+    "target": "ES2021",
+    "module": "commonjs",
     "moduleResolution": "node",
+    "allowJs": true,
+    "importHelpers": true,
+    "outDir": "./dist",
+    "baseUrl": ".",
     "esModuleInterop": true,
-    "types": ["node"]
-  }
+    "paths": {
+      "@clients/*": ["src/clients/*"],
+      "@config": ["config/index.ts"],
+      "@controllers/*": ["src/controllers/*"],
+      "@enums/*": ["src/enums/*"],
+      "@fixtures/*": ["src/fixtures/*"],
+      "@helpers/*": ["src/helpers/*"],
+      "@models/*": ["src/models/*"],
+      "@repositories/*": ["src/repositories/*"],
+      "@resolvers/*": ["src/resolvers/*"],
+      "@server/*": ["src/*"],
+      "@tests/*": ["tests/*"],
+      "@typedefs/*": ["src/typedefs/*"],
+      "@views/*": ["src/views/*"]
+    }
+  },
+  "include": ["src/**/*", "scripts/**/*"],
+  "exclude": ["node_modules", "build", "dist"]
 }

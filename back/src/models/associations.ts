@@ -1,18 +1,16 @@
-import {Company} from "./Company";
-import {Expertise} from "./Expertise";
-import {HealthActor} from "./HealthActor";
-import {HealthCareEstablishment} from "./HealthCareEstablishment";
-import {Industrial} from "./Industrial";
-import {Material} from "./Material";
-import {Need} from "./Need";
-import {Professional} from "./Professional";
-import {Researcher} from "./Researcher";
-import {Resource} from "./Resource";
-import {Role} from "./Role";
-import {Tag} from "./Tag";
-import {User} from "./User";
+import {
+    Company,
+    HealthActor,
+    HealthCareEstablishment,
+    Industrial,
+    Material,
+    Need,
+    Professional,
+    Researcher,
+    User
+} from '@models/index';
 
-export const Associations = (): void => {
+export const associations = (): void => {
     HealthActor.belongsTo(Professional);
     Professional.hasMany(HealthActor, { onDelete: 'CASCADE' });
 
@@ -42,5 +40,4 @@ export const Associations = (): void => {
 
     Need.belongsTo(Material)
     Material.hasMany(Need, {onDelete: 'CASCADE'})
-
 };

@@ -1,5 +1,5 @@
 import { Model, DataTypes } from 'sequelize';
-import { SequelizeClient } from "../clients/sequelize";
+import { SequelizeClient } from '@clients/sequelize';
 
 export interface ResourceT extends Model {
     id: number,
@@ -7,15 +7,14 @@ export interface ResourceT extends Model {
 }
 
 export const Resource = SequelizeClient.define<ResourceT>(
-    'Resource',
+    'resource',
     {
         link: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                min: 1,
-                notNull: true,
-            }
-        }
-    }
+                isUrl: true,
+            },
+        },
+    },
 );

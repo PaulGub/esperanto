@@ -1,5 +1,5 @@
 import { Model, DataTypes } from 'sequelize';
-import { SequelizeClient } from "../clients/sequelize";
+import { SequelizeClient } from '@clients/sequelize';
 
 export interface ProfessionalT extends Model {
     id: number,
@@ -7,16 +7,11 @@ export interface ProfessionalT extends Model {
 }
 
 export const Professional = SequelizeClient.define<ProfessionalT>(
-    'Professional',
+    'professional',
     {
         name: {
             type: DataTypes.STRING,
             allowNull: false,
-            validate: {
-                is: /^[a-z]+$/i,
-                min: 1,
-                notNull: true,
-            },
-        }
-    }
+        },
+    },
 );

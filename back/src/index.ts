@@ -1,15 +1,20 @@
+import { SequelizeClient } from '@clients/sequelize';
 import * as dotenv from 'dotenv';
-import { SequelizeClient } from '../clients/sequelize.js';
+import { associations } from "@models/associations";
+
 dotenv.config();
 
 const main = async () => {
-    console.log('Connecting to database...');
-    await SequelizeClient.authenticate();
-    console.log('✅ Database connected !');
-
-    //console.log(`🚀 Server ready`);
+    try {
+        console.log('Connecting to database...');
+        await SequelizeClient.authenticate();
+        associations();
+        console.log('✅ Database connected !');
+    } catch (error) {
+        console.log('⛔ Database connection failed !');
+    }
 }
 
 main().catch((error) => {
     console.log(error)
-})
+});

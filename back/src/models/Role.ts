@@ -1,5 +1,5 @@
 import { Model, DataTypes } from 'sequelize';
-import { SequelizeClient } from "../clients/sequelize";
+import { SequelizeClient } from '@clients/sequelize';
 
 export interface RoleT extends Model {
     id: number,
@@ -13,8 +13,8 @@ export const Role = SequelizeClient.define<RoleT>(
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                notNull: true,
+              isIn: [['HealthActor', 'Researcher', 'Industrial']]
             },
-        }
-    }
+        },
+    },
 );

@@ -1,5 +1,5 @@
 import { Model, DataTypes } from 'sequelize';
-import { SequelizeClient } from "../clients/sequelize";
+import { SequelizeClient } from '@clients/sequelize';
 
 export interface TagT extends Model {
     id: number,
@@ -7,16 +7,11 @@ export interface TagT extends Model {
 }
 
 export const Tag = SequelizeClient.define<TagT>(
-    'Tag',
+    'tag',
     {
         name: {
             type: DataTypes.STRING,
             allowNull: false,
-            validate: {
-                is: /^[a-z]+$/i,
-                min: 1,
-                notNull: true,
-            },
-        }
-    }
+        },
+    },
 );

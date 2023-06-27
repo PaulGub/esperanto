@@ -1,5 +1,5 @@
 import { Model, DataTypes } from 'sequelize';
-import { SequelizeClient } from "../clients/sequelize";
+import { SequelizeClient } from '@clients/sequelize';
 
 export interface MaterialT extends Model {
     id: number,
@@ -9,22 +9,19 @@ export interface MaterialT extends Model {
 }
 
 export const Material = SequelizeClient.define<MaterialT>(
-    'Material',
+    'material',
     {
         name: {
             type: DataTypes.STRING,
             allowNull: false,
-            validate: {
-                is: /^[a-z]+$/i,
-                min: 1,
-                notNull: true,
-            },
         },
         resourceLink: {
             type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+              isUrl: true,
+            },
         },
-        description: {
-            type: DataTypes.TEXT
-        },
-    }
+        description: DataTypes.TEXT,
+    },
 );
