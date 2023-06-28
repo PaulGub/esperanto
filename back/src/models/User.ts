@@ -8,6 +8,7 @@ export interface UserT extends Model {
     email: string,
     password: string,
     phoneNumber?: string,
+    role: string,
     healthNetwork?: string,
     professionalStatus?: string,
     experiences?: string,
@@ -49,6 +50,13 @@ export const User = SequelizeClient.define<UserT>(
           type: DataTypes.STRING(10),
           validate: {
             len: [10, 10],
+          },
+        },
+        role: {
+          type: DataTypes.STRING,
+          allowNull: false,
+          validate: {
+            isIn: [['HealthActor', 'Researcher', 'Industrial']]
           },
         },
         healthNetwork: DataTypes.STRING,
