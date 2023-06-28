@@ -6,10 +6,10 @@ export default function search({ users }: { users: userProps[] }) {
   return (
     <>
       <Sidebar />
-      <div className="col-span-2 p-4 mt-14 ml-72 border border-solid w-full ">
+      <div className="p-4 mt-14 ml-64">
         <input
           type="search"
-          className=" bg-white "
+          className=" bg-white !m-0"
           placeholder="Rechercher un profil..."
         />
         <div className=" px-12 mt-24 w-full">

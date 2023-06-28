@@ -4,7 +4,7 @@ import Suggestions from "./Suggestions";
 
 export default function Profil() {
   return (
-    <div className="grid grid-cols-5 gap-2 px-28 pt-2 w-full col-span-3 mt-14">
+    <div className="grid grid-cols-5 gap-4 px-28 pt-2 mt-24 w-full">
       <ProfilCard />
       <Feed />
       <Suggestions />

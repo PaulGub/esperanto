@@ -3,7 +3,7 @@ import profil from "../assets/profile.svg";
 
 export default function Nav() {
   return (
-    <nav className="px-4 col-span-3 bg-white fixed w-full">
+    <nav className="px-4 top-0 left-0 bg-white fixed w-full">
       <ul>
         <li>
           <NavLink

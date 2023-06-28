@@ -3,7 +3,7 @@ import background from "../assets/background.jpg";
 
 export default function ProfilCard() {
   return (
-    <div className="flex flex-col items-center justify-center bg-white border border-solid">
+    <div className="flex flex-col items-center justify-center bg-white border border-solid col-span-1">
       <div className="w-full">
         <img src={background} alt="" className="h-12 w-full" />
       </div>

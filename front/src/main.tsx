@@ -2,9 +2,9 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./Layout.tsx";
 import "./index.css";
-import Search from "./pages/search.tsx";
+import Search from "./pages/Search.tsx";
 import users from "./utils/data/users";
-import Profil from "./pages/profil.tsx";
+import Profil from "./pages/Profil.tsx";
 
 const root = createRoot(
   document.getElementById("root") as Element | DocumentFragment
