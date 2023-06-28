@@ -9,7 +9,7 @@ export default function search({ users }: { users: userProps[] }) {
       <div className="col-span-2 p-4 ">
         <input
           type="search"
-          className="!mb-3"
+          className="!mb-3 bg-white"
           placeholder="Rechercher un profil..."
         />
         <div className="h-96 overflow-auto px-12 -mt-3 w-full">

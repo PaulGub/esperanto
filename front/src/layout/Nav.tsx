@@ -1,8 +1,9 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import profil from "../assets/profile.svg";
 
 export default function Nav() {
   return (
-    <nav className="px-4 col-span-3">
+    <nav className="px-4 col-span-3 bg-white">
       <ul>
         <li>
           <NavLink
@@ -45,6 +46,11 @@ export default function Nav() {
           >
             Industriel
           </NavLink>
+        </li>
+        <li>
+          <Link to="/profil">
+            <img src={profil} alt="" className="w-4" />
+          </Link>
         </li>
       </ul>
     </nav>

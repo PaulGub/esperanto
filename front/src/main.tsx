@@ -4,6 +4,7 @@ import App from "./Layout.tsx";
 import "./index.css";
 import Search from "./pages/search.tsx";
 import users from "./utils/data/users";
+import Profil from "./pages/profil.tsx";
 
 const root = createRoot(
   document.getElementById("root") as Element | DocumentFragment
@@ -21,6 +22,7 @@ root.render(
         <Route path="sante" element={<Search users={sante} />} />
         <Route path="chercheur" element={<Search users={chercheur} />} />
         <Route path="industriel" element={<Search users={industriel} />} />
+        <Route path="profil" element={<Profil />} />
       </Route>
     </Routes>
   </BrowserRouter>
