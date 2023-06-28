@@ -1,0 +1,5 @@
+type Query {
+    tags: [Tag]
+    tagsByTagUser(userId: ID): [Tag]
+    tagsByTagNeed(needId: ID): [Tag]
+}
