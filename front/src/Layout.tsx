@@ -3,7 +3,7 @@ import Nav from "./layout/Nav";
 
 function App() {
   return (
-    <main className="container grid grid-cols-3 no-scrollbar">
+    <main className="container grid grid-cols-3 ">
       <Nav />
       <Outlet />
     </main>

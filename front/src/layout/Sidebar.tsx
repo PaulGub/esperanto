@@ -16,12 +16,12 @@ export default function Sidebar() {
     initialState
   );
   return (
-    <form className="p-4 bg-slate-200 w-60 h-full">
+    <form className="p-4 w-60 h-full">
       <h2 className="flex items-center mb-4">
         <img src={filters} alt="" className="!w-4 mr-4" />
         Filtres
       </h2>
-      <div className=" border border-y-solid border-y-slate-400">
+      <div className=" border-y border-y-solid border-y-primary">
         <label htmlFor="reset" className="flex items-center cursor-pointer">
           <img src={trash} alt="" className="!w-4 mr-4" />
           Effacer les filtres

@@ -8,7 +8,7 @@ export default function Filter({ rotate, info, state, dispatch }: filterProps) {
           <input
             type="checkbox"
             id={info.label}
-            className="!w-4 !h-4"
+            className="!w-4 !h-4 border border-primary"
             onChange={(e) => {
               dispatch({
                 ...state,

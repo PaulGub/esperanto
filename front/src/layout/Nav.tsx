@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function Nav() {
   return (
@@ -7,21 +7,44 @@ export default function Nav() {
         <li>
           <NavLink
             to="/"
-            className={({ isActive }) => (isActive ? "bg-red-300" : "")}
+            className={({ isActive }) =>
+              isActive ? "bg-primary text-white" : ""
+            }
           >
             <strong>Esperanto</strong>
           </NavLink>
         </li>
       </ul>
       <ul>
-        <li>
-          <NavLink to="/sante" className={({ isActive }) => (isActive ? "bg-red-300" : "")}>Santé</NavLink>
+        <li className="mx-1">
+          <NavLink
+            to="/sante"
+            className={({ isActive }) =>
+              isActive ? "bg-primary text-white" : ""
+            }
+          >
+            Santé
+          </NavLink>
         </li>
-        <li>
-          <NavLink to="/chercheur" className={({ isActive }) => (isActive ? "bg-red-300" : "")}>Chercheur</NavLink>
+        <li className="mx-1">
+          <NavLink
+            to="/chercheur"
+            className={({ isActive }) =>
+              isActive ? "bg-primary text-white" : ""
+            }
+          >
+            Chercheur
+          </NavLink>
         </li>
-        <li>
-          <NavLink to="/industriel" className={({ isActive }) => (isActive ? "bg-red-300" : "")}>Industriel</NavLink>
+        <li className="mx-1">
+          <NavLink
+            to="/industriel"
+            className={({ isActive }) =>
+              isActive ? "bg-primary text-white" : ""
+            }
+          >
+            Industriel
+          </NavLink>
         </li>
       </ul>
     </nav>
