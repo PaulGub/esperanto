@@ -1,9 +1,27 @@
-import ReactDOM from 'react-dom/client';
-import App from './App.tsx';
-import './index.css';
+import { createRoot } from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import App from "./Layout.tsx";
+import "./index.css";
+import Search from "./pages/search.tsx";
+import users from "./utils/data/users";
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <>
-    <App />
-  </>
+const root = createRoot(
+  document.getElementById("root") as Element | DocumentFragment
+);
+
+const sante = users.filter((user) => user.tag === "Santé");
+const chercheur = users.filter((user) => user.tag === "Chercheur");
+const industriel = users.filter((user) => user.tag === "Industriel");
+
+root.render(
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<App />}>
+        <Route index element={<Search users={users} />} />
+        <Route path="sante" element={<Search users={sante} />} />
+        <Route path="chercheur" element={<Search users={chercheur} />} />
+        <Route path="industriel" element={<Search users={industriel} />} />
+      </Route>
+    </Routes>
+  </BrowserRouter>
 );
