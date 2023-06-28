@@ -1,12 +1,11 @@
-import { User, Industrial, HealthActor, Researcher } from "@models/index"
+import {HealthActor, Industrial, Researcher, User} from "@models/index"
 
 export const getAllUsers = async () => {
-    const users =  User.findAll({
+    return User.findAll({
         include: [Industrial, HealthActor, Researcher]
     });
-    return users;
 }
-export const getUsersByTagUser = async (userId: string) => {
+export const getUsersByTagUser = async (userId: number) => {
     const users =  User.findAll({
         include: [Industrial, HealthActor, Researcher]
     });
