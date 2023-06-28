@@ -7,21 +7,24 @@ import {
     Need,
     Professional,
     Researcher,
-    User
+    User,
+    Resource,
+    Expertise,
+    Tag
 } from '@models/index';
 
 export const associations = (): void => {
+    HealthActor.hasOne(User)
+    User.belongsTo(HealthActor, {onDelete: "CASCADE"});
+
     HealthActor.belongsTo(Professional);
     Professional.hasMany(HealthActor, { onDelete: 'CASCADE' });
 
-    HealthActor.belongsToMany(User, { through: 'User_HealthActor' });
-    User.belongsToMany(HealthActor, { through: 'User_HealthActor' });
+    Industrial.hasOne(User)
+    User.belongsTo(Industrial, {onDelete: "CASCADE"})
 
-    Industrial.belongsToMany(User, { through: 'User_Industrial' });
-    User.belongsToMany(Industrial, { through: 'User_Industrial' });
-
-    Researcher.belongsToMany(User, { through: 'User_Researcher' });
-    User.belongsToMany(Researcher, { through: 'User_Researcher' });
+    Researcher.hasOne(User)
+    User.belongsTo(Researcher, {onDelete: "CASCADE"})
 
     Material.belongsTo(Need)
     Need.hasMany(Material, {onDelete: 'CASCADE'})
@@ -38,6 +41,24 @@ export const associations = (): void => {
     Professional.belongsToMany(Need, { through: 'Professional_Need' });
     Need.belongsToMany(Professional, { through: 'Professional_Need' });
 
-    Need.belongsTo(Material)
-    Material.hasMany(Need, {onDelete: 'CASCADE'})
+    Resource.belongsTo(User)
+    User.hasMany(Resource, {onDelete: 'CASCADE'})
+
+    Material.belongsToMany(Need, { through: 'Material_Need' });
+    Need.belongsToMany(Material, { through: 'Material_Need' });
+
+    Expertise.belongsToMany(User, { through: 'Expertise_User' });
+    User.belongsToMany(Expertise, { through: 'Expertise_User' });
+
+    Tag.belongsToMany(Need, { through: 'Tag_Need' });
+    Need.belongsToMany(Tag, { through: 'Tag_Need' });
+
+    Tag.belongsToMany(User, { through: 'Tag_User' });
+    User.belongsToMany(Tag, { through: 'Tag_User' });
+
+    Industrial.belongsToMany(Company, { through: 'Industrial_company' });
+    Company.belongsToMany(Industrial, { through: 'Industrial_company' });
+
+    HealthCareEstablishment.belongsToMany(HealthActor, { through: 'Industrial_company' });
+    HealthActor.belongsToMany(HealthCareEstablishment, { through: 'Industrial_company' });
 };

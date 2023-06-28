@@ -8,6 +8,5 @@ export * from '@models/Need';
 export * from '@models/Professional';
 export * from '@models/Researcher';
 export * from '@models/Resource';
-export * from '@models/Role';
 export * from '@models/Tag';
 export * from '@models/User';
