@@ -12,6 +12,7 @@ type User {
     industrial: Industrial 
     healthActor: HealthActor
     researcher: Researcher
+    tags: [Tag]
 }
 type Industrial{
     id: ID!
@@ -28,4 +29,8 @@ type Researcher{
     researchUnitName: String
     otherSector: String
     researchArea: String
+}
+type Tag{
+    id: ID!
+    name: String!
 }
