@@ -5,8 +5,27 @@ type User {
     email: String!
     password: String!
     phoneNumber: String
+    role: String
     healthNetwork: String
     professionalStatus: String
     experiences: String
+    industrial: Industrial 
+    healthActor: HealthActor
+    researcher: Researcher
 }
-
+type Industrial{
+    id: ID!
+    careSector: String
+    otherSector: String
+}
+type HealthActor{
+    id: ID!
+    careServiceType: String
+    supportServices: String
+}
+type Researcher{
+    id: ID!
+    researchUnitName: String
+    otherSector: String
+    researchArea: String
+}
