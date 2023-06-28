@@ -1,0 +1,12 @@
+type User {
+    id: ID!
+    firstname: String!
+    lastname: String!
+    email: String!
+    password: String!
+    phoneNumber: String
+    healthNetwork: String
+    professionalStatus: String
+    experiences: String
+}
+
