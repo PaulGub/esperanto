@@ -16,7 +16,7 @@ export default function Sidebar() {
     initialState
   );
   return (
-    <form className="p-4 w-60 h-full bg-white">
+    <form className="p-4 w-60 h-full bg-white fixed mt-14">
       <h2 className="flex items-center mb-4">
         <img src={filters} alt="" className="!w-4 mr-4" />
         Filtres
