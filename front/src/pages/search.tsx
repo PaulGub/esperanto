@@ -2,8 +2,11 @@ import { useActionData } from "react-router-dom";
 import Card from "../components/Card";
 import Sidebar from "../layout/Sidebar";
 import users from "../utils/data/users";
+import { useEffect, useState } from "react";
+import { fi } from "@faker-js/faker";
 
 export default function Search() {
+  const [noResult, setNoResult] = useState(false);
   const actionData = useActionData();
   console.log(actionData);
   function normalizeString(input: string): string {
@@ -22,8 +25,16 @@ export default function Search() {
       normalizeString(user.lastName).includes(
         normalizeString(actionData as string)
       ) ||
+      normalizeString(user.description)
+        .split(" ")
+        .includes(normalizeString(actionData as string)) ||
       normalizeString(user.tag).includes(normalizeString(actionData as string))
   );
+
+  console.log(filteredUsers);
+  useEffect(() => {
+    filteredUsers.length === 0 ? setNoResult(true) : setNoResult(false);
+  }, [filteredUsers]);
   return (
     <>
       <Sidebar />
@@ -34,18 +45,10 @@ export default function Search() {
           placeholder="Rechercher un profil..."
         />
         <div className=" px-12 mt-24 w-full">
-          {filteredUsers.length !== 0 ? (
-            filteredUsers.map((user) => (
-              <Card user={user} key={user.firstname + user.lastname} />
-            ))
-          ) : (
-            <>
-              <h2 className="text-2xl text-center">Aucun résultat</h2>
-              {users.map((user) => (
-                <Card user={user} key={user.firstname + user.lastname} />
-              ))}
-            </>
-          )}
+          {noResult && <h2 className="text-2xl text-center">Aucun résultat</h2>}
+          {filteredUsers.length !== 0
+            ? filteredUsers.map((user) => <Card user={user} key={user.id} />)
+            : users.map((user) => <Card user={user} key={user.id} />)}
         </div>
       </div>
     </>
