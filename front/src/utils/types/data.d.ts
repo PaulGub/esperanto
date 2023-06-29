@@ -11,7 +11,10 @@ export type userProps = {
   experiences?: string;
 };
 
-export type specialitiesProps = {
-  label: string;
-  number: string;
+export type needProps = {
+  id: number;
+  title: string;
+  type: string;
+  description?: string;
+  infrastructure?: string;
 };
