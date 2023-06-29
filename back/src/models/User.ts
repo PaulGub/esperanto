@@ -1,5 +1,6 @@
 import { Model, DataTypes } from 'sequelize';
 import { SequelizeClient } from '@clients/sequelize';
+import CONST from "@server/CONST";
 
 export interface UserT extends Model {
     id: number,
@@ -47,16 +48,16 @@ export const User = SequelizeClient.define<UserT>(
           },
         },
         phoneNumber: {
-          type: DataTypes.STRING(10),
+          type: DataTypes.STRING(20),
           validate: {
-            len: [10, 10],
+            len: [17, 20],
           },
         },
         role: {
           type: DataTypes.STRING,
           allowNull: false,
           validate: {
-            isIn: [['HealthActor', 'Researcher', 'Industrial']]
+            isIn: [CONST.ROLES.ARRAY]
           },
         },
         healthNetwork: DataTypes.STRING,

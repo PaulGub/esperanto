@@ -8,7 +8,8 @@
     "dev": "nodemon -r tsconfig-paths/register src/index",
     "dev-windows": "nodemon --legacy-watch -r tsconfig-paths/register src/index",
     "dev-alt": "ts-node-dev --transpile-only -r tsconfig-paths/register src/index",
-    "sync-database": "ts-node -r tsconfig-paths/register src/scripts/sync-database"
+    "sync-database": "ts-node -r tsconfig-paths/register src/scripts/sync-database",
+    "import-fake-data": "ts-node -r tsconfig-paths/register src/scripts/import-fake-data"
   },
   "keywords": [],
   "author": "",
