@@ -3,7 +3,7 @@ import background from "../assets/background.jpg";
 
 export default function ProfilCard() {
   return (
-    <div className="flex flex-col items-center justify-center bg-white border border-solid col-span-1">
+    <div className="flex flex-col items-center justify-start bg-white border border-solid">
       <div className="w-full">
         <img src={background} alt="" className="h-12 w-full" />
       </div>
@@ -44,7 +44,7 @@ export default function ProfilCard() {
         <div className="flex flex-col items-start justify-center w-full">
           <h3 className="text-sm">Description</h3>
           <span className="w-1/4 bg-primary-300 rounded h-1"></span>
-          <p className="text-xxs mt-2 text-justify">
+          <p className="text-xxs mt-2 line-clamp-5 w-full">
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum
             nisi libero nihil eveniet. Dolorum labore facere similique cumque
             accusantium iusto reiciendis. Reprehenderit enim neque quaerat

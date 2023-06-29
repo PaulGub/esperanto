@@ -4,6 +4,7 @@ export type userProps = {
   avatar: string;
   description: string;
   tag: string;
+  speciality: string;
 };
 
 export type specialitiesProps = {

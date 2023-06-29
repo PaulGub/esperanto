@@ -1,12 +1,12 @@
-import Feed from "./Feed";
+import ProfilFeed from "../components/ProfilFeed";
 import ProfilCard from "../components/ProfilCard";
-import Suggestions from "./Suggestions";
+import Suggestions from "../components/Suggestions";
 
 export default function Profil() {
   return (
-    <div className="grid grid-cols-5 gap-4 px-28 pt-2 mt-24 w-full">
+    <div className="grid grid-cols-5 gap-4 px-28 pt-2 mt-16 w-full">
       <ProfilCard />
-      <Feed />
+      <ProfilFeed />
       <Suggestions />
     </div>
   );
