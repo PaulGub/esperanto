@@ -14,7 +14,7 @@ export default function search({ users }: { users: userProps[] }) {
         />
         <div className=" px-12 mt-24 w-full">
           {users.map((user) => (
-            <Card user={user} key={user.firstName + user.lastName} />
+            <Card user={user} key={user.firstname + user.lastname} />
           ))}
         </div>
       </div>
