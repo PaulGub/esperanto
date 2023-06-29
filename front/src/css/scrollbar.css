@@ -1,0 +1,17 @@
+.no-scrollbar {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  overflow: hidden !important;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+}
+
+.small-scrollbar::-webkit-scrollbar{
+  width: 5px;
+}
+
+.small-scrollbar::-webkit-scrollbar-thumb {
+  background: rgb(181, 181, 181); 
+}
