@@ -37,7 +37,9 @@ export const getUsersByTagUser = async (userId: number) => {
 
     const sortedUsers = usersWithCommonTags.map((item: any) => item.user);
 
-    return sortedUsers;
+    const sortedUsersSliced = sortedUsers.slice(0, 10);
+
+    return sortedUsersSliced;
 }
 
 export const getUserById = async (userId: number) => {
