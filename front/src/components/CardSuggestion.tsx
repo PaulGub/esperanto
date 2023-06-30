@@ -4,7 +4,7 @@ export default function CardSuggestion({ user }: { user: userProps }) {
   return (
     <div className="flex items-center bg-base p-2 mb-2 rounded-lg">
       <img
-        src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg"
+        src={user?.profilePicture}
         alt=""
         className="w-10 h-10 rounded-full border-2 border-white border-solid "
       />

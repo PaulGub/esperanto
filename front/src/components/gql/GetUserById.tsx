@@ -34,6 +34,7 @@ export const USER = gql`
             role
             description
             profilePicture
+            profileBanner
         }
     }
 `;

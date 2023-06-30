@@ -11,6 +11,7 @@ export type userProps = {
   experiences?: string;
   description?: string;
   profilePicture?: string;
+  profileBanner?: string;
 };
 
 export type needProps = {

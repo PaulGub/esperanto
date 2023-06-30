@@ -34,6 +34,7 @@ export const USERS_BY_TAG = gql`
             }
             description
             profilePicture
+            profileBanner
         }
     }
 `;

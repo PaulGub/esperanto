@@ -34,7 +34,7 @@ export default function Suggestions() {
         <h2 className="mb-1">Profil suggérés</h2>
         <span className="w-1/4 bg-primary-300 rounded h-1"></span>
       </div>
-      <div className="max-h-96 overflow-auto small-scrollbar p-2">
+      <div className="max-h-[440px] overflow-auto small-scrollbar p-2">
         {users.map((user) => (
           <CardSuggestion user={user} />
         ))}
