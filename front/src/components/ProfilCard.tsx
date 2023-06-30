@@ -1,34 +1,22 @@
-import erick from "../assets/erick-fuentes.jpg";
-import background from "../assets/background.jpg";
-import { ApolloClient, InMemoryCache } from "@apollo/client";
-import { USER } from "./gql/GetUserById";
 import { useState, useEffect } from "react";
 import { userProps } from "../utils/types";
+import { getUser } from "../client/client";
 
-const client = new ApolloClient({
-  uri: "http://localhost:4000/",
-  cache: new InMemoryCache(),
-});
 const userId = "1";
 
 export default function ProfilCard() {
   const [user, setUser] = useState<userProps>();
+
   useEffect(() => {
-    client
-      .query({
-        query: USER,
-        variables: {
-          userId: userId,
-        },
-      })
-      .then((result) => {
-        console.log(result.data.userById);
-        setUser(result.data.userById);
+    getUser(userId)
+      .then((userData) => {
+        setUser(userData);
       })
       .catch((error) => {
         console.error(error);
       });
   }, []);
+  
   return (
     <div className="flex flex-col items-center justify-start bg-white border border-solid rounded-lg">
       <div className="w-full">

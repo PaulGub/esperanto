@@ -1,31 +1,20 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client";
-import { USER } from "./gql/GetUserById";
 import { useState, useEffect } from "react";
 import { userProps } from "../utils/types";
-
-const client = new ApolloClient({
-  uri: "http://localhost:4000/",
-  cache: new InMemoryCache(),
-});
+import { getUser } from "../client/client";
 
 export default function ProfilUser({ userId }: { userId: number }) {
   const [user, setUser] = useState<userProps>();
+
   useEffect(() => {
-    client
-      .query({
-        query: USER,
-        variables: {
-          userId: userId,
-        },
-      })
-      .then((result) => {
-        console.log(result.data.userById);
-        setUser(result.data.userById);
+    getUser(userId)
+      .then((userData) => {
+        setUser(userData);
       })
       .catch((error) => {
         console.error(error);
       });
   }, []);
+
   return (
     <div className="flex flex-col items-center justify-start bg-white border border-solid rounded-lg col-span-3">
       <div className="w-full">
