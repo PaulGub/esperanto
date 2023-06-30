@@ -6,6 +6,9 @@ export type userProps = {
   password: string;
   phoneNumber?: string;
   role: string;
+  healthActor?: Object;
+  researcher?: Object;
+  industrial?: Object;
   healthNetwork?: string;
   professionalStatus?: string;
   experiences?: string;

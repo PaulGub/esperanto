@@ -15,7 +15,7 @@ export default function CardSuggestion({ user }: { user: userProps }) {
         <p className="text-xxs text-slate-500 line-clamp-1">
           {user.professionalStatus}
         </p>
-        <a href="#" className="text-[12px] text-primary hover:underline">
+        <a href={`/user/${user.id}`} className="text-[12px] text-primary hover:underline">
           Voir le profil
         </a>
       </div>
