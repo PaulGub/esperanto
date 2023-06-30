@@ -1,4 +1,4 @@
-import { Form, Link, NavLink, useSubmit } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import profil from "../assets/profile.svg";
 import { useState } from "react";
 
@@ -46,17 +46,37 @@ export default function Nav() {
         </ul> */}
         <div onMouseLeave={() => setOpen(false)} className="relative">
           <div onMouseOver={() => setOpen(true)} className="">
-              <NavLink
-                to="/search"
-                className={({ isActive }) =>
-                  isActive ? "bg-primary text-white flex items-center" : "flex items-center"
-                }
+            <NavLink
+              to="/search"
+              className={({ isActive }) =>
+                isActive
+                  ? "bg-primary text-white flex items-center"
+                  : "flex items-center"
+              }
+            >
+              Professionnels
+              <svg
+                className="w-4 h-4 ml-2"
+                aria-hidden="true"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                Professionnels
-                <svg className="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-              </NavLink>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M19 9l-7 7-7-7"
+                ></path>
+              </svg>
+            </NavLink>
           </div>
-          <ul className={`absolute right-0 w-40 py-2 mt-2 rounded-lg shadow-xl bg-white ${open ? "block" : "hidden"}`}>
+          <ul
+            className={`absolute right-0 w-40 py-2 mt-2 rounded-lg shadow-xl bg-white ${
+              open ? "block" : "hidden"
+            }`}
+          >
             <li className="mx-1 w-full">
               <NavLink
                 to="/search/chercheur"
