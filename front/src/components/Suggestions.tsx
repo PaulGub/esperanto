@@ -36,7 +36,7 @@ export default function Suggestions() {
       </div>
       <div className="max-h-[440px] overflow-auto small-scrollbar p-2">
         {users.map((user) => (
-          <CardSuggestion user={user} />
+          <CardSuggestion user={user} key={user.id} />
         ))}
       </div>
     </div>
