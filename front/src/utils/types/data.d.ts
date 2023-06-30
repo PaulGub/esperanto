@@ -1,13 +1,20 @@
 export type userProps = {
-  firstName: string;
-  lastName: string;
-  avatar: string;
-  description: string;
-  tag: string;
-  speciality: string;
+  id: number;
+  firstname: string;
+  lastname: string;
+  email: string;
+  password: string;
+  phoneNumber?: string;
+  role: string;
+  healthNetwork?: string;
+  professionalStatus?: string;
+  experiences?: string;
 };
 
-export type specialitiesProps = {
-  label: string;
-  number: string;
+export type needProps = {
+  id: number;
+  title: string;
+  type: string;
+  description?: string;
+  infrastructure?: string;
 };

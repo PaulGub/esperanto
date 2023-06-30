@@ -1,7 +1,8 @@
-import { Link, NavLink } from "react-router-dom";
+import { Form, Link, NavLink, useSubmit } from "react-router-dom";
 import profil from "../assets/profile.svg";
 
 export default function Nav() {
+  const submit = useSubmit();
   return (
     <nav className="px-4 top-0 left-0 bg-white fixed w-full">
       <ul>
@@ -18,14 +19,25 @@ export default function Nav() {
       </ul>
       <ul>
         <li className="mx-1">
-          <NavLink
-            to="/sante"
-            className={({ isActive }) =>
-              isActive ? "bg-primary text-white" : ""
-            }
+          <Form
+            method="POST"
+            onSubmit={(e) => {
+              e.preventDefault();
+              submit(e.currentTarget, {
+                method: "post",
+                action: "/search",
+              });
+                      }}
+                      className="m-0"
           >
-            Santé
-          </NavLink>
+            <input
+              type="search"
+              name="search"
+              id="search"
+              className="!h-10"
+              placeholder="Rechercher..."
+            />
+          </Form>
         </li>
         <li className="mx-1">
           <NavLink
