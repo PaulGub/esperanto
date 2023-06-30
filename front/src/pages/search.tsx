@@ -15,7 +15,7 @@ const client = new ApolloClient({
 
 export default function Search() {
   const location = useLocation();
-  const pathname = location.pathname.split("/")[2];
+  const pathname = location.pathname.split("/")[3];
   const tags = {
     sante: "healthActor",
     chercheur: "researcher",
@@ -76,7 +76,7 @@ export default function Search() {
                   isActive ? "border-b-4 border-blue-500" : ""
                 }`
               }
-              to={normalizeString(role)}
+              to={"professionnels/"+normalizeString(role)}
               replace={true}
               key={role}
             >

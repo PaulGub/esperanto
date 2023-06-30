@@ -21,9 +21,21 @@ const router = createBrowserRouter(
       <Route path="/" element={<App />}>
         <Route index element={<Profil />} />
         <Route path="search" element={<Search />}>
-          <Route path="sante" element={<Search />} />
-          <Route path="chercheur" element={<Search />} />
-          <Route path="industriel" element={<Search />} />
+          <Route path="professionnels" element={<Search />}>
+            <Route path="sante" element={<Search />} />
+            <Route path="chercheur" element={<Search />} />
+            <Route path="industriel" element={<Search />} />
+          </Route>
+          <Route path="materiels" element={<Search />}>
+            <Route path="sante" element={<Search />} />
+            <Route path="chercheur" element={<Search />} />
+            <Route path="industriel" element={<Search />} />
+          </Route>
+          <Route path="infrastructures" element={<Search />}>
+            <Route path="sante" element={<Search />} />
+            <Route path="chercheur" element={<Search />} />
+            <Route path="industriel" element={<Search />} />
+          </Route>
         </Route>
         <Route path="user/:id" element={<User />} />
       </Route>
