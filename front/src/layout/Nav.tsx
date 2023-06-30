@@ -7,7 +7,7 @@ export default function Nav() {
 
   // const submit = useSubmit();
   return (
-    <nav className="px-4 top-0 left-0 bg-white fixed w-full">
+    <nav className="px-4 top-0 left-0 bg-white fixed w-full z-50">
       <ul>
         <li>
           <NavLink

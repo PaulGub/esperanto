@@ -9,7 +9,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-export default function Suggestions({ userId, title }: { userId: number, title:string }) {
+export default function Suggestions({ userId, title }: { userId: number, title?:string }) {
   const [users, setUsers] = useState<userProps[]>([]);
   const pageTitle = title ?? "Profils suggérés";
   useEffect(() => {

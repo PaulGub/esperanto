@@ -8,63 +8,41 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-export default function ProfilFeed() {
-  const [needs, setNeeds] = useState<needProps[]>([
-    {
-      id: 1,
-      title: "Need 1 - title",
-      type: "Need 1 - type",
-      description:
-        "a description for need 1 which is very long and boring with a lot of text and stuff like that like lorem ipsum but not lorem ipsum because it is too mainstream so let replace that with something else like a lot of text and stuff like that like lorem ipsum but not lorem ipsum because it is too mainstream so let replace that with something else like a lot of text and stuff like that like lorem ipsum but not lorem ipsum because it is too mainstream so let replace that with something else like a lot of text and stuff like that like lorem ipsum but not lorem ipsum because it is too mainstream so let replace that with something else like a lot of text and stuff like that like lorem ipsum but not lorem ipsum because it is too mainstream so let replace that with something else like a lot of text and stuff like that like lorem ipsum but not lorem ipsum because it is too mainstream so let replace that with something else like a lot of text and stuff like that like lorem ipsum but not lorem ipsum because it is too mainstream so let replace that with something else like",
-      infrastructure:
-        "i don't know what is infrastructure thank you GitHub Copilot ahah it is too funny to write stuff like that and see what it does",
-    },
-    {
-      id: 2,
-      title: "Need 2 - title",
-      type: "Need 2 - type",
-      description:
-        "a description for need 2 which is very long and boring with a lot of text and stuff like that like lorem ipsum but not lorem ipsum because it is too mainstream so let replace that with something else like a lot of text and stuff like that like lorem ipsum but not lorem ipsum because it is too mainstream so let replace that with something else like a lot of text and stuff like that like lorem ipsum but not lorem ipsum because it is too mainstream so let replace that with something else like a lot of text and stuff like that like lorem ipsum but not lorem ipsum because it is too mainstream so let replace that with something else like a lot of text and stuff like that like lorem ipsum but not lorem ipsum because it is too mainstream so let replace that with something else like a lot of text and stuff like that like lorem ipsum but not lorem ipsum because it is too mainstream so let replace that with something else like a lot of text and stuff like that like lorem ipsum but not lorem ipsum because it is too mainstream so let replace that with something else like",
-      infrastructure:
-        "i don't know what is infrastructure thank you GitHub Copilot ahah it is too funny to write stuff like that and see what it does",
-    },
-    {
-      id: 3,
-      title: "Need 3 - title",
-      type: "Need 3 - type",
-      description:
-        "a description for need 3 which is very long and boring with a lot of text and stuff like that like lorem ipsum but not lorem ipsum because it is too mainstream so let replace that with something else like a lot of text and stuff like that like lorem ipsum but not lorem ipsum because it is too mainstream so let replace that with something else like a lot of text and stuff like that like lorem ipsum but not lorem ipsum because it is too mainstream so let replace that with something else like a lot of text and stuff like that like lorem ipsum but not lorem ipsum because it is too mainstream so let replace that with something else like a lot of text and stuff like that like lorem ipsum but not lorem ipsum because it is too mainstream so let replace that with something else like a lot of text and stuff like that like lorem ipsum but not lorem ipsum because it is too mainstream so let replace that with something else like a lot of text and stuff like that like lorem ipsum but not lorem ipsum because it is too mainstream so let replace that with something else like",
-      infrastructure:
-        "i don't know what is infrastructure thank you GitHub Copilot ahah it is too funny to write stuff like that and see what it does",
-    },
-  ]);
-  // useEffect(() => {
-  //   client
-  //     .query({
-  //       query: "",
-  //       variables: {
-  //         userId: "",
-  //       },
-  //     })
-  //     .then((result) => {
-  //       console.log(result.data.userById);
-  //       setNeeds(result.data.userById);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // }, []);
+export default function ProfilFeed({display}: {display:string}) {
   return (
-    <>
-      {needs.length !== 0 ? (
-        <div className="col-span-3 bg-white p-4 rounded-lg">
-          {needs.map((need) => (
-            <Need need={need} key={need.id} />
-          ))}
+    <div className="col-span-3 bg-white p-4 rounded-lg">
+      {display === "besoins" && (
+        <div className="flex flex-col items-start justify-center w-full mt-2">
+            <h3 className="text-sm pb-1">Mes besoins</h3>
+            <span className="w-[50px] bg-primary-300 rounded h-1"></span>
+            <div className="text-xxs flex flex-wrap my-2">
+            </div>
         </div>
-      ) : (
-        ""
       )}
-    </>
+      {display === "suivis" && (
+        <div className="flex flex-col items-start justify-center w-full mt-2">
+            <h3 className="text-sm pb-1">Mes profils suivis</h3>
+            <span className="w-[50px] bg-primary-300 rounded h-1"></span>
+            <div className="text-xxs flex flex-wrap my-2">
+            </div>
+        </div>
+      )}
+      {display === "listes" && (
+        <div className="flex flex-col items-start justify-center w-full mt-2">
+          <h3 className="text-sm pb-1">Mes listes</h3>
+            <span className="w-[50px] bg-primary-300 rounded h-1"></span>
+            <div className="text-xxs flex flex-wrap my-2">
+            </div>
+        </div>
+      )}
+      {display !== "besoins" && display !== "suivis" && display !== "listes" && (
+        <div className="flex flex-col items-start justify-center w-full mt-2">
+            <h3 className="text-sm pb-1">Ils ont peut-être besoin de vous!</h3>
+            <span className="w-[50px] bg-primary-300 rounded h-1"></span>
+            <div className="text-xxs flex flex-wrap my-2">
+            </div>
+        </div>
+      )}
+    </div>
   );
 }
