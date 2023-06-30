@@ -1,0 +1,7 @@
+type Need {
+    id: ID!
+    title: String!
+    description: String!
+    type: String!
+    infrastructure: String
+}
