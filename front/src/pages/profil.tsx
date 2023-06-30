@@ -9,12 +9,12 @@ export default function Profil() {
   const [display, setDisplay] = useState<string>("feed");
   return (
     <div className="grid grid-cols-5 gap-4 px-28 pt-2 mt-20 w-full">
-      <ProfilCard/>
-      <ProfilFeed display={display}/>
-      <div>
-        <UserMenu setDisplay={setDisplay}/>
+        <ProfilCard/>
+        <div className="col-span-3">
+          <UserMenu setDisplay={setDisplay}/>
+          <ProfilFeed display={display}/>
+        </div>
         <Suggestions userId={current?+current:0}/>
-      </div>
     </div>
   );
 }

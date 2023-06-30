@@ -47,7 +47,7 @@ export default function Nav() {
         <div onMouseLeave={() => setOpen(false)} className="relative">
           <div onMouseOver={() => setOpen(true)} className="">
             <NavLink
-              to="/search"
+              to="/search/professionnels"
               className={({ isActive }) =>
                 isActive
                   ? "bg-primary text-white flex items-center"
@@ -79,7 +79,7 @@ export default function Nav() {
           >
             <li className="mx-1 w-full">
               <NavLink
-                to="/search/chercheur"
+                to="/search/professionnels/chercheur"
                 className={({ isActive }) =>
                   isActive ? "bg-primary text-white w-full" : "w-full"
                 }
@@ -89,7 +89,7 @@ export default function Nav() {
             </li>
             <li className="mx-1 w-full">
               <NavLink
-                to="/search/industriel"
+                to="/search/professionnels/industriel"
                 className={({ isActive }) =>
                   isActive ? "bg-primary text-white w-full" : "w-full"
                 }
@@ -99,7 +99,7 @@ export default function Nav() {
             </li>
             <li className="mx-1 w-full">
               <NavLink
-                to="/search/sante"
+                to="/search/professionnels/sante"
                 className={({ isActive }) =>
                   isActive ? "bg-primary text-white w-full" : "w-full"
                 }
@@ -112,17 +112,17 @@ export default function Nav() {
         <ul>
           <li className="mx-1">
             <NavLink
-              to="/"
+              to="/search/materiels"
               className={({ isActive }) =>
                 isActive ? "bg-primary text-white" : ""
               }
             >
-              Matériel
+              Matériels
             </NavLink>
           </li>
           <li className="mx-1">
             <NavLink
-              to="/"
+              to="/search/infrastructures"
               className={({ isActive }) =>
                 isActive ? "bg-primary text-white" : ""
               }

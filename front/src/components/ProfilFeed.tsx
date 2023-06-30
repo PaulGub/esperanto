@@ -10,7 +10,7 @@ const client = new ApolloClient({
 
 export default function ProfilFeed({display}: {display:string}) {
   return (
-    <div className="col-span-3 bg-white p-4 rounded-lg">
+    <div className="bg-white p-4 rounded-lg">
       {display === "besoins" && (
         <div className="flex flex-col items-start justify-center w-full mt-2">
             <h3 className="text-sm pb-1">Mes besoins</h3>

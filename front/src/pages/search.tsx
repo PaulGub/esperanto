@@ -1,20 +1,48 @@
-import { useActionData } from "react-router-dom";
 import Card from "../components/Card";
+import { USERS } from "../components/gql/GetAllUsers";
 import Sidebar from "../layout/Sidebar";
-import users from "../utils/data/users";
 import { useEffect, useState } from "react";
-import { fi } from "@faker-js/faker";
+import { globalUserProps } from "../utils/types";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { NavLink, useLocation } from "react-router-dom";
 
-enum ROLES {
-  HEALTH_ACTOR = "Acteur de la santé",
-  RESEARCHER = "Chercheur",
-  INDUSTRIAL = "Industriel",
-}
+type Tags = "healthActor" | "researcher" | "industrial" | "";
+
+const client = new ApolloClient({
+  uri: "http://localhost:4000/",
+  cache: new InMemoryCache(),
+});
 
 export default function Search() {
+  const location = useLocation();
+  const pathname = location.pathname.split("/")[3];
+  const tags = {
+    sante: "healthActor",
+    chercheur: "researcher",
+    industriel: "industrial",
+  };
+  const tag = Object.values(tags)[Object.keys(tags).indexOf(pathname)] as Tags;
   const [noResult, setNoResult] = useState(false);
-  const actionData = useActionData();
-  console.log(actionData);
+  const [users, setUsers] = useState<globalUserProps[]>([]);
+  useEffect(() => {
+    client
+      .query({
+        query: USERS,
+      })
+      .then((result) => {
+        const filterdUsers =
+          tag !== ""
+            ? result.data.users.filter(
+                (user: globalUserProps) => user[`${tag}`] !== null
+              )
+            : result.data.users;
+        setUsers(filterdUsers);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [tag]);
+
   function normalizeString(input: string): string {
     input ? input : (input = " ");
     return input
@@ -23,60 +51,60 @@ export default function Search() {
       .replace(/[^\w\s]/gi, "") // Supprime les caractères spéciaux
       .toLowerCase(); // Convertit en minuscules
   }
-  const filteredUsers = users.filter(
-    (user) =>
-      normalizeString(user.firstName).includes(
-        normalizeString(actionData as string)
-      ) ||
-      normalizeString(user.lastName).includes(
-        normalizeString(actionData as string)
-      ) ||
-      normalizeString(user.description)
-        .split(" ")
-        .includes(normalizeString(actionData as string)) ||
-      normalizeString(user.tag).includes(normalizeString(actionData as string))
-  );
 
-  console.log(filteredUsers);
-
-  useEffect(() => {
-    filteredUsers.length === 0 ? setNoResult(true) : setNoResult(false);
-  }, [filteredUsers]);
-
-  const [activeMenu, setActiveMenu] = useState(ROLES.HEALTH_ACTOR);
+  const filteredUsers = (input: string) => {
+    const filtered = users.filter(
+      (user) =>
+        normalizeString(user.firstname).includes(normalizeString(input)) ||
+        normalizeString(user.lastname).includes(normalizeString(input)) ||
+        normalizeString(user.description ? user.description : "")
+          .split(" ")
+          .includes(normalizeString(input))
+    );
+    console.log(filtered);
+  };
 
   return (
     <>
       <Sidebar />
       <div className="mt-16 ml-64">
         <div className="flex">
-          <div className={`flex-1 bg-white py-4 flex items-center justify-center cursor-pointer ${
-              activeMenu === ROLES.HEALTH_ACTOR ? "border-b-4 border-blue-500" : ""
-            }`}
-            onClick={() => setActiveMenu(ROLES.HEALTH_ACTOR)}>Santé
-          </div>
-          <div className={`flex-1 bg-white py-4 flex items-center justify-center cursor-pointer ${
-              activeMenu === ROLES.INDUSTRIAL ? "border-b-4 border-blue-500" : ""
-            }`}
-            onClick={() => setActiveMenu(ROLES.INDUSTRIAL)}>Industriel
-          </div>
-          <div className={`flex-1 bg-white py-4 flex items-center justify-center cursor-pointer ${
-              activeMenu === ROLES.RESEARCHER ? "border-b-4 border-blue-500" : ""
-            }`}
-            onClick={() => setActiveMenu(ROLES.RESEARCHER)}>Chercheur
-          </div>
+          {["Santé", "Industriel", "Chercheur"].map((role) => (
+            <NavLink
+              className={({ isActive }) =>
+                `flex-1 bg-white py-4 flex items-center justify-center cursor-pointer ${
+                  isActive ? "border-b-4 border-blue-500" : ""
+                }`
+              }
+              to={"professionnels/"+normalizeString(role)}
+              replace={true}
+              key={role}
+            >
+              {role}
+            </NavLink>
+          ))}
         </div>
         <div className="p-4">
-          <input
-            type="search"
-            className=" bg-white !m-0"
-            placeholder="Rechercher un profil..."
-          />
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              filteredUsers(e.currentTarget.search.value);
+            }}
+          >
+            <input
+              type="search"
+              name="search"
+              className=" bg-white !m-0"
+              placeholder="Rechercher un profil..."
+            />
+          </form>
           <div className=" px-12 mt-24 w-full">
-            {noResult && <h2 className="text-2xl text-center">Aucun résultat</h2>}
-            {filteredUsers.length !== 0
-              ? filteredUsers.map((user) => <Card user={user} key={user.id} />)
-              : users.map((user) => <Card user={user} key={user.id} />)}
+            {noResult && (
+              <h2 className="text-2xl text-center">Aucun résultat</h2>
+            )}
+            {users.map((user) => (
+              <Card user={user} key={user.id} />
+            ))}
           </div>
         </div>
       </div>

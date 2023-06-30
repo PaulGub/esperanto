@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 import CardSuggestion from "../components/CardSuggestion";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { USERS_BY_TAG } from "./gql/GetUserByTagUser";
-import { userProps } from "../utils/types";
+import { globalUserProps } from "../utils/types";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/",
   cache: new InMemoryCache(),
 });
 
-export default function Suggestions({ userId, title }: { userId: number, title?:string }) {
-  const [users, setUsers] = useState<userProps[]>([]);
+export default function Suggestions({ userId, title }: { userId: number, title:string }) {
+  const [users, setUsers] = useState<globalUserProps[]>([]);
   const pageTitle = title ?? "Profils suggérés";
   useEffect(() => {
     client
