@@ -1,10 +1,12 @@
-import Card from "../components/Card";
 import { USERS } from "../components/gql/GetAllUsers";
 import Sidebar from "../layout/Sidebar";
 import { useEffect, useState } from "react";
 import { globalUserProps } from "../utils/types";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { NavLink, useLocation } from "react-router-dom";
+import Professionnels from "./subpages/professionnels";
+import Materiels from "./subpages/materiels";
+import Infrastructures from "./subpages/infrastructures";
 
 type Tags = "healthActor" | "researcher" | "industrial" | "";
 
@@ -15,13 +17,15 @@ const client = new ApolloClient({
 
 export default function Search() {
   const location = useLocation();
-  const pathname = location.pathname.split("/")[3];
+  const pathname = location.pathname;
   const tags = {
     sante: "healthActor",
     chercheur: "researcher",
     industriel: "industrial",
   };
-  const tag = Object.values(tags)[Object.keys(tags).indexOf(pathname)] as Tags;
+  const tag = Object.values(tags)[
+    Object.keys(tags).indexOf(pathname.split("/")[3])
+  ] as Tags;
   const [noResult, setNoResult] = useState(false);
   const [users, setUsers] = useState<globalUserProps[]>([]);
   useEffect(() => {
@@ -76,7 +80,7 @@ export default function Search() {
                   isActive ? "border-b-4 border-blue-500" : ""
                 }`
               }
-              to={"professionnels/"+normalizeString(role)}
+              to={"professionnels/" + normalizeString(role)}
               replace={true}
               key={role}
             >
@@ -102,9 +106,15 @@ export default function Search() {
             {noResult && (
               <h2 className="text-2xl text-center">Aucun résultat</h2>
             )}
-            {users.map((user) => (
-              <Card user={user} key={user.id} />
-            ))}
+            {pathname.split("/")[2] === "professionnels" ? (
+              <Professionnels users={users} />
+            ) : pathname.split("/")[2] === "materiels" ? (
+              <Materiels />
+            ) : pathname.split("/")[2] === "infrastructures" ? (
+              <Infrastructures />
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>
