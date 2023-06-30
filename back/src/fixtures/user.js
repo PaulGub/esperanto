@@ -16,7 +16,7 @@ export const createFakeUsersHealthActor = async (count) => {
       professionalStatus: faker.lorem.word(),
       experiences: faker.lorem.paragraph(),
       profilePicture: faker.image.avatar(),
-      description: faker.person.bio(),
+      description: faker.lorem.paragraph(),
       profileBanner: faker.image.url(),
       role: CONST.ROLES.HEALTH_ACTOR,
       healthActor: {
@@ -57,7 +57,7 @@ export const createFakeUsersResearcher = async (count) => {
       experiences: faker.lorem.paragraph(),
       profilePicture: faker.image.avatar(),
       profileBanner: faker.image.url(),
-      description: faker.person.bio(),
+      description: faker.lorem.paragraph(),
       role: CONST.ROLES.HEALTH_ACTOR,
       researcher: {
         researchUnitName: faker.helpers.arrayElement(CONST.RESEARCH_UNITS),
@@ -99,7 +99,7 @@ export const createFakeUsersIndustrial = async (count) => {
       experiences: faker.lorem.paragraph(),
       profilePicture: faker.image.avatar(),
       profileBanner: faker.image.url(),
-      description: faker.person.bio(),
+      description: faker.lorem.paragraph(),
       role: CONST.ROLES.HEALTH_ACTOR,
       industrial: {
         careSector: faker.helpers.arrayElement(CONST.CARE_SECTORS),
