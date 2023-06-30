@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { createUser } from "../client/client";
+import ProgressBar from "../components/ProgressBar";;
 
 export default function AccountCreation() {
   const [firstName, setFirstName] = useState("");
@@ -18,7 +20,7 @@ export default function AccountCreation() {
         <div className="absolute inset-0 bg-gradient-to-r from-blue-300 to-blue-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
         <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
           <div className="max-w-md mx-auto">
-            {/* <ProgressBar></ProgressBar> */}
+            <ProgressBar></ProgressBar>
             <div>
               <h1 className="text-2xl font-semibold">Créer un compte</h1>
             </div>
@@ -195,7 +197,7 @@ export default function AccountCreation() {
                 </div>
                 <div className="relative flex gap-4">
                   <button className="bg-blue-500 text-white rounded-md px-2 py-1">Précédent</button>
-                  <button className="bg-blue-500 text-white rounded-md px-2 py-1">Suivant</button>
+                  <button className="bg-blue-500 text-white rounded-md px-2 py-1" onClick={() => createUser(firstName, lastName, email, password, phoneNumber, role, healthNetwork, professionalStatus, experiences, description)}>Suivant</button>
                 </div>
               </div>
             </div>
