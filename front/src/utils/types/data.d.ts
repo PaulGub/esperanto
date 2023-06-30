@@ -1,23 +1,3 @@
-export type userProps = {
-  id: number;
-  firstname: string;
-  lastname: string;
-  email: string;
-  password: string;
-  phoneNumber?: string;
-  role: string;
-  healthActor?: Object;
-  researcher?: Object;
-  industrial?: Object;
-  healthNetwork?: string;
-  professionalStatus?: string;
-  experiences?: string;
-  description?: string;
-  profilePicture?: string;
-  profileBanner?: string;
-  tags: Array<{ id: number; name: string }>;
-};
-
 export type globalUserProps = {
   description: string;
   email: string;
@@ -47,7 +27,7 @@ export type globalUserProps = {
     researchUnitName: string;
   };
   role: string;
-  tags: string;
+  tags: Array<{ id: number; name: string }>;
 };
 
 export type needProps = {
