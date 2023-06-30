@@ -8,7 +8,7 @@ import {
 import App from "./Layout.tsx";
 import "./index.css";
 import Search from "./pages/search.tsx";
-import Profil from "./pages/profil.tsx";
+import Profil from "./pages/Profil.tsx";
 import User from "./pages/user.tsx";
 
 const root = createRoot(
@@ -20,14 +20,7 @@ const router = createBrowserRouter(
     <Route>
       <Route path="/" element={<App />}>
         <Route index element={<Profil />} />
-        <Route
-          path="search"
-          element={<Search />}
-          action={async ({ request }) => {
-            const formData = await request.formData();
-            return formData ? formData.get("search") : "";
-          }}
-        >
+        <Route path="search" element={<Search />}>
           <Route path="sante" element={<Search />} />
           <Route path="chercheur" element={<Search />} />
           <Route path="industriel" element={<Search />} />
