@@ -49,3 +49,8 @@ export const getUserById = async (userId: number) => {
     console.log(user)
     return user;
 }
+
+export const createUser = async (userData) => {
+    const user = await User.create(userData);
+    return user;
+}

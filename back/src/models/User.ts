@@ -15,6 +15,7 @@ export interface UserT extends Model {
     experiences?: string,
     description?: string,
     profilePicture?: string,
+    profileBanner?: string,
 }
 
 export const User = SequelizeClient.define<UserT>(
@@ -66,6 +67,7 @@ export const User = SequelizeClient.define<UserT>(
         professionalStatus: DataTypes.TEXT,
         experiences: DataTypes.TEXT,
         description: DataTypes.TEXT,
-        profilePicture: DataTypes.STRING
+        profilePicture: DataTypes.STRING,
+        profileBanner: DataTypes.STRING
     },
 );
