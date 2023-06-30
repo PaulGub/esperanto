@@ -32,6 +32,8 @@ export const USER = gql`
                 researchUnitName
             }
             role
+            description
+            profilePicture
         }
     }
 `;

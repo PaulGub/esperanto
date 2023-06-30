@@ -57,7 +57,7 @@ export default function ProfilFeed() {
   return (
     <>
       {needs.length !== 0 ? (
-        <div className="col-span-3 bg-white p-2">
+        <div className="col-span-3 bg-white p-4 rounded-lg">
           {needs.map((need) => (
             <Need need={need} key={need.id} />
           ))}

@@ -111,7 +111,7 @@ export default function Nav() {
             </NavLink>
           </li>
           <li>
-            <Link to="/profil">
+            <Link to="/">
               <img src={profil} alt="" className="w-4" />
             </Link>
           </li>
