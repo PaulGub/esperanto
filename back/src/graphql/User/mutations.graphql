@@ -1,0 +1,16 @@
+type Mutation {
+    createUser(
+        firstname: String!,
+        lastname: String!,
+        email: String!,
+        password: String!,
+        phoneNumber: String,
+        role: String,
+        healthNetwork: String,
+        professionalStatus: String,
+        experiences: String,
+        description: String,
+        profilePicture: String
+        profileBanner: String
+    ): User
+}

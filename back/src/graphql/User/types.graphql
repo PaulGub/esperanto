@@ -11,6 +11,7 @@ type User {
     experiences: String
     description: String
     profilePicture: String
+    profileBanner: String
     industrial: Industrial 
     healthActor: HealthActor
     researcher: Researcher
