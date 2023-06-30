@@ -9,6 +9,8 @@ type User {
     healthNetwork: String
     professionalStatus: String
     experiences: String
+    description: String
+    profilePicture: String
     industrial: Industrial 
     healthActor: HealthActor
     researcher: Researcher
