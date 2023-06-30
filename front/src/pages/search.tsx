@@ -48,7 +48,7 @@ export default function Search() {
   return (
     <>
       <Sidebar />
-      <div className="mt-20 ml-64">
+      <div className="mt-16 ml-64">
         <div className="flex">
           <div className={`flex-1 bg-white py-4 flex items-center justify-center cursor-pointer ${
               activeMenu === ROLES.HEALTH_ACTOR ? "border-b-4 border-blue-500" : ""
