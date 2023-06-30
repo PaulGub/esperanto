@@ -1,4 +1,13 @@
-import { getAllUsers, getUsersByTagUser, getUserById, createUser } from '@controllers/UserControllers';
+import {
+  getAllUsers,
+  getUsersByTagUser,
+  getUserById,
+  createUser,
+  createIndustrial,
+  createHealthActor, createResearcher
+} from '@controllers/UserControllers';
+
+import {HealthActorTypes} from "@server/types";
 
 export default {
   Query: {
@@ -9,6 +18,15 @@ export default {
   Mutation: {
     createUser: async (_, args) => {
       return createUser(args);
+    },
+    createIndustrial: async (_, args) => {
+      return createIndustrial(args);
+    },
+    createHealthActor: async (_, args :{userId: number, healthActorData: HealthActorTypes}) => {
+      return createHealthActor(args.userId, args.healthActorData);
+    },
+    createResearcher: async (_, args) => {
+      return createResearcher(args);
     },
   },
 };

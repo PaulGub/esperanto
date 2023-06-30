@@ -1,3 +1,4 @@
-export interface User {
-
+export interface HealthActorTypes {
+    careServiceType: string
+    supportServices: string
 }
