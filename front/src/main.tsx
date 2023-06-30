@@ -7,8 +7,8 @@ import {
 } from "react-router-dom";
 import App from "./Layout.tsx";
 import "./index.css";
-import Search from "./pages/Search.tsx";
-import Profil from "./pages/Profil.tsx";
+import Search from "./pages/search.tsx";
+import Profil from "./pages/profil.tsx";
 
 const root = createRoot(
   document.getElementById("root") as Element | DocumentFragment
