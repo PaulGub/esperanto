@@ -30,14 +30,14 @@ export default function ProfilCard() {
       });
   }, []);
   return (
-    <div className="flex flex-col items-center justify-start bg-white border border-solid">
+    <div className="flex flex-col items-center justify-start bg-white border border-solid rounded-lg">
       <div className="w-full">
         <img src={background} alt="" className="h-12 w-full" />
       </div>
       <div className="flex flex-col items-center justify-start w-full px-4">
         <div className="flex flex-col items-center justify-center">
           <img
-            src={erick}
+            src={user?.profilePicture}
             alt=""
             className="rounded-full w-24 h-24 border-4 border-solid border-white -mt-10"
           />
@@ -53,7 +53,7 @@ export default function ProfilCard() {
         </div>
         <div className="flex flex-col items-start justify-center w-full mt-2">
           <h3 className="text-sm pb-1">Mes tags</h3>
-          <span className="w-1/4 bg-primary-300 rounded h-1 mb-2"></span>
+          <span className="w-1/4 bg-primary-300 rounded h-1"></span>
           <div className="text-xxs flex flex-wrap my-2">
             {user?.tags?.map((tag) => (
               <span
@@ -68,7 +68,7 @@ export default function ProfilCard() {
         <div className="flex flex-col items-start justify-center w-full">
           <h3 className="text-sm pb-1">Description</h3>
           <span className="w-1/4 bg-primary-300 rounded h-1 mb-2"></span>
-          <p className="text-xxs line-clamp-5 w-full">{user?.experiences}</p>
+          <p className="text-xxs line-clamp-5 w-full">{user?.description}</p>
         </div>
       </div>
       <a

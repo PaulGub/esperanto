@@ -2,7 +2,7 @@ import { cardProps } from "../utils/types";
 
 export default function Card({ user }: cardProps) {
   return (
-    <article className="mx-auto">
+    <article className="mx-auto rounded-lg">
       <div className="flex items-center w-full">
         <div>
           <p className="w-fit border border-solid border-slate-500 bg-green-300 p-1 rounded text-xs mb-4">

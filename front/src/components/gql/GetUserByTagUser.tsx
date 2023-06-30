@@ -32,6 +32,8 @@ export const USERS_BY_TAG = gql`
                 id
                 name
             }
+            description
+            profilePicture
         }
     }
 `;

@@ -9,6 +9,8 @@ export type userProps = {
   healthNetwork?: string;
   professionalStatus?: string;
   experiences?: string;
+  description?: string;
+  profilePicture?: string;
 };
 
 export type needProps = {
