@@ -32,7 +32,7 @@ export default function ProfilCard() {
   return (
     <div className="flex flex-col items-center justify-start bg-white border border-solid rounded-lg">
       <div className="w-full">
-        <img src={background} alt="" className="h-12 w-full" />
+        <img src={background} alt="" className="h-[100px] w-full" />
       </div>
       <div className="flex flex-col items-center justify-start w-full px-4">
         <div className="flex flex-col items-center justify-center">

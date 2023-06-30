@@ -32,7 +32,7 @@ export default function Suggestions() {
     <div className="bg-white p-2 rounded-lg">
       <div className="flex flex-col p-2">
         <h2 className="mb-1">Profil suggérés</h2>
-        <span className="w-1/4 bg-primary-300 rounded h-1 mb-2"></span>
+        <span className="w-1/4 bg-primary-300 rounded h-1"></span>
       </div>
       <div className="max-h-96 overflow-auto small-scrollbar p-2">
         {users.map((user) => (
