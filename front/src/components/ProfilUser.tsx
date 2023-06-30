@@ -50,11 +50,10 @@ export default function ProfilUser({ userId }: { userId: number }) {
               {user?.professionalStatus ?? ""}
             </p>
           </div>
-          <div className="mt-1 ml-5 mr-5">
-            <a className="text-xs bg-primary pt-1 pb-1 pr-2 pl-2 hover:bg-white hover:text-primary border border-primary rounded-lg text-white" href={`tel:${user?.email}`}>Suivre</a>       
-            <a className="text-xs bg-primary pt-1 pb-1 pr-2 pl-2 hover:bg-white hover:text-primary border border-primary ml-1 rounded-lg text-white" href={`tel:${user?.phoneNumber}`}>Appeler</a>                 
-            <a className="text-xs bg-primary pt-1 pb-1 pr-2 pl-2 hover:bg-white hover:text-primary border border-primary ml-1 rounded-lg text-white" href='#'>Contacter</a>                 
-            <a className="text-xs bg-primary pt-1 pb-1 pr-2 pl-2 hover:bg-white hover:text-primary border border-primary ml-1 rounded-lg text-white" href='#'>+</a>                 
+          <div className="mt-2 ml-5 mr-5">
+            <a className="text-xs bg-primary-300 pt-1 pb-1 pr-2 pl-2 hover:bg-white hover:text-primary-300 border border-primary-300 rounded-lg text-white" href={`tel:${user?.email}`}>Suivre</a>       
+            <a className="text-xs bg-primary-300 pt-1 pb-1 pr-2 pl-2 hover:bg-white hover:text-primary-300 border border-primary-300 ml-1 rounded-lg text-white" href={`tel:${user?.phoneNumber}`}>Appeler</a>                 
+            <a className="text-xs bg-primary-300 pt-1 pb-1 pr-2 pl-2 hover:bg-white hover:text-primary-300 border border-primary-300 ml-1 rounded-lg text-white" href='#'>Contacter</a>                 
           </div>
         </div>
         <div className="ml-5 mr-5 pt-5 pb-5">
