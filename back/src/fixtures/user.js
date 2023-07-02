@@ -58,7 +58,7 @@ export const createFakeUsersResearcher = async (count) => {
       profilePicture: faker.image.avatar(),
       profileBanner: faker.image.url(),
       description: faker.lorem.paragraph(),
-      role: CONST.ROLES.HEALTH_ACTOR,
+      role: CONST.ROLES.RESEARCHER,
       researcher: {
         researchUnitName: faker.helpers.arrayElement(CONST.RESEARCH_UNITS),
         researchDepartment: faker.helpers.arrayElement(CONST.RESEARCH_DEPARTMENTS),
@@ -100,7 +100,7 @@ export const createFakeUsersIndustrial = async (count) => {
       profilePicture: faker.image.avatar(),
       profileBanner: faker.image.url(),
       description: faker.lorem.paragraph(),
-      role: CONST.ROLES.HEALTH_ACTOR,
+      role: CONST.ROLES.INDUSTRIAL,
       industrial: {
         careSector: faker.helpers.arrayElement(CONST.CARE_SECTORS),
       }
