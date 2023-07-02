@@ -1,1 +1,6 @@
-.idea
+.env
+**/.idea
+.vscode/settings.json
+node_modules
+**/.vscode
+**/.DS_Store
