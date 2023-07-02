@@ -1,4 +1,4 @@
-import {createFakeUsersHealthActor, createFakeUsersIndustrial, createFakeUsersResearcher} from "@fixtures/user";
+import { createFakeUsersHealthActor, createFakeUsersIndustrial, createFakeUsersResearcher } from "@fixtures/user";
 import { associations } from "@models/associations";
 
 async function main() {

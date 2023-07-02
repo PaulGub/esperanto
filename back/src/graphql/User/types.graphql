@@ -4,8 +4,8 @@ type User {
     lastname: String!
     email: String!
     password: String!
+    role: String!
     phoneNumber: String
-    role: String
     healthNetwork: String
     professionalStatus: String
     experiences: String
@@ -17,23 +17,23 @@ type User {
     researcher: Researcher
     tags: [Tag]
 }
-type Industrial{
+type Industrial {
     id: ID!
     careSector: String
     otherSector: String
 }
-type HealthActor{
+type HealthActor {
     id: ID!
     careServiceType: String
     supportServices: String
 }
-type Researcher{
+type Researcher {
     id: ID!
     researchUnitName: String
     otherSector: String
     researchArea: String
 }
-type Tag{
+type Tag {
     id: ID!
     name: String!
 }
