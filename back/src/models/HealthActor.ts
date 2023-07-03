@@ -3,7 +3,6 @@ import { SequelizeClient } from '@clients/sequelize';
 
 export interface HealthActorT extends Model {
     id: number,
-    careGiver: string,
     careServiceType: string,
     supportServices: string,
 }

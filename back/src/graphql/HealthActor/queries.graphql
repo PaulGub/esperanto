@@ -1,0 +1,4 @@
+type Query {
+    healthActors(start: Int, limit: Int): UserHealthActorWithCount
+    healthActorsBySearch(start: Int, limit: Int, search: String): UserHealthActorWithCount
+}
