@@ -1,4 +1,5 @@
 import { DocumentNode } from "graphql";
+import Infrastructures from "../../pages/subpages/infrastructures";
 
 export type globalUserProps = {
   description: string;
@@ -37,5 +38,22 @@ export type globalUserProps = {
 };
 
 export type needProps = {
-  need: DocumentNode;
+  need: {
+    id: string;
+    title: string;
+    type: string;
+    description: string;
+    infrastructure: string;
+    professional:{
+      id: string,
+      name: string
+    };
+    materials:{
+      id: string,
+      name: string,
+      ressourceLink: string,
+      description: string,
+    };
+    tags: Array<{ id: number; name: string }>;
+  };
 };

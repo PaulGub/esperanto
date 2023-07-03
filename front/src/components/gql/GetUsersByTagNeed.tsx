@@ -17,6 +17,7 @@ query UserById($userId: ID, $needId: ID) {
       }
       profileBanner
       profilePicture
+      professionalStatus
     }
   }
 `;

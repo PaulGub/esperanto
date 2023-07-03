@@ -1,24 +1,19 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { USER } from "./gql/GetUserById";
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { userProps } from "../utils/types";
-
-const client = new ApolloClient({
-  uri: "http://localhost:4000/",
-  cache: new InMemoryCache(),
-});
-const userId = "1";
+import { ApolloClientCall } from './apolloClient/ApolloClient';
+import { CURRENT_USER } from "./loggedUser/userLoged";
 
 export default function ProfilCard() {
   const [user, setUser] = useState<userProps>();
   const [showAllTags, setShowAllTags] = useState(false);
 
   useEffect(() => {
-    client
+    ApolloClientCall
       .query({
         query: USER,
         variables: {
-          userId: userId,
+          userId: CURRENT_USER,
         },
       })
       .then((result) => {
