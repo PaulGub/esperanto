@@ -1,0 +1,4 @@
+type Query {
+    researchers(start: Int, limit: Int): UserResearcherWithCount
+    researchersBySearch(start: Int, limit: Int, search: String): UserResearcherWithCount
+}

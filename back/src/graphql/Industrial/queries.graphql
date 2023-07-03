@@ -1,0 +1,4 @@
+type Query {
+    industrials(start: Int, limit: Int): UserIndustrialWithCount
+    industrialsBySearch(start: Int, limit: Int, search: String): UserIndustrialWithCount
+}
