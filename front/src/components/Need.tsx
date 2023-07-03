@@ -8,35 +8,31 @@ const client = new ApolloClient({
 });
 
 export default function Need({ need }: needProps) {
-  // const [need, setNeed] = useState<globalUserProps>();
-
-  // useEffect(() => {
-  //   client
-  //     .query({
-  //       query: USER,
-  //       variables: {
-  //         userId: userId,
-  //       },
-  //     })
-  //     .then((result) => {
-  //       setNeed(result.data.userById);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  //   }, []);
+  const [needSuggestions, setNeedSuggestions] = useState<globalUserProps>();
+  useEffect(() => {
+    client
+      .query({
+        query: need,
+        variables: {
+          userId: "1",
+          needId: "1",
+        },
+      })
+      .then((result) => {
+        setNeedSuggestions(result.data.usersByTagNeed);
+        console.log(result.data.usersByTagNeed)
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }, []);
   return (
     <div className="p-4 bg-base rounded-lg">
-      {/* <h2 className="uppercase">{need.title} - by [NOM DU BOUGRE]</h2>
-      <span className="block w-full h-2 bg-primary-100 rounded-full my-2"></span>
-      <textarea
-        className="bg-base"
-        rows={5}
-        value={need.description}
-        readOnly
-      >
-        {need.description}
-      </textarea> */}
+      {needSuggestions?.map((user) => (
+          <span key={user?.id} className="bg-primary-100 rounded py-0.5 px-1 m-0.5">
+            {user?.id}
+          </span>
+        ))}
     </div>
   );
 }

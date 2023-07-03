@@ -26,9 +26,6 @@ export const associations = (): void => {
     Researcher.hasOne(User)
     User.belongsTo(Researcher, {onDelete: "CASCADE"})
 
-    Material.belongsTo(Need)
-    Need.hasMany(Material, {onDelete: 'CASCADE'})
-
     Material.belongsTo(Company)
     Company.hasMany(Company, {onDelete: 'CASCADE'})
 

@@ -39,6 +39,27 @@ export const USER = gql`
             description
             profilePicture
             profileBanner
+            needs {
+                id
+                title
+                description
+                type
+                infrastructure
+                tags {
+                    id
+                    name
+                }
+                professionals {
+                    id
+                    name
+                }
+                materials {
+                    name
+                    id
+                    resourceLink
+                    description
+                }    
+            }      
         }
     }
 `;

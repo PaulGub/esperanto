@@ -16,6 +16,7 @@ type User {
     healthActor: HealthActor
     researcher: Researcher
     tags: [Tag]
+    needs: [Need]
 }
 type Industrial {
     id: ID!
@@ -41,4 +42,20 @@ type Tag {
 type Professional {
     id: ID!
     name: String!
+}
+type Need {
+    id: ID!
+    title: String!
+    description: String!
+    type: String!
+    infrastructure: String
+    tags: [Tag]
+    professionals: [Professional]
+    materials: [Material]
+}
+type Material {
+    id: ID!
+    name: String!
+    resourceLink: String
+    description: String
 }

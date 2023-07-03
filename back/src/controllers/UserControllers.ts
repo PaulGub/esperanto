@@ -1,11 +1,15 @@
-import {HealthActor, Industrial, Need, Professional, Researcher, Tag, User} from "@models/index"
+import {HealthActor, Industrial, Material, Need, Professional, Researcher, Tag, User} from "@models/index"
 import {Op} from "sequelize";
 import {HealthActorTypes, UserInterface, NeedInterface} from "@server/types";
 import {userTagsMatching, needUserTagsMatching} from "@helpers/matching";
 
 export const getAllUsers = async (): Promise<UserInterface[]> => {
     return User.findAll({
-        include: [Industrial, Researcher,
+        include: [Industrial, Researcher, 
+            {
+                model: Need,
+                include: [Tag]
+            },
             {
                 model: HealthActor,
                 include: [Professional]
@@ -26,7 +30,11 @@ export const getUsersByTagUser = async (userId: number): Promise<UserInterface[]
             }
         },
         include: [
-            Tag, Industrial, Researcher,
+            Tag, Industrial, Researcher,         
+            {
+                model: Need,
+                include: [Tag]
+            },
             {
                 model: HealthActor,
                 include: [Professional]
@@ -46,7 +54,11 @@ export const getUserById = async (userId: number): Promise<UserInterface> => {
           include: [Professional]
         },
         Industrial,
-        Researcher
+        Researcher,
+        {
+            model: Need,
+            include: [Tag, Professional, Material]
+        }
       ]
     });
   };
@@ -68,7 +80,11 @@ export const getUsersByTagNeed = async (userId: number, needId: number): Promise
                 [Op.ne]: userId
             }
         },
-        include: [Tag, Industrial, Researcher,
+        include: [Tag, Industrial, Researcher,         
+            {
+            model: Need,
+            include: [Tag]
+            },
             {
                 model: HealthActor,
                 include: [Professional]
