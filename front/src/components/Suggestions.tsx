@@ -16,7 +16,6 @@ export default function Suggestions({ userId, title }: { userId: number, title:s
         },
       })
       .then((result) => {
-        console.log(result.data.usersByTagUser);
         setUsers(result.data.usersByTagUser);
       })
       .catch((error) => {

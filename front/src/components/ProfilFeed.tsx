@@ -1,5 +1,4 @@
 import { useLocation } from "react-router-dom";
-import { USERS_BY_NEED } from "./gql/GetUsersByTagNeed";
 import Need from "./Need";
 import { ApolloClientCall } from './apolloClient/ApolloClient';
 import { useEffect, useState } from "react";
