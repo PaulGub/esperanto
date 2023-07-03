@@ -3,7 +3,7 @@ import { globalUserProps } from "../utils/types";
 export default function CardSuggestion({ user }: { user: globalUserProps }) {
   const userProfessionalStatus = user?.healthActor?.professional?.name || user?.professionalStatus || "";
   return (
-    <div className="flex items-center bg-base p-2 mb-2 rounded-lg">
+    <div className="flex items-center bg-slate-50 p-2 mb-2 rounded-lg">
       <img
         src={user?.profilePicture}
         alt=""

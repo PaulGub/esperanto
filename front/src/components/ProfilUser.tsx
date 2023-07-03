@@ -1,17 +1,12 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { USER } from "./gql/GetUserById";
 import { useState, useEffect } from "react";
 import { userProps } from "../utils/types";
-
-const client = new ApolloClient({
-  uri: "http://localhost:4000/",
-  cache: new InMemoryCache(),
-});
+import { ApolloClientCall } from './apolloClient/ApolloClient';
 
 export default function ProfilUser({ userId }: { userId: number }) {
   const [user, setUser] = useState<userProps>();
   useEffect(() => {
-    client
+    ApolloClientCall
       .query({
         query: USER,
         variables: {

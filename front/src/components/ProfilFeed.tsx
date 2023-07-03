@@ -1,18 +1,41 @@
 import { useLocation } from "react-router-dom";
 import { USERS_BY_NEED } from "./gql/GetUsersByTagNeed";
 import Need from "./Need";
+import { ApolloClientCall } from './apolloClient/ApolloClient';
+import { useEffect, useState } from "react";
+import { CURRENT_USER } from "./loggedUser/userLoged";
+import { globalUserProps } from "../utils/types";
+import { USER_NEED } from "./gql/GetUserNeed";
 
 export default function ProfilFeed() {
   const pathname = useLocation().pathname;
-
+  const [userNeed, setUserNeed] = useState<globalUserProps>();
+  useEffect(() => {
+    ApolloClientCall
+      .query({
+        query: USER_NEED,
+        variables: {
+          userId: CURRENT_USER,
+          needId: "1",
+        },
+      })
+      .then((result) => {
+        setUserNeed(result.data.userById.needs);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }, []);
   return (
     <div className="bg-white p-4 rounded-lg">
       {pathname.split("/")[2] === "besoins" && (
         <div className="flex flex-col items-start justify-center w-full mt-2">
           <h3 className="text-sm pb-1">Mes besoins</h3>
           <span className="w-[50px] bg-primary-300 rounded h-1"></span>
-          <div className="text-xxs flex flex-wrap my-2">
-            <Need need={USERS_BY_NEED} />
+          <div className="text-xxs flex flex-wrap my-2 w-full">
+            {userNeed?.map((need) => (
+              <Need key={need.id} need={need} />
+            ))}
           </div>
         </div>
       )}
