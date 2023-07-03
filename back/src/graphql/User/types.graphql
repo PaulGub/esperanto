@@ -53,9 +53,3 @@ type Need {
     professionals: [Professional]
     materials: [Material]
 }
-type Material {
-    id: ID!
-    name: String!
-    resourceLink: String
-    description: String
-}
