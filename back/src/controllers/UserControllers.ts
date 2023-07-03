@@ -63,7 +63,12 @@ export const getUsersByTagNeed = async (userId: number, needId: number): Promise
                 [Op.ne]: userId
             }
         },
-        include: [Tag, Industrial, HealthActor, Researcher, Professional]
+        include: [Tag, Industrial, Researcher,
+            {
+                model: HealthActor,
+                include: [Professional]
+            },
+        ]
     });
 
     return needUserTagsMatching(currentUser, users, currentNeed);

@@ -1,10 +1,6 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { useLocation } from "react-router-dom";
-
-const client = new ApolloClient({
-  uri: "http://localhost:4000/",
-  cache: new InMemoryCache(),
-});
+import { USERS_BY_NEED } from "./gql/GetUsersByTagNeed";
+import Need from "./Need";
 
 export default function ProfilFeed() {
   const pathname = useLocation().pathname;
@@ -15,7 +11,9 @@ export default function ProfilFeed() {
         <div className="flex flex-col items-start justify-center w-full mt-2">
           <h3 className="text-sm pb-1">Mes besoins</h3>
           <span className="w-[50px] bg-primary-300 rounded h-1"></span>
-          <div className="text-xxs flex flex-wrap my-2"></div>
+          <div className="text-xxs flex flex-wrap my-2">
+            <Need need={USERS_BY_NEED} />
+          </div>
         </div>
       )}
       {pathname.split("/")[2] === "suivis" && (

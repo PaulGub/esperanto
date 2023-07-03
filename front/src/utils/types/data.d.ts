@@ -1,3 +1,5 @@
+import { DocumentNode } from "graphql";
+
 export type globalUserProps = {
   description: string;
   email: string;
@@ -7,6 +9,10 @@ export type globalUserProps = {
     careServiceType: string;
     id: string;
     supportServices: string;
+    professional:{
+      id: string,
+      name: string
+    };
   };
   healthNetwork: string;
   id: string;
@@ -31,9 +37,5 @@ export type globalUserProps = {
 };
 
 export type needProps = {
-  id: number;
-  title: string;
-  type: string;
-  description?: string;
-  infrastructure?: string;
+  need: DocumentNode;
 };
