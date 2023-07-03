@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import CardSuggestion from "../components/CardSuggestion";
-import { userProps } from "../utils/types";
+import { globalUserProps } from "../utils/types";
 import { getUsersByTags } from "../client/client";
 
 export default function Suggestions({ userId, title }: { userId: number, title:string }) {
-  const [users, setUsers] = useState<userProps[]>([]);
+  const [users, setUsers] = useState<globalUserProps[]>([]);
   const pageTitle = title ?? "Profils suggérés";
 
   useEffect(() => {

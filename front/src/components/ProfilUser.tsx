@@ -15,6 +15,8 @@ export default function ProfilUser({ userId }: { userId: number }) {
       });
   }, []);
 
+  const userProfessionalStatus = user?.healthActor?.professional?.name || user?.professionalStatus || "";
+  
   return (
     <div className="flex flex-col items-center justify-start bg-white border border-solid rounded-lg col-span-3">
       <div className="w-full">
@@ -36,14 +38,13 @@ export default function ProfilUser({ userId }: { userId: number }) {
               
             </p>
             <p className="text-[12px] text-slate-500 bg-primary-300 p-[3px] text-white mt-1">
-              {user?.professionalStatus ?? ""}
+              {userProfessionalStatus}
             </p>
           </div>
-          <div className="mt-1 ml-5 mr-5">
-            <a className="text-xs bg-primary pt-1 pb-1 pr-2 pl-2 hover:bg-white hover:text-primary border border-primary rounded-lg text-white" href={`tel:${user?.email}`}>Suivre</a>       
-            <a className="text-xs bg-primary pt-1 pb-1 pr-2 pl-2 hover:bg-white hover:text-primary border border-primary ml-1 rounded-lg text-white" href={`tel:${user?.phoneNumber}`}>Appeler</a>                 
-            <a className="text-xs bg-primary pt-1 pb-1 pr-2 pl-2 hover:bg-white hover:text-primary border border-primary ml-1 rounded-lg text-white" href='#'>Contacter</a>                 
-            <a className="text-xs bg-primary pt-1 pb-1 pr-2 pl-2 hover:bg-white hover:text-primary border border-primary ml-1 rounded-lg text-white" href='#'>+</a>                 
+          <div className="mt-2 ml-5 mr-5">
+            <a className="text-xs bg-primary-300 pt-1 pb-1 pr-2 pl-2 hover:bg-white hover:text-primary-300 border border-primary-300 rounded-lg text-white" href={`tel:${user?.email}`}>Suivre</a>       
+            <a className="text-xs bg-primary-300 pt-1 pb-1 pr-2 pl-2 hover:bg-white hover:text-primary-300 border border-primary-300 ml-1 rounded-lg text-white" href={`tel:${user?.phoneNumber}`}>Appeler</a>                 
+            <a className="text-xs bg-primary-300 pt-1 pb-1 pr-2 pl-2 hover:bg-white hover:text-primary-300 border border-primary-300 ml-1 rounded-lg text-white" href='#'>Contacter</a>                 
           </div>
         </div>
         <div className="ml-5 mr-5 pt-5 pb-5">

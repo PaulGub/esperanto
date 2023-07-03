@@ -1,4 +1,5 @@
 type Query {
     needs: [Need]
     needByNeedId(needId: ID): Need
+    needByUserId(userId: ID): [Need]
 }

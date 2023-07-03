@@ -12,9 +12,10 @@ const main = async () => {
         console.log('Connecting to database...');
         await SequelizeClient.authenticate();
         associations();
-        console.log('✅ Database connected !');
+        console.log('✅  Database connected !');
     } catch (error) {
-        console.log('⛔ Database connection failed !');
+        console.log(error)
+        console.log('⛔  Database connection failed !');
     }
 
     const [typeDefs, resolvers] = await Promise.all([getTypeDefs(), getResolvers()])

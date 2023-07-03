@@ -11,6 +11,18 @@ type Mutation {
         experiences: String,
         description: String,
         profilePicture: String
-        profileBanner: String
     ): User
+    createIndustrial(
+        careSector: String,
+        otherSector: String
+    ): Industrial
+    createHealthActor(
+        userId: ID,
+        healthActorData: HealthActorData
+    ): HealthActor
+    createResearcher(
+        researchUnitName: String,
+        otherSector: String,
+        researchArea: String
+    ): Researcher
 }

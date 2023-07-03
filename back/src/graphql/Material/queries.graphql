@@ -1,0 +1,4 @@
+type Query {
+    materials(start: Int, limit: Int): MaterialsWithCount
+    materialsBySearch(start: Int, limit: Int, search: String): MaterialsWithCount
+}

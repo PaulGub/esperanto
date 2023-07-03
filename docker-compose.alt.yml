@@ -1,0 +1,57 @@
+version: "3"
+
+services:
+  backend:
+    container_name: backend
+    build: ./back
+    depends_on:
+      - mysql-db
+    volumes:
+      - ./back:/opt/app
+      - /opt/app/node_modules
+      - ./.env:/opt/app/.env
+    command: sh -c "npm run sync-database && npm run dev-alt"
+    environment:
+      NODE_ENV: development
+    ports:
+      - "4000:4000"
+    networks:
+      - esperanto
+
+  front:
+    container_name: front
+    build: ./front
+    command: [ "npm", "run", "dev" ]
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./front:/opt/app
+      - /opt/app/node_modules
+      - ./.env:/opt/app/.env
+    environment:
+      NODE_ENV: development
+    networks:
+      - esperanto
+
+  mysql-db:
+    image: mysql
+    restart: unless-stopped
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: ${DATABASE_NAME}
+      MYSQL_USER: ${DATABASE_USER}
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - esperanto
+
+volumes:
+  mysql_data:
+
+networks:
+  esperanto:
+    driver: bridge

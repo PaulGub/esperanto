@@ -1,0 +1,12 @@
+type Material {
+    id: ID!
+    name: String!
+    resourceLink: String!
+    resourceImage: String
+    description: String
+}
+
+type MaterialsWithCount {
+    rows: [Material]
+    count: Int
+}

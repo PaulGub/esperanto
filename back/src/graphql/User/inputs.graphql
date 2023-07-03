@@ -1,0 +1,4 @@
+input HealthActorData {
+    careServiceType: String
+    supportServices: String
+}

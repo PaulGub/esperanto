@@ -1,8 +1,9 @@
-import { userProps } from "../utils/types";
+import { globalUserProps } from "../utils/types";
 
-export default function CardSuggestion({ user }: { user: userProps }) {
+export default function CardSuggestion({ user }: { user: globalUserProps }) {
+  const userProfessionalStatus = user?.healthActor?.professional?.name || user?.professionalStatus || "";
   return (
-    <div className="flex items-center bg-base p-2 mb-2 rounded-lg">
+    <div className="flex items-center bg-slate-50 p-2 mb-2 rounded-lg">
       <img
         src={user?.profilePicture}
         alt=""
@@ -13,9 +14,12 @@ export default function CardSuggestion({ user }: { user: userProps }) {
           {user.firstname} {user.lastname}
         </p>
         <p className="text-xxs text-slate-500 line-clamp-1">
-          {user.professionalStatus}
+          {userProfessionalStatus}
         </p>
-        <a href={`/user/${user.id}`} className="text-[12px] text-primary hover:underline">
+        <a
+          href={`/user/${user.id}`}
+          className="text-[12px] text-primary hover:underline"
+        >
           Voir le profil
         </a>
       </div>

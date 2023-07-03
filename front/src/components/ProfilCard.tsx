@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useState, useEffect } from "react";
 import { userProps } from "../utils/types";
 import { getUser } from "../client/client";
@@ -11,14 +12,41 @@ export default function ProfilCard() {
     getUser(userId)
       .then((userData) => {
         setUser(userData);
+=======
+import { USER } from "./gql/GetUserById";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
+import { userProps } from "../utils/types";
+import { ApolloClientCall } from './apolloClient/ApolloClient';
+import { CURRENT_USER } from "./loggedUser/userLoged";
+
+export default function ProfilCard() {
+  const [user, setUser] = useState<userProps>();
+  const [showAllTags, setShowAllTags] = useState(false);
+
+  useEffect(() => {
+    ApolloClientCall
+      .query({
+        query: USER,
+        variables: {
+          userId: CURRENT_USER,
+        },
+      })
+      .then((result) => {
+        setUser(result.data.userById);
+>>>>>>> c0e646059a14d4822fb23e99d2f616bd72991b07
       })
       .catch((error) => {
         console.error(error);
       });
+<<<<<<< HEAD
   }, []);
   
+=======
+    }, []);
+  const userProfessionalStatus = user?.healthActor?.professional?.name || user?.professionalStatus || "";
+>>>>>>> c0e646059a14d4822fb23e99d2f616bd72991b07
   return (
-    <div className="flex flex-col items-center justify-start bg-white border border-solid rounded-lg">
+    <div className="flex flex-col items-center justify-start bg-white border border-solid rounded-lg relative">
       <div className="w-full">
         <img src={user?.profileBanner} alt="" className="h-[100px] w-full rounded-t-lg" />
       </div>
@@ -33,25 +61,36 @@ export default function ProfilCard() {
             {user?.firstname ?? ""} {user?.lastname ?? ""}
           </h2>
           <p className="text-xs text-slate-500">
-            {user?.professionalStatus ?? ""}
+            {userProfessionalStatus}
           </p>
-          <a href="#" className="text-xs text-primary hover:underline">
+          <a href="#" className="text-xs text-primary hover:underline mt-[3px]">
             Modifier
           </a>
         </div>
+        {/* <div className="w-full mt-2 border">
+          <button className="text-xs border-none py-1 hover:bg-primary hover:text-white" onClick={()=>setDisplay("feed")}>Actualités</button>
+          <button className="text-xs border-none py-1 hover:bg-primary hover:text-white" onClick={()=>setDisplay("besoins")}>Mes besoins</button>
+          <button className="text-xs border-none py-1 hover:bg-primary hover:text-white" onClick={()=>setDisplay("suivis")}>Profils suivis</button>
+          <button className="text-xs border-none py-1 hover:bg-primary hover:text-white" onClick={()=>setDisplay("listes")}>Mes listes</button>
+        </div> */}
         <div className="flex flex-col items-start justify-center w-full mt-2">
           <h3 className="text-sm pb-1">Mes tags</h3>
           <span className="w-1/4 bg-primary-300 rounded h-1"></span>
-          <div className="text-xxs flex flex-wrap my-2">
-            {user?.tags?.map((tag) => (
+           <div className="text-xxs flex flex-wrap my-2">
+              {user?.tags?.slice(0, showAllTags ? undefined : 5).map((tag) => (
+                <span key={tag.id} className="bg-primary-100 rounded py-0.5 px-1 m-0.5">
+                  {tag.name}
+                </span>
+              ))}
+            {!showAllTags && user?.tags?.length > 5 && (
               <span
-                key={tag.id}
-                className="bg-primary-100 rounded py-0.5 px-1 m-0.5"
+                className="text-xs text-primary hover:underline py-0.5 px-1 m-0.5 cursor-pointer"
+                onClick={() => setShowAllTags(true)}
               >
-                {tag.name}
+                Voir plus
               </span>
-            ))}
-          </div>
+            )}
+            </div>
         </div>
         <div className="flex flex-col items-start justify-center w-full">
           <h3 className="text-sm pb-1">Description</h3>
@@ -59,12 +98,12 @@ export default function ProfilCard() {
           <p className="text-xxs line-clamp-5 w-full">{user?.description}</p>
         </div>
       </div>
-      <a
-        href="#"
-        className="text-xs text-primary my-2 hover:underline m-2 mb-2"
-      >
-        Voir le profil complet
-      </a>
+        <a
+          href="#"
+          className="text-xs text-primary my-2 hover:underline m-2 mb-2"
+        >
+          Voir le profil complet
+        </a>
     </div>
   );
 }
