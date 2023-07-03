@@ -1,5 +1,5 @@
-import { userProps } from "./user";
+import { globalUserProps } from "./";
 
 export type cardProps = {
-  user: userProps;
+  user: globalUserProps;
 };
