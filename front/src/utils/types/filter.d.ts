@@ -1,8 +1,6 @@
-import { specialitiesProps } from ".";
-
 export type filterProps = {
   rotate: boolean;
-  info: specialitiesProps;
+  info: { name: string; id: number };
   state: any;
   dispatch: any;
 };

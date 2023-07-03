@@ -1,9 +1,15 @@
 import filters from "../assets/filters.svg";
 import trash from "../assets/trash.svg";
 import arrow from "../assets/arrow.svg";
-import { useReducer } from "react";
-import { specialities } from "../utils/data/specialities";
+import { useEffect, useReducer, useState } from "react";
 import Filter from "../components/Filter";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { TAGS } from "../components/gql/GetAllTags";
+
+const client = new ApolloClient({
+  uri: "http://localhost:4000/",
+  cache: new InMemoryCache(),
+});
 
 export default function Sidebar() {
   const initialState = {
@@ -15,8 +21,22 @@ export default function Sidebar() {
     (prev: any, next: any) => ({ ...prev, ...next }),
     initialState
   );
+  const [tags, setTags] = useState<{ name: string; id: number }[]>([]);
+  useEffect(() => {
+    client
+      .query({
+        query: TAGS,
+      })
+      .then((result) => {
+        console.log(result.data.tags);
+        setTags(result.data.tags);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
   return (
-    <form className="p-4 w-60 h-full bg-white fixed">
+    <form className="p-4 w-60 h-full bg-white fixed -mt-3 overflow-scroll">
       <h2 className="flex items-center mb-4">
         <img src={filters} alt="" className="!w-4 mr-4" />
         Filtres
@@ -49,13 +69,13 @@ export default function Sidebar() {
             state.props.rotate90 ? "h-0" : "h-auto"
           } transition overflow-hidden`}
         >
-          {specialities.map((speciality) => (
+          {tags.map((tag) => (
             <Filter
               rotate={state.props.rotate90}
-              info={speciality}
+              info={tag}
               state={state}
               dispatch={dispatch}
-              key={speciality.label}
+              key={tag.name}
             />
           ))}
         </div>
