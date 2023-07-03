@@ -1,5 +1,10 @@
 # Esperanto
 
+### Équipe
+Theo Jamard, Paul Gubbiotti, Lucas Faget, Samuel Rappy et Romain Thibaud
+
+## Qu'est-ce que c'est ?
+
 L'objectif du projet est de créer une plateforme web de mise en relation entre les professionnels de la santé et les chercheurs. Ses principales fonctionnalités comprennent:
 
 - Création de profil
@@ -7,56 +12,28 @@ L'objectif du projet est de créer une plateforme web de mise en relation entre 
 - Proposition
 - Recherche
 
-L'idée est de faciliter la collaboration, l'échange de connaissances et le développement de projet dans le secteur de la santé.
+L'idée est de faciliter la collaboration, l'échange de connaissances et d'améliorer les soins de santé.
 
-## Technologies et frameworks
-Voici les principales dépendances et langages que vous devez connaître pour contribuer à ce projet.
+## Pourquoi ?
 
-##### Backend :
-- [Typescript](https://www.typescriptlang.org/docs/)
-- [NodeJS](https://nodejs.org/en/docs)
-- [Apollo Server](https://www.apollographql.com/docs/apollo-server)
-- [SQL - Sequelize ORM](https://sequelize.org/docs/v6/getting-started/)
+Dans l'ensemble, ce projet a été créé pour favoriser la collaboration, l'échange de connaissances, l'innovation et l'amélioration des soins de santé grâce à la mise en relation des professionnels de la santé et des chercheurs. Nous visons à encourager l'innovation et à optimiser l'utilisation des ressources.
 
-##### Frontend :
-- [Typescript](https://www.typescriptlang.org/docs/)
-- [React](https://legacy.reactjs.org/docs/getting-started.html)
-- [React Router](https://reactrouter.com/en/main)
-- [Apollo Client](https://www.apollographql.com/docs/react/)
+## Comment ?
 
-## Prérequis
-Tout d'abord, vous devez installer globalement les dépendances suivantes :
+La plateforme est construite avec une architecture front-end en React.JS et un back-end en Node.JS. Nous avons également mis en place une base de données pour gérer les informations utilisateur.
 
-- [Docker](https://www.docker.com/products/docker-desktop/) (latest)
-- [Node.js](https://nodejs.org/en/) (v18.x.x)
+Nous utilisons les données récupérées de "The Hub" pour alimenter notre plateforme.
 
-## Exécution de l'application avec Docker
-La façon d'exécuter le projet dépendra de votre système d'exploitation.
+## Installation
 
-Pour Linux:
-```bash
-docker-compose -f docker-compose.yml up
-```
+Pour l'installation, veuillez vous référer aux fichiers README individuels dans le répertoire 'front' et 'back'.
 
-Pour MacOS:
-```bash
-docker-compose -f docker-compose.alt.yml up
-```
+## Contribuer
 
-Pour Windows:
-```bash
-docker-compose -f docker-compose.windows.yml up
-```
+Si vous souhaitez contribuer à ce projet, n'hésitez pas à faire un pull request. Toutes les contributions sont les bienvenues !
 
+Pour signaler un bug ou demander une nouvelle fonctionnalité, veuillez ouvrir une nouvelle issue.
 
-## Installation en local avec Node.js
+## Licence
 
-Veuillez vous référer au fichier `README.md` dans les répertoires `front/` et `back/`.
-
-## Équipe
-- **Theo Jamard** (backend)
-- **Paul Gubbiotti** (backend)
-- **Lucas Faget** (frontend)
-- **Romain Thibaud** (frontend)
-- **Samuel Rappy** (backend et frontend)
-
+Ce projet est sous licence MIT.
