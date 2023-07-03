@@ -4,12 +4,7 @@ import Sidebar from "../layout/Sidebar";
 import users from "../utils/data/users";
 import { useEffect, useState } from "react";
 import { fi } from "@faker-js/faker";
-
-enum ROLES {
-  HEALTH_ACTOR = "Acteur de la santé",
-  RESEARCHER = "Chercheur",
-  INDUSTRIAL = "Industriel",
-}
+import { Roles } from "../utils/types/Roles";
 
 export default function Search() {
   const [noResult, setNoResult] = useState(false);
@@ -51,19 +46,19 @@ export default function Search() {
       <div className="mt-16 ml-64">
         <div className="flex">
           <div className={`flex-1 bg-white py-4 flex items-center justify-center cursor-pointer ${
-              activeMenu === ROLES.HEALTH_ACTOR ? "border-b-4 border-blue-500" : ""
+              activeMenu === Roles.HEALTH_ACTOR ? "border-b-4 border-blue-500" : ""
             }`}
-            onClick={() => setActiveMenu(ROLES.HEALTH_ACTOR)}>Santé
+            onClick={() => setActiveMenu(Roles.HEALTH_ACTOR)}>Santé
           </div>
           <div className={`flex-1 bg-white py-4 flex items-center justify-center cursor-pointer ${
-              activeMenu === ROLES.INDUSTRIAL ? "border-b-4 border-blue-500" : ""
+              activeMenu === Roles.INDUSTRIAL ? "border-b-4 border-blue-500" : ""
             }`}
-            onClick={() => setActiveMenu(ROLES.INDUSTRIAL)}>Industriel
+            onClick={() => setActiveMenu(Roles.INDUSTRIAL)}>Industriel
           </div>
           <div className={`flex-1 bg-white py-4 flex items-center justify-center cursor-pointer ${
-              activeMenu === ROLES.RESEARCHER ? "border-b-4 border-blue-500" : ""
+              activeMenu === Roles.RESEARCHER ? "border-b-4 border-blue-500" : ""
             }`}
-            onClick={() => setActiveMenu(ROLES.RESEARCHER)}>Chercheur
+            onClick={() => setActiveMenu(Roles.RESEARCHER)}>Chercheur
           </div>
         </div>
         <div className="p-4">

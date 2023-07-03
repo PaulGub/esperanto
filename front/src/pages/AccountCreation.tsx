@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { createUser } from "../client/client";
 import ProgressSteps from "../components/ProgressSteps";
+import { Roles } from "../utils/types/Roles";
+import FormInput from "../components/FormInput";
 
 enum Navigation {
   Previous,
@@ -23,16 +25,17 @@ const labels = [
 export default function AccountCreation() {
   let [currentStepIndex, setCurrentStepIndex] = useState(0);
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [role, setRole] = useState("");
-  const [healthNetwork, setHealthNetwork] = useState("");
-  const [professionalStatus, setProfessionalStatus] = useState("");
-  const [experiences, setExperiences] = useState("");
-  const [description, setDescription] = useState("");
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password1, setPassword1] = useState<string>("");
+  const [password2, setPassword2] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const [role, setRole] = useState<Roles|string>(Roles.HEALTH_ACTOR);
+  const [healthNetwork, setHealthNetwork] = useState<string>("");
+  const [professionalStatus, setProfessionalStatus] = useState<string>("");
+  const [experiences, setExperiences] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
 
   function actionForm(navigation: Navigation) {
     if (navigation === Navigation.Previous) {
@@ -47,10 +50,14 @@ export default function AccountCreation() {
     // createUser(firstName, lastName, email, password, phoneNumber, role, healthNetwork, professionalStatus, experiences, description);
   }
 
+  const inputClassName = "shadow-none peer placeholder-transparent h-10 w-full border-t-0 border-r-0 border-l-0 border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-blue-600 text-sm";
+  const labelClassName = "absolute left-0 -top-3.5 text-gray-600 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 text-[12px] peer-focus:text-[12px] peer-placeholder-shown:text-sm";
+
   return (
-    <div className="mt-16 min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
+    <div className="mt-16 min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-">
       <div className="relative py-3 sm:max-w-xl sm:mx-auto">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-300 to-blue-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-300 to-blue-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-3 sm:rounded-3xl"></div>
         <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
           <div className="max-w-md mx-auto">
             <ProgressSteps currentStepIndex={currentStepIndex} labels={labels}></ProgressSteps>
@@ -58,187 +65,77 @@ export default function AccountCreation() {
               <h1 className="text-2xl font-semibold">Créer un compte</h1>
             </div>
             <div className="divide-y divide-gray-200">
-              <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
-                {labels[currentStepIndex] === Labels.Step1 ? 
-                  (<div>
-                    <div className="relative">
-                      <input
-                        id="lastName"
-                        name="lastName"
-                        type="text"
-                        value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
-                        className="shadow-none active:outline-none peer placeholder-transparent h-10 w-full border-t-0 border-r-0 border-l-0 border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-blue-600"
-                        placeholder="Nom"
-                      />
-                      <label
-                        htmlFor="lastName"
-                        className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-                      >
-                        Nom
-                      </label>
+              <div className="pt-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
+                {labels[currentStepIndex] === Labels.Step1 ? (
+                  <div>
+                    <div className="flex gap-4">
+                      <FormInput id="lastName" type="text" label="Nom" value={lastName} setValue={setLastName}></FormInput>
+                      <FormInput id="firstName" type="text" label="Prénom" value={firstName} setValue={setFirstName}></FormInput>
                     </div>
-                    <div className="relative">
-                      <input
-                        id="firstName"
-                        name="firstName"
-                        type="text"
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                        className="shadow-none peer placeholder-transparent h-10 w-full border-t-0 border-r-0 border-l-0 border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-blue-600"
-                        placeholder="Prénom"
-                      />
-                      <label
-                        htmlFor="firstName"
-                        className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-                      >
-                        Prénom
-                      </label>
+                    <div className="flex gap-4">
+                      <FormInput id="email" type="email" label="Email" value={email} setValue={setEmail}></FormInput>
                     </div>
-                    <div className="relative">
-                      <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="shadow-none peer placeholder-transparent h-10 w-full border-t-0 border-r-0 border-l-0 border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-blue-600"
-                        placeholder="Email"
-                      />
-                      <label
-                        htmlFor="email"
-                        className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-                      >
-                        Email
-                      </label>
+                    <div className="flex gap-4">
+                      <FormInput id="password1" type="password" label="Mot de passe" value={password1} setValue={setPassword1}></FormInput>
+                      <FormInput id="password2" type="password" label="Répétition du mot de passe" value={password2} setValue={setPassword2}></FormInput>
                     </div>
-                    <div className="relative">
-                      <input
-                        id="password"
-                        name="password"
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className="shadow-none peer placeholder-transparent h-10 w-full border-t-0 border-r-0 border-l-0 border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-blue-600"
-                        placeholder="Mot de passe"
-                      />
-                      <label
-                        htmlFor="password"
-                        className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-                      >
-                        Mot de passe
-                      </label>
+                  </div>
+                ) : labels[currentStepIndex] === Labels.Step3 ? (
+                  <div>
+                    <div className="flex gap-4">
+                      <FormInput id="phoneNumber" type="tel" label="Numéro de téléphone" value={phoneNumber} setValue={setPhoneNumber}></FormInput>
+                      <FormInput id="healthNetwork" type="text" label="Réseau de santé" value={healthNetwork} setValue={setHealthNetwork}></FormInput>
                     </div>
+                    <div className="flex gap-4">
+                      <FormInput id="professionalStatus" type="text" label="Statut professionnel" value={professionalStatus} setValue={setProfessionalStatus}></FormInput>
+                      <FormInput id="experiences" type="text" label="Expériences" value={experiences} setValue={setExperiences}></FormInput>
+                    </div>
+                    <div className="flex gap-4">
+                      <FormInput id="description" type="textarea" label="Description" value={description} setValue={setDescription}></FormInput>
+                    </div>
+                  </div>
+                ) : labels[currentStepIndex] === Labels.Step2 ? (
+                  <div>
                     <div className="relative">
-                      <input
+                      <select
                         id="role"
                         name="role"
-                        type="text"
                         value={role}
                         onChange={(e) => setRole(e.target.value)}
-                        className="shadow-none peer placeholder-transparent h-10 w-full border-t-0 border-r-0 border-l-0 border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-blue-600"
-                        placeholder="Rôle"
-                      />
+                        className={inputClassName}
+                      >
+                        <option value={Roles.HEALTH_ACTOR}>{Roles.HEALTH_ACTOR}</option>
+                        <option value={Roles.INDUSTRIAL}>{Roles.INDUSTRIAL}</option>
+                        <option value={Roles.RESEARCHER}>{Roles.RESEARCHER}</option>
+                      </select>
                       <label
                         htmlFor="role"
-                        className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                        className={labelClassName}
                       >
                         Rôle
                       </label>
                     </div>
-                  </div>) 
-                : labels[currentStepIndex] === Labels.Step2 ? 
-                  (<div>
-                    <div className="relative">
-                      <input
-                        id="phoneNumber"
-                        name="phoneNumber"
-                        type="tel"
-                        value={phoneNumber}
-                        onChange={(e) => setPhoneNumber(e.target.value)}
-                        className="shadow-none peer placeholder-transparent h-10 w-full border-t-0 border-r-0 border-l-0 border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-blue-600"
-                        placeholder="Numéro de téléphone"
-                      />
-                      <label
-                        htmlFor="phoneNumber"
-                        className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-                      >
-                        Numéro de téléphone
-                      </label>
-                    </div>
-                    <div className="relative">
-                      <input
-                        id="healthNetwork"
-                        name="healthNetwork"
-                        type="text"
-                        value={healthNetwork}
-                        onChange={(e) => setHealthNetwork(e.target.value)}
-                        className="shadow-none peer placeholder-transparent h-10 w-full border-t-0 border-r-0 border-l-0 border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-blue-600"
-                        placeholder="Réseau de santé"
-                      />
-                      <label
-                        htmlFor="healthNetwork"
-                        className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-                      >
-                        Réseau de santé
-                      </label>
-                    </div>
-                    <div className="relative">
-                      <input
-                        id="professionalStatus"
-                        name="professionalStatus"
-                        type="text"
-                        value={professionalStatus}
-                        onChange={(e) => setProfessionalStatus(e.target.value)}
-                        className="shadow-none peer placeholder-transparent h-10 w-full border-t-0 border-r-0 border-l-0 border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-blue-600"
-                        placeholder="Statut professionnel"
-                      />
-                      <label
-                        htmlFor="professionalStatus"
-                        className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-                      >
-                        Statut professionnel
-                      </label>
-                    </div>
-                    <div className="relative">
-                      <input
-                        id="experiences"
-                        name="experiences"
-                        type="text"
-                        value={experiences}
-                        onChange={(e) => setExperiences(e.target.value)}
-                        className="shadow-none peer placeholder-transparent h-10 w-full border-t-0 border-r-0 border-l-0 border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-blue-600"
-                        placeholder="Expériences"
-                      />
-                      <label
-                        htmlFor="experiences"
-                        className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-                      >
-                        Expériences
-                      </label>
-                    </div>
-                    <div className="relative">
-                      <textarea
-                        id="description"
-                        name="description"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        className="shadow-none peer placeholder-transparent h-20 w-full border-t-0 border-r-0 border-l-0 border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-blue-600"
-                        placeholder="Description"
-                      />
-                      <label
-                        htmlFor="description"
-                        className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-                      >
-                        Description
-                      </label>
-                    </div>
-                  </div>) 
-                : 
-                  (<div></div>)}
-                <div className="relative flex gap-4">
-                  <button className="bg-blue-500 text-white rounded-md px-2 py-1" onClick={() => actionForm(Navigation.Previous)}>Précédent</button>
-                  <button className="bg-blue-500 text-white rounded-md px-2 py-1" onClick={() => actionForm(Navigation.Next)}>Suivant</button>
+                  </div>
+                ) : (
+                  <div>Votre compte a bien été créé !</div>
+                )}
+                <div className="pt-4 flex items-center space-x-4">
+                  {(currentStepIndex > 0 && currentStepIndex < labels.length) ? (
+                    <button
+                      onClick={() => actionForm(Navigation.Previous)}
+                      className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm"
+                    >
+                      Précédent
+                    </button>
+                  ) : null}
+                  {currentStepIndex < labels.length ? (
+                    <button
+                      onClick={() => actionForm(Navigation.Next)}
+                      className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm"
+                    >
+                      {currentStepIndex === labels.length - 1 ? "Créer le compte" : "Suivant"}
+                    </button>
+                  ) : null}
                 </div>
               </div>
             </div>
