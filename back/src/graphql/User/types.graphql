@@ -26,6 +26,7 @@ type HealthActor {
     id: ID!
     careServiceType: String
     supportServices: String
+    professional: Professional
 }
 type Researcher {
     id: ID!
@@ -34,6 +35,10 @@ type Researcher {
     researchArea: String
 }
 type Tag {
+    id: ID!
+    name: String!
+}
+type Professional {
     id: ID!
     name: String!
 }

@@ -8,8 +8,8 @@ export default function UserMenu() {
           to={"/feed/actualites"}
           className={({ isActive }) =>
             isActive
-              ? "w-full text-center bg-primary text-white rounded-s-lg rounded-s-lg"
-              : "w-full text-center hover:bg-primary hover:text-white hover:rounded-s-lg rounded-s-lg"
+              ? "w-full text-center bg-primary text-white rounded-s-lg rounded-s-lg text-xs flex justify-center items-center p-1"
+              : "w-full text-center hover:bg-primary hover:text-white hover:rounded-s-lg rounded-s-lg text-xs flex justify-center items-center p-1"
           }
         >
           Actualités
@@ -18,8 +18,8 @@ export default function UserMenu() {
           to={"/feed/besoins"}
           className={({ isActive }) =>
             isActive
-              ? "w-full text-center bg-primary text-white"
-              : "w-full text-center hover:bg-primary hover:text-white"
+              ? "w-full text-center bg-primary text-white text-xs flex justify-center items-center p-1"
+              : "w-full text-center hover:bg-primary hover:text-white text-xs flex justify-center items-center p-1"
           }
         >
           Mes besoins
@@ -28,8 +28,8 @@ export default function UserMenu() {
           to={"/feed/suivis"}
           className={({ isActive }) =>
             isActive
-              ? "w-full text-center bg-primary text-white"
-              : "w-full text-center hover:bg-primary hover:text-white"
+              ? "w-full text-center bg-primary text-white text-xs flex justify-center items-center p-1"
+              : "w-full text-center hover:bg-primary hover:text-white text-xs flex justify-center items-center p-1"
           }
         >
           Profils suivis
@@ -38,8 +38,8 @@ export default function UserMenu() {
           to={"/feed/listes"}
           className={({ isActive }) =>
             isActive
-              ? "w-full text-center bg-primary text-white rounded-r-lg rounded-r-lg"
-              : "w-full text-center hover:bg-primary hover:text-white hover:rounded-r-lg rounded-r-lg"
+              ? "w-full text-center bg-primary text-white rounded-r-lg rounded-r-lg text-xs flex justify-center items-center p-1"
+              : "w-full text-center hover:bg-primary hover:text-white hover:rounded-r-lg rounded-r-lg text-xs flex justify-center items-center p-1"
           }
         >
           Mes listes

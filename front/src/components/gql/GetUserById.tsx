@@ -13,9 +13,13 @@ export const USER = gql`
                 id
             }
             healthActor {
-                careServiceType
                 id
+                careServiceType
                 supportServices
+                professional {
+                    id
+                    name
+                }
             }
             healthNetwork
             industrial {

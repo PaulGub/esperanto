@@ -22,13 +22,13 @@ export default function ProfilCard() {
         },
       })
       .then((result) => {
-        console.log(result.data.userById);
         setUser(result.data.userById);
       })
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+    }, []);
+  const userProfessionalStatus = user?.healthActor?.professional?.name || user?.professionalStatus || "";
   return (
     <div className="flex flex-col items-center justify-start bg-white border border-solid rounded-lg relative">
       <div className="w-full">
@@ -45,7 +45,7 @@ export default function ProfilCard() {
             {user?.firstname ?? ""} {user?.lastname ?? ""}
           </h2>
           <p className="text-xs text-slate-500">
-            {user?.professionalStatus ?? ""}
+            {userProfessionalStatus}
           </p>
           <a href="#" className="text-xs text-primary hover:underline mt-[3px]">
             Modifier

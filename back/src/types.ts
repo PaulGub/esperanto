@@ -19,6 +19,15 @@ export interface UserInterface {
     tags?: TagInterface[];
 }
 
+export interface NeedInterface {
+    id: number,
+    title: string,
+    type: string,
+    description?: string,
+    infrastructure?: string,
+    tags?: TagInterface[];
+}
+
 export interface TagInterface {
     id: number,
     name: string,

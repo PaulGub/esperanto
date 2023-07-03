@@ -10,6 +10,10 @@ export const USERS_BY_TAG = gql`
                 careServiceType
                 id
                 supportServices
+                professional{
+                    id
+                    name
+                }
             }
             healthNetwork
             id

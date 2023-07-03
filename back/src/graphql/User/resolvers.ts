@@ -2,6 +2,7 @@ import {
   getAllUsers,
   getUsersByTagUser,
   getUserById,
+  getUsersByTagNeed,
   createUser,
   createIndustrial,
   createHealthActor, createResearcher
@@ -14,6 +15,7 @@ export default {
     users: (): Promise<UserInterface[]> => getAllUsers(),
     usersByTagUser: async (_, args: { userId: number }): Promise<UserInterface[]> => getUsersByTagUser(args.userId),
     userById: async (_, args: { userId: number }): Promise<UserInterface> => getUserById(args.userId),
+    usersByTagNeed: async (_, args: { userId: number, needId: number }) => getUsersByTagNeed(args.userId, args.needId),
   },
   Mutation: {
     createUser: async (_, args) => {

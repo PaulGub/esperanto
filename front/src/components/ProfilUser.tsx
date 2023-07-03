@@ -26,6 +26,7 @@ export default function ProfilUser({ userId }: { userId: number }) {
         console.error(error);
       });
   }, []);
+  const userProfessionalStatus = user?.healthActor?.professional?.name || user?.professionalStatus || "";
   return (
     <div className="flex flex-col items-center justify-start bg-white border border-solid rounded-lg col-span-3">
       <div className="w-full">
@@ -47,7 +48,7 @@ export default function ProfilUser({ userId }: { userId: number }) {
               
             </p>
             <p className="text-[12px] text-slate-500 bg-primary-300 p-[3px] text-white mt-1">
-              {user?.professionalStatus ?? ""}
+              {userProfessionalStatus}
             </p>
           </div>
           <div className="mt-2 ml-5 mr-5">

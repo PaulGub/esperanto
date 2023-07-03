@@ -1,11 +1,11 @@
-import {HealthActor, Industrial, Researcher, Tag, User} from "@models/index"
+import {HealthActor, Industrial, Need, Professional, Researcher, Tag, User} from "@models/index"
 import {Op} from "sequelize";
-import {HealthActorTypes, UserInterface} from "@server/types";
-import {userTagsMatching} from "@helpers/matching";
+import {HealthActorTypes, UserInterface, NeedInterface} from "@server/types";
+import {userTagsMatching, needUserTagsMatching} from "@helpers/matching";
 
 export const getAllUsers = async (): Promise<UserInterface[]> => {
     return User.findAll({
-        include: [Industrial, HealthActor, Researcher]
+        include: [Industrial, HealthActor, Researcher, Professional]
     });
 }
 
@@ -20,7 +20,13 @@ export const getUsersByTagUser = async (userId: number): Promise<UserInterface[]
                 [Op.ne]: userId
             }
         },
-        include: [Tag, Industrial, HealthActor, Researcher]
+        include: [
+            Tag, Industrial, Researcher,
+            {
+                model: HealthActor,
+                include: [Professional]
+            },
+        ]
     });
 
     return userTagsMatching(currentUser, users);
@@ -28,9 +34,41 @@ export const getUsersByTagUser = async (userId: number): Promise<UserInterface[]
 
 export const getUserById = async (userId: number): Promise<UserInterface> => {
     return await User.findByPk(userId, {
-        include: [Tag, Industrial, HealthActor, Researcher]
+      include: [
+        Tag,
+        {
+          model: HealthActor,
+          include: [Professional]
+        },
+        Industrial,
+        Researcher
+      ]
     });
+  };
+  
+
+
+export const getUsersByTagNeed = async (userId: number, needId: number): Promise<UserInterface[]> => {
+    const currentUser: UserInterface = await User.findByPk(userId, {
+        include: [Tag]
+    });
+
+    const currentNeed: NeedInterface = await Need.findByPk(needId, {
+        include: [Tag]
+    });
+
+    const users: UserInterface[] = await User.findAll({
+        where: {
+            id: {
+                [Op.ne]: userId
+            }
+        },
+        include: [Tag, Industrial, HealthActor, Researcher, Professional]
+    });
+
+    return needUserTagsMatching(currentUser, users, currentNeed);
 }
+
 
 export const createUser = async (userData) => {
     const user = await User.create(userData);
