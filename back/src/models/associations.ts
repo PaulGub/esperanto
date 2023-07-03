@@ -15,22 +15,22 @@ import {
 
 export const associations = (): void => {
     HealthActor.hasOne(User)
-    User.belongsTo(HealthActor, {onDelete: "CASCADE"});
+    User.belongsTo(HealthActor, { onDelete: 'CASCADE' });
 
     HealthActor.belongsTo(Professional);
     Professional.hasMany(HealthActor, { onDelete: 'CASCADE' });
 
     Industrial.hasOne(User)
-    User.belongsTo(Industrial, {onDelete: "CASCADE"})
+    User.belongsTo(Industrial, { onDelete: 'CASCADE' })
 
     Researcher.hasOne(User)
-    User.belongsTo(Researcher, {onDelete: "CASCADE"})
+    User.belongsTo(Researcher, { onDelete: 'CASCADE' })
 
     Material.belongsTo(Company)
-    Company.hasMany(Company, {onDelete: 'CASCADE'})
+    Company.hasMany(Company, { onDelete: 'CASCADE' })
 
     Material.belongsTo(HealthCareEstablishment)
-    HealthCareEstablishment.hasMany(Material, {onDelete: 'CASCADE'})
+    HealthCareEstablishment.hasMany(Material, { onDelete: 'CASCADE' })
 
     Need.belongsTo(User)
     User.hasMany(Need, {onDelete: 'CASCADE'})
@@ -56,6 +56,6 @@ export const associations = (): void => {
     Industrial.belongsToMany(Company, { through: 'Industrial_company' });
     Company.belongsToMany(Industrial, { through: 'Industrial_company' });
 
-    HealthCareEstablishment.belongsToMany(HealthActor, { through: 'Industrial_company' });
-    HealthActor.belongsToMany(HealthCareEstablishment, { through: 'Industrial_company' });
+    HealthCareEstablishment.belongsToMany(HealthActor, { through: 'HealthActor_Infrastructure' });
+    HealthActor.belongsToMany(HealthCareEstablishment, { through: 'HealthActor_Infrastructure' });
 };
