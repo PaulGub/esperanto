@@ -1,4 +1,5 @@
-import { needProps } from "../utils/types/data";
+import { useEffect, useState } from "react";
+import { globalUserProps, needProps } from "../utils/types/data";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 
 const client = new ApolloClient({
@@ -6,7 +7,24 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-export default function Need({ need }: { need: needProps }) {
+export default function Need({ need }: needProps) {
+  // const [need, setNeed] = useState<globalUserProps>();
+
+  // useEffect(() => {
+  //   client
+  //     .query({
+  //       query: USER,
+  //       variables: {
+  //         userId: userId,
+  //       },
+  //     })
+  //     .then((result) => {
+  //       setNeed(result.data.userById);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  //   }, []);
   return (
     <div className="p-4 bg-base rounded-lg">
       {/* <h2 className="uppercase">{need.title} - by [NOM DU BOUGRE]</h2>

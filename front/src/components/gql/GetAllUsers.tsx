@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const USERS = gql`
-  query users {
+  query Query {
     users {
       id
       email
@@ -16,6 +16,10 @@ export const USERS = gql`
         careServiceType
         id
         supportServices
+        professional{
+          id
+          name
+        }
       }
       healthNetwork
       industrial {

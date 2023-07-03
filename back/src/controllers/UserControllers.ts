@@ -5,7 +5,12 @@ import {userTagsMatching, needUserTagsMatching} from "@helpers/matching";
 
 export const getAllUsers = async (): Promise<UserInterface[]> => {
     return User.findAll({
-        include: [Industrial, HealthActor, Researcher, Professional]
+        include: [Industrial, Researcher,
+            {
+                model: HealthActor,
+                include: [Professional]
+            }
+        ]
     });
 }
 
