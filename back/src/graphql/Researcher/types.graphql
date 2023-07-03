@@ -1,0 +1,19 @@
+type UserResearcher {
+    id: ID!
+    firstname: String!
+    lastname: String!
+    email: String!
+    phoneNumber: String
+    role: String
+    healthNetwork: String
+    professionalStatus: String
+    description: String
+    profilePicture: String
+    researcher: Researcher
+    tags: [Tag]
+}
+
+type UserResearcherWithCount {
+    rows: [UserResearcher]
+    count: Int
+}

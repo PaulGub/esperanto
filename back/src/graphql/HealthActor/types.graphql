@@ -1,0 +1,19 @@
+type UserHealthActor {
+    id: ID!
+    firstname: String!
+    lastname: String!
+    email: String!
+    phoneNumber: String
+    role: String
+    healthNetwork: String
+    professionalStatus: String
+    description: String
+    profilePicture: String
+    healthActor: HealthActor
+    tags: [Tag]
+}
+
+type UserHealthActorWithCount {
+    rows: [UserHealthActor]
+    count: Int
+}

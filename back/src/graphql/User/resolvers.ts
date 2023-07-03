@@ -12,7 +12,7 @@ import { HealthActorTypes, UserInterface } from "@server/types";
 
 export default {
   Query: {
-    users: (): Promise<UserInterface[]> => getAllUsers(),
+    users: async (): Promise<UserInterface[]> => getAllUsers(),
     usersByTagUser: async (_, args: { userId: number }): Promise<UserInterface[]> => getUsersByTagUser(args.userId),
     userById: async (_, args: { userId: number }): Promise<UserInterface> => getUserById(args.userId),
     usersByTagNeed: async (_, args: { userId: number, needId: number }) => getUsersByTagNeed(args.userId, args.needId),

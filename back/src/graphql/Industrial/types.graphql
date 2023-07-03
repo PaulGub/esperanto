@@ -1,0 +1,19 @@
+type UserIndustrial {
+    id: ID!
+    firstname: String!
+    lastname: String!
+    email: String!
+    phoneNumber: String
+    role: String
+    healthNetwork: String
+    professionalStatus: String
+    description: String
+    profilePicture: String
+    industrial: Industrial
+    tags: [Tag]
+}
+
+type UserIndustrialWithCount {
+    rows: [UserIndustrial]
+    count: Int
+}
