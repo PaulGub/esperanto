@@ -10,7 +10,10 @@ import {
     User,
     Resource,
     Expertise,
-    Tag
+    Tag,
+    ListUser,
+    ListNeed,
+    ListMaterial
 } from '@models/index';
 
 export const associations = (): void => {
@@ -58,4 +61,16 @@ export const associations = (): void => {
 
     HealthCareEstablishment.belongsToMany(HealthActor, { through: 'HealthActor_Infrastructure' });
     HealthActor.belongsToMany(HealthCareEstablishment, { through: 'HealthActor_Infrastructure' });
+
+    ListUser.belongsToMany(User, { through: 'ListUser_User' });
+    User.belongsToMany(ListUser, { through: 'ListUser_User' });
+
+    ListNeed.belongsToMany(User, { through: 'ListNeed_User' });
+    User.belongsToMany(ListNeed, { through: 'ListNeed_User' });
+
+    ListMaterial.belongsToMany(User, { through: 'ListMaterial_User' });
+    User.belongsToMany(ListMaterial, { through: 'ListMaterial_User' });
+
+    User.belongsToMany(User, { as: 'Followers', through: 'follower', foreignKey: 'userId', otherKey: 'followerId' });
+    User.belongsToMany(User, { as: 'Following', through: 'follower', foreignKey: 'followerId', otherKey: 'userId' });
 };

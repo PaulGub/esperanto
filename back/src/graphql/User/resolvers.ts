@@ -5,7 +5,10 @@ import {
   getUsersByTagNeed,
   createUser,
   createIndustrial,
-  createHealthActor, createResearcher
+  createHealthActor,
+  createResearcher,
+  getAllFollowers,
+  addFollow
 } from '@controllers/UserControllers';
 
 import { HealthActorTypes, UserInterface } from "@server/types";
@@ -16,6 +19,7 @@ export default {
     usersByTagUser: async (_, args: { userId: number }): Promise<UserInterface[]> => getUsersByTagUser(args.userId),
     userById: async (_, args: { userId: number }): Promise<UserInterface> => getUserById(args.userId),
     usersByTagNeed: async (_, args: { userId: number, needId: number }) => getUsersByTagNeed(args.userId, args.needId),
+    getAllFollowers: async (_, args: { userId: number }) => getAllFollowers(args.userId),
   },
   Mutation: {
     createUser: async (_, args) => {
@@ -24,11 +28,12 @@ export default {
     createIndustrial: async (_, args) => {
       return createIndustrial(args);
     },
-    createHealthActor: async (_, args :{userId: number, healthActorData: HealthActorTypes}) => {
+    createHealthActor: async (_, args: { userId: number, healthActorData: HealthActorTypes }) => {
       return createHealthActor(args.userId, args.healthActorData);
     },
     createResearcher: async (_, args) => {
       return createResearcher(args);
     },
-  },
+    addFollow: async (_, args: { userId: number, followerId: number }) => addFollow(args)
+  }
 };

@@ -120,3 +120,18 @@ export const createResearcher = async (researcherData) => {
     const researcher = await Researcher.create(researcherData);
     return researcher;
 }
+
+export const getAllFollowers = async (userId: number) => {
+    const user = await User.findByPk(userId);
+    return user.getFollowers()
+
+}
+
+export const addFollow = async ( args: { userId: number, followerId: number }) => {
+    const {userId, followerId} = args
+    const user = await User.findByPk(userId);
+    const follower = await User.findByPk(followerId);
+    user.addFollower(follower)
+
+    return "Votre abonnement a été pris en compte !"
+}
