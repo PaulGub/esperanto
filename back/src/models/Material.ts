@@ -4,7 +4,8 @@ import { SequelizeClient } from '@clients/sequelize';
 export interface MaterialT extends Model {
     id: number,
     name: string,
-    resourceLink?: string,
+    resourceLink: string,
+    resourceImage?: string,
     description?: string,
 }
 
@@ -21,6 +22,12 @@ export const Material = SequelizeClient.define<MaterialT>(
             validate: {
               isUrl: true,
             },
+        },
+        resourceImage: {
+          type: DataTypes.STRING,
+          validate: {
+            isUrl: true,
+          },
         },
         description: DataTypes.TEXT,
     },
