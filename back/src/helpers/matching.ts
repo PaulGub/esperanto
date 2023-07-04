@@ -36,7 +36,7 @@ export const needUserTagsMatching = (userToMatch: UserInterface, users: UserInte
 
   usersWithCommonTags.sort((a: UserAndNumberTagsMatched, b: UserAndNumberTagsMatched) => b.commonTagCount - a.commonTagCount);
 
-  return usersWithCommonTags.map((userAndNumberTagsMatched: UserAndNumberTagsMatched) => userAndNumberTagsMatched.user).slice(0, 10);
+  return usersWithCommonTags.map((userAndNumberTagsMatched: UserAndNumberTagsMatched) => userAndNumberTagsMatched.user).slice(0, 8);
 };
 
 
