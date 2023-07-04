@@ -21,9 +21,9 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route path="/" element={<App />}>
+        <Route path="account" element={<AccountCreation />} />
         <Route index element={<Navigate to={"feed/actualites"} />} />
         <Route path="feed" element={<Profil />}>
-        <Route path="account" element={<AccountCreation />} />
           <Route path="actualites" element={<Profil />} />
           <Route path="besoins" element={<Profil />} />
           <Route path="suivis" element={<Profil />} />
