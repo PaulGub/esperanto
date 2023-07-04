@@ -12,9 +12,6 @@ export const CREATE_NEED = gql`
         id
         name
       }
-      user {
-        id
-      }
     }
   }
 `;
