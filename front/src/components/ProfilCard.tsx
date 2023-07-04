@@ -43,12 +43,6 @@ export default function ProfilCard() {
             Modifier
           </a>
         </div>
-        {/* <div className="w-full mt-2 border">
-          <button className="text-xs border-none py-1 hover:bg-primary hover:text-white" onClick={()=>setDisplay("feed")}>Actualités</button>
-          <button className="text-xs border-none py-1 hover:bg-primary hover:text-white" onClick={()=>setDisplay("besoins")}>Mes besoins</button>
-          <button className="text-xs border-none py-1 hover:bg-primary hover:text-white" onClick={()=>setDisplay("suivis")}>Profils suivis</button>
-          <button className="text-xs border-none py-1 hover:bg-primary hover:text-white" onClick={()=>setDisplay("listes")}>Mes listes</button>
-        </div> */}
         <div className="flex flex-col items-start justify-center w-full mt-2">
           <h3 className="text-sm pb-1">Mes tags</h3>
           <span className="w-1/4 bg-primary-300 rounded h-1"></span>
