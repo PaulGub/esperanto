@@ -26,12 +26,10 @@ export const HealthCareEstablishment = SequelizeClient.define<HealthCareEstablis
         address2: DataTypes.STRING,
         address3: DataTypes.STRING,
         zipCode: {
-          type: DataTypes.INTEGER,
+          type: DataTypes.STRING(5),
           allowNull: false,
           validate: {
             len: [5, 5],
-            isInt: true,
-            isNumeric: true,
           },
         },
         city: {

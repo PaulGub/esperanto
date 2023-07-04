@@ -1,0 +1,15 @@
+type HealthCareEstablishment {
+    id: ID!
+    name: String!
+    address1: String!
+    address2: String
+    address3: String
+    zipCode: String!
+    city: String!
+    country: String!
+}
+
+type HealthCareEstablishmentWithCount {
+    rows: [HealthCareEstablishment]
+    count: Int
+}
