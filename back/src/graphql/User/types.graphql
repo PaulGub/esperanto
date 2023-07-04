@@ -52,6 +52,7 @@ type Need {
     tags: [Tag]
     professionals: [Professional]
     materials: [Material]
+    user: User
 }
 type Material {
     id: ID!

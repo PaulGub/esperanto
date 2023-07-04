@@ -57,7 +57,7 @@ export const getUserById = async (userId: number): Promise<UserInterface> => {
         Researcher,
         {
             model: Need,
-            include: [Tag, Professional, Material]
+            include: [Tag, Professional, Material, User]
         }
       ]
     });
