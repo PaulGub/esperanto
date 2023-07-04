@@ -1,15 +1,13 @@
 import { useLocation } from "react-router-dom";
 import Need from "./Need";
-import { ApolloClientCall } from './apolloClient/ApolloClient';
 import { useEffect, useState } from "react";
 import { CURRENT_USER } from "./loggedUser/userLoged";
-import { globalUserProps } from "../utils/types";
-import { USER_NEED } from "./gql/GetUserNeed";
 import { getUserNeeds } from "./apolloClient/ApiCalls";
+import { needProps } from "../utils/types/data";
 
 export default function ProfilFeed() {
   const pathname = useLocation().pathname;
-  const [userNeed, setUserNeed] = useState<globalUserProps>();
+  const [userNeed, setUserNeed] = useState<needProps[]>([]);
 
   useEffect(() => {
     getUserNeeds(CURRENT_USER)

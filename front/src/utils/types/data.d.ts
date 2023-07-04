@@ -38,22 +38,20 @@ export type globalUserProps = {
 };
 
 export type needProps = {
-  need: {
-    id: string;
+  id: string;
     title: string;
     type: string;
     description: string;
     infrastructure: string;
-    professional:{
+    professionals:{
       id: string,
       name: string
-    };
+    }[];
     materials:{
       id: string,
       name: string,
       ressourceLink: string,
       description: string,
-    };
+    }[];
     tags: Array<{ id: number; name: string }>;
   };
-};
