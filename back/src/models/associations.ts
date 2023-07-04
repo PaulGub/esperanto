@@ -65,6 +65,9 @@ export const associations = (): void => {
     ListUser.belongsToMany(User, { through: 'ListUser_User' });
     User.belongsToMany(ListUser, { through: 'ListUser_User' });
 
+    User.hasMany(ListUser, {onDelete: 'CASCADE'})
+    ListUser.belongsTo(User)
+
     ListNeed.belongsToMany(Need, { through: 'ListNeed_Need' });
     Need.belongsToMany(ListNeed, { through: 'ListNeed_Need' });
 
@@ -73,6 +76,9 @@ export const associations = (): void => {
 
     ListMaterial.belongsToMany(Material, { through: 'ListMaterial_Material' });
     Material.belongsToMany(ListMaterial, { through: 'ListMaterial_Material' });
+
+    User.hasMany(ListMaterial, {onDelete: 'CASCADE'})
+    ListMaterial.belongsTo(User)
 
     User.belongsToMany(User, { as: 'Followers', through: 'follower', foreignKey: 'userId', otherKey: 'followerId' });
     User.belongsToMany(User, { as: 'Following', through: 'follower', foreignKey: 'followerId', otherKey: 'userId' });
