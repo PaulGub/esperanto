@@ -1,8 +1,8 @@
-import { needProps } from "../../utils/types/data";
+import { Need } from "../AddNeed";
 import { CREATE_NEED } from "../gql/CreateNeed";
 import { ApolloClientCall } from "./ApolloClient";
 
-export async function createNeed(userId: number|string, needData: needProps): Promise<any> {
+export async function createNeed(userId: number, needData: Need): Promise<any> {
     try {
         const result = await ApolloClientCall.mutate({
             mutation: CREATE_NEED,

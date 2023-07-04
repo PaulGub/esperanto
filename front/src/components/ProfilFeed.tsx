@@ -47,7 +47,7 @@ export default function ProfilFeed() {
           <div className="flex flex-col items-start justify-center w-full mt-2">
             <h3 className="text-sm pb-1">Mes besoins</h3>
             <span className="w-[50px] bg-primary-300 rounded h-1"></span>
-            <div className="text-xxs flex flex-wrap my-2 w-full">
+            <div className="text-xxs flex flex-wrap my-2 w-full gap-8">
               {userNeed !== undefined && userNeed.length === 0 ? (
                   <p className="text-xs p-2 bg-gray-100 rounded w-full mt-2">Vous n'avez pas de besoins pour l'instant.</p>
                 ) : (
@@ -85,10 +85,10 @@ export default function ProfilFeed() {
           </div>
         )}
         {pathname.split("/")[2] === "actualites" && (
-          <div className="flex flex-col items-start justify-center w-full mt-2">
+          <div className="flex flex-col gap-4 items-start justify-center w-full mt-2">
             <h3 className="text-sm pb-1">Ils ont peut-être besoin de vous!</h3>
             <span className="w-[50px] bg-primary-300 rounded h-1"></span>
-            <div className="text-xxs flex flex-wrap my-2 w-full">
+            <div className="text-xxs flex flex-wrap my-2 w-full gap-8">
               {userFeed !== undefined && userFeed.length === 0 ? (
                 <p className="text-xs p-2 bg-gray-100 rounded w-full mt-2">Personne n'a besoin de votre aide pour l'instant.</p>
               ) : (

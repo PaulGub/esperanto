@@ -1,1 +1,1 @@
-export const CURRENT_USER = 1
+export const CURRENT_USER: number = 1;

@@ -1,0 +1,5 @@
+type ListMaterial {
+    id: ID!
+    name: String!
+    materials: [Material]
+}

@@ -48,6 +48,7 @@ export const createNeed = async (args : { userId: number, needData: NeedData }):
             if (tags) {
                 tags.map(async (tag: TagT) => {
                     const tagFound: TagT = await Tag.findByPk(tag.id);
+                    console.log(tagFound)
                     needCreated.addTag(tagFound);
                 });
             }
