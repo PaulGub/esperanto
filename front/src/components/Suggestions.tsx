@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import CardSuggestion from "../components/CardSuggestion";
 import { globalUserProps } from "../utils/types";
-import { getUsersByTagUser } from "./apolloClient/ApiCalls";
+import { getUsersByTagUser } from "./apolloClient/Queries";
 
 export default function Suggestions({ userId, title }: { userId: number, title?:string }) {
   const [users, setUsers] = useState<globalUserProps[]>([]);

@@ -26,7 +26,10 @@ const router = createBrowserRouter(
         <Route path="feed" element={<Profil />}>
           <Route path="actualites" element={<Profil />} />
           <Route path="besoins" element={<Profil />} />
-          <Route path="suivis" element={<Profil />} />
+          <Route path="suivis" element={<Profil />} >
+            <Route path="abonnes" element={<Profil />} />
+            <Route path="abonnements" element={<Profil />} />
+          </Route>
           <Route path="listes" element={<Profil />} />
         </Route>
         <Route path="search" element={<Search />}>

@@ -53,7 +53,7 @@ export type needProps = {
       ressourceLink: string,
       description: string,
     }[];
-    tags: Array<{ id: number; name: string }>;
+    tags: Tag[];
     user: { 
       id: number
       profilePicture: string,

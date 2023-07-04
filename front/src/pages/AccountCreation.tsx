@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { createUser } from "../client/client";
 import ProgressSteps from "../components/ProgressSteps";
 import { Roles } from "../utils/types/Roles";
 import FormInput from "../components/FormInput";

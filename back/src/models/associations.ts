@@ -65,11 +65,20 @@ export const associations = (): void => {
     ListUser.belongsToMany(User, { through: 'ListUser_User' });
     User.belongsToMany(ListUser, { through: 'ListUser_User' });
 
-    ListNeed.belongsToMany(User, { through: 'ListNeed_User' });
-    User.belongsToMany(ListNeed, { through: 'ListNeed_User' });
+    User.hasMany(ListUser, {onDelete: 'CASCADE'})
+    ListUser.belongsTo(User)
 
-    ListMaterial.belongsToMany(User, { through: 'ListMaterial_User' });
-    User.belongsToMany(ListMaterial, { through: 'ListMaterial_User' });
+    ListNeed.belongsToMany(Need, { through: 'ListNeed_Need' });
+    Need.belongsToMany(ListNeed, { through: 'ListNeed_Need' });
+
+    User.hasMany(ListNeed, {onDelete: 'CASCADE'})
+    ListNeed.belongsTo(User)
+
+    ListMaterial.belongsToMany(Material, { through: 'ListMaterial_Material' });
+    Material.belongsToMany(ListMaterial, { through: 'ListMaterial_Material' });
+
+    User.hasMany(ListMaterial, {onDelete: 'CASCADE'})
+    ListMaterial.belongsTo(User)
 
     User.belongsToMany(User, { as: 'Following', through: 'follower', foreignKey: 'userId', otherKey: 'followerId' });
     User.belongsToMany(User, { as: 'Followers', through: 'follower', foreignKey: 'followerId', otherKey: 'userId' });
