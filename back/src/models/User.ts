@@ -1,13 +1,8 @@
-import {
-    Model,
-    DataTypes,
-    HasManyAddAssociationMixin,
-    NonAttribute,
-    HasManyGetAssociationsMixin,
-} from 'sequelize';
-import { SequelizeClient } from '@clients/sequelize';
+import {DataTypes, HasManyAddAssociationMixin, HasManyGetAssociationsMixin, Model, NonAttribute,} from 'sequelize';
+import {SequelizeClient} from '@clients/sequelize';
 import CONST from "@server/CONST";
-import { TagT } from "@models/Tag";
+import {TagT} from "@models/Tag";
+import bcrypt from "bcrypt";
 
 export interface UserT extends Model {
     id: number,
@@ -87,4 +82,16 @@ export const User = SequelizeClient.define<UserT>(
         profilePicture: DataTypes.STRING,
         profileBanner: DataTypes.STRING
     },
+  {
+    hooks: {
+      beforeCreate: async (user) => {
+        user.password = await bcrypt.hash(user.password, 10);
+      },
+      beforeUpdate: async (user) => {
+        if (user.changed('password')) {
+          user.password = await bcrypt.hash(user.password, 10);
+        }
+      },
+    },
+  },
 );
