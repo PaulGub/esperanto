@@ -9,11 +9,12 @@ import {
   createResearcher,
   getAllFollowers,
   addFollow,
-  removeFollow
+  removeFollow,
+  getAllFollowing,
+  checkIsFollowed
 } from '@controllers/UserControllers';
 
 import { HealthActorTypes, UserInterface } from "@server/types";
-
 export default {
   Query: {
     users: async (): Promise<UserInterface[]> => getAllUsers(),
@@ -21,6 +22,8 @@ export default {
     userById: async (_, args: { userId: number }): Promise<UserInterface> => getUserById(args.userId),
     usersByTagNeed: async (_, args: { userId: number, needId: number }) => getUsersByTagNeed(args.userId, args.needId),
     getAllFollowers: async (_, args: { userId: number }) => getAllFollowers(args.userId),
+    getAllFollowing: async (_, args: { userId: number }) => getAllFollowing(args.userId),
+    checkIsFollowed: async (_, args: { userId: number, followerId: number }): Promise<Boolean> => checkIsFollowed(args)
   },
   Mutation: {
     createUser: async (_, args) => {
