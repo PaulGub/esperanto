@@ -1,0 +1,5 @@
+type ListUser {
+    id: ID!
+    name: String!
+    users: [User]
+}
