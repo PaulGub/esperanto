@@ -6,10 +6,10 @@ import { NavLink, useLocation } from "react-router-dom";
 import Professionnels from "./subpages/professionnels";
 import Materiels from "./subpages/materiels";
 import Infrastructures from "./subpages/infrastructures";
-import { ApolloClientCall } from "../components/apolloClient/ApolloClient";
 import { HEALTH_ACTOR_SEARCH } from "../components/gql/HealthActorSearch";
 import { INDUSTRIAL_SEARCH } from "../components/gql/IndustrialSearch";
 import { RESEARCHER_SEARCH } from "../components/gql/ResearcherSearch";
+import { getSearchedUser } from "../components/apolloClient/ApiCalls";
 
 type Tags = "healthActor" | "researcher" | "industrial" | "";
 
@@ -37,40 +37,30 @@ export default function Search() {
   const [filters, setFilters] = useState<string[]>([]);
   const [tagsCount, setTagsCount] = useState<{ [index: string]: number }>();
   useEffect(() => {
-    ApolloClientCall.query({
-      query: queries[tag ? tag : "default"],
-      variables: {
-        search: input,
-      },
-    })
-      .then((result) => {
-        console.log(result.data);
-        switch (tag) {
-          case "healthActor":
-            setUsers(result.data.healthActorsBySearch.rows);
-            setAllUsers(result.data.healthActorsBySearch.rows);
-            setNoResult(result.data.healthActorsBySearch.count === 0);
-            break;
-          case "researcher":
-            setUsers(result.data.researchersBySearch.rows);
-            setAllUsers(result.data.researchersBySearch.rows);
-            setNoResult(result.data.researchersBySearch.count === 0);
-            break;
-          case "industrial":
-            setUsers(result.data.industrialsBySearch.rows);
-            setAllUsers(result.data.industrialsBySearch.rows);
-            setNoResult(result.data.industrialBySearch.count === 0);
-            break;
-          default:
-            setUsers(result.data.users);
-            setAllUsers(result.data.users);
-            setNoResult(result.data.users.length === 0);
-            break;
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    getSearchedUser(queries[tag ? tag : "default"], input).then((result) => {
+      switch (tag) {
+        case "healthActor":
+          setUsers(result.healthActorsBySearch.rows);
+          setAllUsers(result.healthActorsBySearch.rows);
+          setNoResult(result.healthActorsBySearch.count === 0);
+          break;
+        case "researcher":
+          setUsers(result.researchersBySearch.rows);
+          setAllUsers(result.researchersBySearch.rows);
+          setNoResult(result.researchersBySearch.count === 0);
+          break;
+        case "industrial":
+          setUsers(result.industrialsBySearch.rows);
+          setAllUsers(result.industrialsBySearch.rows);
+          setNoResult(result.industrialsBySearch.count === 0);
+          break;
+        default:
+          setUsers(result.users);
+          setAllUsers(result.users);
+          setNoResult(result.users.length === 0);
+          break;
+      }
+    });
   }, [input, tag]);
 
   useEffect(() => {
@@ -126,7 +116,7 @@ export default function Search() {
           {["Santé", "Industriel", "Chercheur"].map((role) => (
             <NavLink
               className={({ isActive }) =>
-                `flex-1 bg-white py-4 flex items-center justify-center cursor-pointer ${
+                `flex-1 bg-white py-4 flex items-center justify-center cursor-pointer hover:bg-primary hover:text-white ${
                   isActive ? "border-b-4 border-blue-500" : ""
                 }`
               }
