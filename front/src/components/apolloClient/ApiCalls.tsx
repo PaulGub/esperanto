@@ -81,7 +81,7 @@ export async function getUserNeeds(userId: number|string): Promise<any> {
                 userId: userId
             }
         });
-        return result.data.userById;
+        return result.data.userById.needs;
     } catch (error) {
         console.error(error);
     }
