@@ -1,4 +1,4 @@
-import {HealthActor, Industrial, Material, Need, Professional, Researcher, Tag, User} from "@models/index"
+import {HealthActor, Industrial, Material, Need, Professional, Researcher, Tag, User, UserT} from "@models/index"
 import {Op} from "sequelize";
 import {HealthActorTypes, UserInterface, NeedInterface} from "@server/types";
 import {userTagsMatching, needUserTagsMatching} from "@helpers/matching";
@@ -123,8 +123,7 @@ export const createResearcher = async (researcherData) => {
 
 export const getAllFollowers = async (userId: number) => {
     const user = await User.findByPk(userId);
-    return user.getFollowers()
-
+    return user.getFollowers();
 }
 
 export const addFollow = async ( args: { userId: number, followerId: number }) => {
@@ -178,3 +177,23 @@ export const removeFollow = async (args: { userId: number, followerId: number })
         return `Une erreur est survenue: ${error.message}`;
     }
 };
+
+export const getAllFollowing = async (userId: number) => {
+    const user = await User.findByPk(userId);
+    return user.getFollowing();
+}
+
+export const checkIsFollowed = async (args: { userId: number, followerId: number }): Promise<Boolean> => {
+    const { userId, followerId } = args;
+
+    const user = await User.findByPk(userId, {
+        include: ['Following', 'Followers'],
+    });
+
+    const followings: UserT[] = user.Following;
+
+    const followingsIdArr: number[] = followings.map((follower: UserT) => follower.id);
+
+    return followingsIdArr.includes(+followerId);
+
+}

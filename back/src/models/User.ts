@@ -25,9 +25,12 @@ export interface UserT extends Model {
     profileBanner?: string,
 
     tags?: NonAttribute<TagT[]>;
+    Followers?: NonAttribute<UserT[]>;
+    Following?: NonAttribute<UserT[]>;
 
     addTag(tag: TagT): HasManyAddAssociationMixin<TagT, number>,
     getFollowers(): HasManyGetAssociationsMixin<UserT>,
+    getFollowing(): HasManyGetAssociationsMixin<UserT>,
     addFollower(user: UserT): HasManyAddAssociationMixin<UserT, number>
     removeFollower(user: UserT): HasManyAddAssociationMixin<UserT, number>
 }
