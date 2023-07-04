@@ -2,18 +2,13 @@ import { USERS } from "../components/gql/GetAllUsers";
 import Sidebar from "../layout/Sidebar";
 import { useEffect, useState } from "react";
 import { globalUserProps } from "../utils/types";
-import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { NavLink, useLocation } from "react-router-dom";
 import Professionnels from "./subpages/professionnels";
 import Materiels from "./subpages/materiels";
 import Infrastructures from "./subpages/infrastructures";
+import { ApolloClientCall } from "../components/apolloClient/ApolloClient";
 
 type Tags = "healthActor" | "researcher" | "industrial" | "";
-
-const client = new ApolloClient({
-  uri: "http://localhost:4000/",
-  cache: new InMemoryCache(),
-});
 
 export default function Search() {
   const location = useLocation();
@@ -33,10 +28,9 @@ export default function Search() {
   const [tagsCount, setTagsCount] = useState<{ [index: string]: number }>();
 
   useEffect(() => {
-    client
-      .query({
-        query: USERS,
-      })
+    ApolloClientCall.query({
+      query: USERS,
+    })
       .then((result) => {
         const filterdUsers =
           tag !== ""

@@ -9,13 +9,8 @@ import {
   useState,
 } from "react";
 import Filter from "../components/Filter";
-import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { TAGS } from "../components/gql/GetAllTags";
-
-const client = new ApolloClient({
-  uri: "http://localhost:4000/",
-  cache: new InMemoryCache(),
-});
+import { ApolloClientCall } from "../components/apolloClient/ApolloClient";
 
 export default function Sidebar({
   setFilters,
@@ -36,10 +31,9 @@ export default function Sidebar({
 
   const [tags, setTags] = useState<{ name: string; id: number }[]>([]);
   useEffect(() => {
-    client
-      .query({
-        query: TAGS,
-      })
+    ApolloClientCall.query({
+      query: TAGS,
+    })
       .then((result) => {
         setTags(result.data.tags);
         result.data.tags.forEach((tag: { id: number; name: string }) =>
