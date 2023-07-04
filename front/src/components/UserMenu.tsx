@@ -25,7 +25,7 @@ export default function UserMenu() {
           Mes besoins
         </NavLink>
         <NavLink
-          to={"/feed/suivis"}
+          to={"/feed/suivis/abonnements"}
           className={({ isActive }) =>
             isActive
               ? "w-full text-center bg-primary text-white text-xs flex justify-center items-center p-1"
