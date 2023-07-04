@@ -3,4 +3,5 @@ type Query {
     userById(userId: ID): User
     usersByTagUser(userId: ID): [User]
     usersByTagNeed(userId: ID, needId: ID): [User]
+    getAllFollowers(userId: ID): [User]
 }

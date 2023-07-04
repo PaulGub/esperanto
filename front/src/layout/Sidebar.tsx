@@ -1,17 +1,24 @@
 import filters from "../assets/filters.svg";
 import trash from "../assets/trash.svg";
 import arrow from "../assets/arrow.svg";
-import { useEffect, useReducer, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import Filter from "../components/Filter";
-import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { TAGS } from "../components/gql/GetAllTags";
+import { ApolloClientCall } from "../components/apolloClient/ApolloClient";
 
-const client = new ApolloClient({
-  uri: "http://localhost:4000/",
-  cache: new InMemoryCache(),
-});
-
-export default function Sidebar() {
+export default function Sidebar({
+  setFilters,
+  tagsCount,
+}: {
+  setFilters: Dispatch<SetStateAction<string[]>>;
+  tagsCount: { [index: string]: number };
+}) {
   const initialState = {
     props: {
       rotate90: false,
@@ -21,20 +28,28 @@ export default function Sidebar() {
     (prev: any, next: any) => ({ ...prev, ...next }),
     initialState
   );
+
   const [tags, setTags] = useState<{ name: string; id: number }[]>([]);
   useEffect(() => {
-    client
-      .query({
-        query: TAGS,
-      })
+    ApolloClientCall.query({
+      query: TAGS,
+    })
       .then((result) => {
-        console.log(result.data.tags);
         setTags(result.data.tags);
+        result.data.tags.forEach((tag: { id: number; name: string }) =>
+          dispatch({ [tag.name]: false })
+        );
       })
       .catch((error) => {
         console.error(error);
       });
   }, []);
+  useEffect(() => {
+    const selectedFilters = Object.keys(state).map((key, index) =>
+      key !== "props" ? (Object.values(state)[index] === true ? key : "") : ""
+    );
+    setFilters(selectedFilters.filter((item) => item !== ""));
+  }, [state]);
   return (
     <form className="p-4 w-60 h-full bg-white fixed -mt-3 overflow-scroll">
       <h2 className="flex items-center mb-4">
@@ -46,7 +61,13 @@ export default function Sidebar() {
           <img src={trash} alt="" className="!w-4 mr-4" />
           Effacer les filtres
         </label>
-        <input type="reset" name="reset" id="reset" hidden />
+        <input
+          type="reset"
+          name="reset"
+          id="reset"
+          hidden
+          onClick={() => tags.map((tag) => dispatch({ [tag.name]: false }))}
+        />
       </div>
       <div className="mt-4">
         <span
@@ -69,15 +90,21 @@ export default function Sidebar() {
             state.props.rotate90 ? "h-0" : "h-auto"
           } transition overflow-hidden`}
         >
-          {tags.map((tag) => (
-            <Filter
-              rotate={state.props.rotate90}
-              info={tag}
-              state={state}
-              dispatch={dispatch}
-              key={tag.name}
-            />
-          ))}
+          {tagsCount
+            ? Object.keys(tagsCount).map((tag, index) => (
+                <Filter
+                  rotate={state.props.rotate90}
+                  info={{
+                    id: tags[index].id,
+                    name: tag,
+                    count: Object.values(tagsCount)[index],
+                  }}
+                  state={state}
+                  dispatch={dispatch}
+                  key={tag}
+                />
+              ))
+            : ""}
         </div>
       </div>
     </form>

@@ -18,7 +18,7 @@ export default function Filter({ rotate, info, state, dispatch }: filterProps) {
           />
           <label htmlFor={info.name}>{info.name}</label>
         </div>
-        <div className="text-xs text-slate-400">{1}</div>
+        <div className="text-xs text-slate-400">{info.count}</div>
       </div>
     </div>
   );

@@ -25,4 +25,8 @@ type Mutation {
         otherSector: String,
         researchArea: String
     ): Researcher
+    addFollow(
+        userId: ID
+        followerId: ID
+    ): String
 }

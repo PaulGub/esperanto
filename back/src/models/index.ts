@@ -10,3 +10,6 @@ export * from '@models/Researcher';
 export * from '@models/Resource';
 export * from '@models/Tag';
 export * from '@models/User';
+export * from "@models/ListUser";
+export * from "@models/ListNeed";
+export * from "@models/ListMaterial";

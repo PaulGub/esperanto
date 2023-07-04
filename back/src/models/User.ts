@@ -1,4 +1,10 @@
-import {Model, DataTypes, HasManyAddAssociationMixin, NonAttribute} from 'sequelize';
+import {
+    Model,
+    DataTypes,
+    HasManyAddAssociationMixin,
+    NonAttribute,
+    HasManyGetAssociationsMixin,
+} from 'sequelize';
 import { SequelizeClient } from '@clients/sequelize';
 import CONST from "@server/CONST";
 import { TagT } from "@models/Tag";
@@ -21,6 +27,8 @@ export interface UserT extends Model {
     tags?: NonAttribute<TagT[]>;
 
     addTag(tag: TagT): HasManyAddAssociationMixin<TagT, number>,
+    getFollowers(): HasManyGetAssociationsMixin<UserT>,
+    addFollower(user: UserT): HasManyAddAssociationMixin<UserT, number>
 }
 
 export const User = SequelizeClient.define<UserT>(

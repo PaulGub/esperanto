@@ -5,26 +5,22 @@ import { useEffect, useState } from "react";
 import { CURRENT_USER } from "./loggedUser/userLoged";
 import { globalUserProps } from "../utils/types";
 import { USER_NEED } from "./gql/GetUserNeed";
+import { getUserNeeds } from "./apolloClient/ApiCalls";
 
 export default function ProfilFeed() {
   const pathname = useLocation().pathname;
   const [userNeed, setUserNeed] = useState<globalUserProps>();
+
   useEffect(() => {
-    ApolloClientCall
-      .query({
-        query: USER_NEED,
-        variables: {
-          userId: CURRENT_USER,
-          needId: "1",
-        },
-      })
-      .then((result) => {
-        setUserNeed(result.data.userById.needs);
+    getUserNeeds(CURRENT_USER)
+      .then((needData) => {
+        setUserNeed(needData);
       })
       .catch((error) => {
         console.error(error);
       });
-    }, []);
+  }, []);
+    
   return (
     <div className="bg-white p-4 rounded-lg">
       {pathname.split("/")[2] === "besoins" && (

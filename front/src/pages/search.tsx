@@ -2,18 +2,13 @@ import { USERS } from "../components/gql/GetAllUsers";
 import Sidebar from "../layout/Sidebar";
 import { useEffect, useState } from "react";
 import { globalUserProps } from "../utils/types";
-import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { NavLink, useLocation } from "react-router-dom";
 import Professionnels from "./subpages/professionnels";
 import Materiels from "./subpages/materiels";
 import Infrastructures from "./subpages/infrastructures";
+import { ApolloClientCall } from "../components/apolloClient/ApolloClient";
 
 type Tags = "healthActor" | "researcher" | "industrial" | "";
-
-const client = new ApolloClient({
-  uri: "http://localhost:4000/",
-  cache: new InMemoryCache(),
-});
 
 export default function Search() {
   const location = useLocation();
@@ -28,11 +23,14 @@ export default function Search() {
   ] as Tags;
   const [noResult, setNoResult] = useState(false);
   const [users, setUsers] = useState<globalUserProps[]>([]);
+  const [allUsers, setAllUsers] = useState<globalUserProps[]>([]);
+  const [filters, setFilters] = useState<string[]>([]);
+  const [tagsCount, setTagsCount] = useState<{ [index: string]: number }>();
+
   useEffect(() => {
-    client
-      .query({
-        query: USERS,
-      })
+    ApolloClientCall.query({
+      query: USERS,
+    })
       .then((result) => {
         const filterdUsers =
           tag !== ""
@@ -41,11 +39,41 @@ export default function Search() {
               )
             : result.data.users;
         setUsers(filterdUsers);
+        setAllUsers(filterdUsers);
       })
       .catch((error) => {
         console.error(error);
       });
   }, [tag]);
+
+  useEffect(() => {
+    if (filters.length !== 0) {
+      const filtered: globalUserProps[] = [];
+      const tempFilter = users.map((user) => {
+        return user.tags
+          .map((tag) => (filters.includes(tag.name) ? user : null))
+          .filter((item) => item !== null);
+      }) as globalUserProps[][];
+      tempFilter
+        .filter((item) => item.length !== 0)
+        .forEach((item) => filtered.push(item[0]));
+      filtered.length !== 0 ? setUsers(filtered) : setUsers(allUsers);
+    } else {
+      setUsers(allUsers);
+    }
+  }, [filters]);
+
+  useEffect(() => {
+    if (users.length !== 0) {
+      const allTags: string[] = [];
+      users.map((user) => user.tags.map((tag) => allTags.push(tag.name)));
+      const tagsCountTemp: { [index: string]: number } = {};
+      for (const num of allTags) {
+        tagsCountTemp[num] = tagsCountTemp[num] ? tagsCountTemp[num] + 1 : 1;
+      }
+      setTagsCount(tagsCountTemp);
+    }
+  }, [users]);
 
   function normalizeString(input: string): string {
     input ? input : (input = " ");
@@ -65,12 +93,23 @@ export default function Search() {
           .split(" ")
           .includes(normalizeString(input))
     );
-    console.log(filtered);
+
+    setUsers(filtered);
+    filtered.length === 0
+      ? (setNoResult(true), setUsers(allUsers))
+      : setNoResult(false);
   };
 
   return (
     <>
-      <Sidebar />
+      <Sidebar
+        setFilters={setFilters}
+        tagsCount={
+          tagsCount as {
+            [index: string]: number;
+          }
+        }
+      />
       <div className="mt-16 ml-64">
         <div className="flex">
           {["Santé", "Industriel", "Chercheur"].map((role) => (
@@ -103,10 +142,9 @@ export default function Search() {
             />
           </form>
           <div className=" px-12 mt-24 w-full">
-            {noResult && (
+            {noResult ? (
               <h2 className="text-2xl text-center">Aucun résultat</h2>
-            )}
-            {pathname.split("/")[2] === "professionnels" ? (
+            ) : pathname.split("/")[2] === "professionnels" ? (
               <Professionnels users={users} />
             ) : pathname.split("/")[2] === "materiels" ? (
               <Materiels />

@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import CardSuggestion from "../components/CardSuggestion";
 import { globalUserProps } from "../utils/types";
-import { getUsersByTags } from "../client/client";
+import { getUsersByTagUser } from "./apolloClient/ApiCalls";
 
 export default function Suggestions({ userId, title }: { userId: number, title:string }) {
   const [users, setUsers] = useState<globalUserProps[]>([]);
   const pageTitle = title ?? "Profils suggérés";
 
   useEffect(() => {
-    getUsersByTags(userId)
-      .then((usersData) => {
-        setUsers(usersData);
+    getUsersByTagUser(userId)
+      .then((userData) => {
+        setUsers(userData);
       })
       .catch((error) => {
         console.error(error);
