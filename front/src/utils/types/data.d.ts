@@ -56,3 +56,8 @@ export type needProps = {
     tags: Array<{ id: number; name: string }>;
     user: { id: number };
   };
+
+export type Tag = {
+  id: number|string,
+  name: string
+}
