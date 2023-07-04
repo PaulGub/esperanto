@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { needProps } from "../utils/types/data";
 import CardSuggestionVariant from "../components/CardSuggestionVariant";
-import { getUsersByTagNeed } from "./apolloClient/ApiCalls";
+import { getUsersByTagNeed } from "./apolloClient/Queries";
 import { CURRENT_USER } from "./loggedUser/userLoged";
 
 export default function Need({ need, userId }: { need: needProps, userId: number }) {
@@ -17,8 +17,7 @@ export default function Need({ need, userId }: { need: needProps, userId: number
         console.error(error);
       });
   }, []);
-  console.log(CURRENT_USER);
-  console.log(userId);
+  
   return (
     <div className="p-4 bg-slate-50 rounded-lg w-full">
       {CURRENT_USER != userId ? (

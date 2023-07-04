@@ -9,10 +9,8 @@ import {
   useState,
 } from "react";
 import Filter from "../components/Filter";
-import { TAGS } from "../components/gql/GetAllTags";
-import { ApolloClientCall } from "../components/apolloClient/ApolloClient";
 import Loader from "../components/Loader";
-import { getAllTags } from "../components/apolloClient/ApiCalls";
+import { getAllTags } from "../components/apolloClient/Queries";
 
 export default function Sidebar({
   setFilters,

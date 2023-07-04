@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { userProps } from "../utils/types";
-import { getUserById } from "./apolloClient/ApiCalls";
+import { globalUserProps } from "../utils/types";
+import { getUserById } from "./apolloClient/Queries";
 
 export default function ProfilUser({ userId }: { userId: number }) {
-  const [user, setUser] = useState<userProps>();
+  const [user, setUser] = useState<globalUserProps>();
 
   useEffect(() => {
     getUserById(userId)

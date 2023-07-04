@@ -1,7 +1,7 @@
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { globalUserProps } from "../utils/types";
 import { CURRENT_USER } from "./loggedUser/userLoged";
-import { getUserById } from "./apolloClient/ApiCalls";
+import { getUserById } from "./apolloClient/Queries";
 
 export default function ProfilCard() {
   const [user, setUser] = useState<globalUserProps>();

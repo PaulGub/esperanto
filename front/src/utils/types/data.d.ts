@@ -64,6 +64,6 @@ export type needProps = {
   };
 
 export type Tag = {
-  id: number|string,
-  name: string
+  id: number,
+  name: string,
 }

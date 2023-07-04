@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom";
 import Need from "./Need";
 import { useEffect, useState } from "react";
 import { CURRENT_USER } from "./loggedUser/userLoged";
-import { getUserNeeds } from "./apolloClient/ApiCalls";
+import { getUserNeeds } from "./apolloClient/Queries";
 import { needProps } from "../utils/types/data";
 import { USER_FEED } from "./gql/GetNeedByUserIdSuggestion";
 import { ApolloClientCall } from "./apolloClient/ApolloClient";

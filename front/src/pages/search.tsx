@@ -9,7 +9,7 @@ import Infrastructures from "./subpages/infrastructures";
 import { HEALTH_ACTOR_SEARCH } from "../components/gql/HealthActorSearch";
 import { INDUSTRIAL_SEARCH } from "../components/gql/IndustrialSearch";
 import { RESEARCHER_SEARCH } from "../components/gql/ResearcherSearch";
-import { getSearchedUser } from "../components/apolloClient/ApiCalls";
+import { getSearchedUser } from "../components/apolloClient/Queries";
 
 type Tags = "healthActor" | "researcher" | "industrial" | "";
 

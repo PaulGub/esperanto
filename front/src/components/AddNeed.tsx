@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import FormInput from "./FormInput";
-import { Tag } from "../utils/types/data";
-import { getAllTags } from "./apolloClient/ApiCalls";
+import { Tag, needProps } from "../utils/types/data";
+import { getAllTags } from "./apolloClient/Queries";
+import { createNeed } from "./apolloClient/Mutations";
+import { CURRENT_USER } from "./loggedUser/userLoged";
 
 enum NeedType {
     Material = "Material",
@@ -35,7 +37,14 @@ export default function AddNeed() {
     };
 
     const submitForm = (): void => {
-        console.log("need created !");
+        let needData: any = {
+            title: title,
+            type: type,
+            infrastructure: infrastructure,
+            description: description,
+            tags: tags,
+        };
+        createNeed(CURRENT_USER, needData);
     };
     
     useEffect(() => {
@@ -49,7 +58,7 @@ export default function AddNeed() {
     }, []);
 
     return (
-        <div className="flex flex-col gap-4 justify-start bg-white border border-solid rounded-lg p-4 relative">
+        <div className="flex flex-col gap-8 justify-start bg-white border border-solid rounded-lg p-4 relative">
             <div className="flex justify-between items-center w-full">
                 <div className="flex flex-col">
                     <h3 className="text-sm pb-1">Ajouter un besoin</h3>
