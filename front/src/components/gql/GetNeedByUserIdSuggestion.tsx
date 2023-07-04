@@ -25,6 +25,11 @@ query NeedByUserIdSuggestion($userId: ID) {
       }
       user {
         id
+        firstname
+        lastname
+        email
+        profilePicture
+        profileBanner
       }
     }
   }

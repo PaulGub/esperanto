@@ -1,0 +1,5 @@
+type ListNeed {
+    id: ID!
+    name: String!
+    needs: [Need]
+}

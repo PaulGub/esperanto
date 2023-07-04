@@ -1,3 +1,5 @@
+import {TagT} from "@models/Tag";
+
 export interface HealthActorTypes {
     careServiceType: string
     supportServices: string
@@ -36,4 +38,12 @@ export interface TagInterface {
 export interface UserAndNumberTagsMatched {
     user: UserInterface,
     commonTagCount: number
+}
+
+export interface NeedData {
+    title: string,
+    type: string,
+    description?: string,
+    infrastructure?: string,
+    tags?: TagT[];
 }

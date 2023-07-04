@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { cardProps } from "../utils/types";
 
 export default function Card({ user }: cardProps) {
@@ -9,7 +10,7 @@ export default function Card({ user }: cardProps) {
             {user?.tags?.map((tag, index) => {
               return index < 12 ? (
                 <span
-                  className="w-full h-fit border border-solid border-slate-500 bg-green-300 p-0.5 rounded text-xxs line-clamp-1"
+                  className="w-full h-fit bg-primary-100 py-0.5 px-1 rounded text-xxs line-clamp-1"
                   key={tag.name + index + tag.id}
                 >
                   {tag.name}
@@ -20,10 +21,10 @@ export default function Card({ user }: cardProps) {
             })}
           </div>
 
-          <h2 className="text-xl mt-2">
+          <h2 className="text-lg mt-2">
             {user.firstname} {user.lastname}
           </h2>
-          <p>{user.description}</p>
+          <p className="text-sm">{user.description}</p>
         </div>
         <div className="flex items-center justify-center !w-fit ">
           <img
@@ -34,7 +35,12 @@ export default function Card({ user }: cardProps) {
         </div>
       </div>
       <footer>
-        <button className="w-24 hover:bg-primary">Voir plus</button>
+        <Link
+          to={`/user/${user.id}`}
+          className="p-1 hover:bg-primary hover:text-white border-none"
+        >
+          Voir plus
+        </Link>
       </footer>
     </article>
   );
