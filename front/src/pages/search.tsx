@@ -7,6 +7,9 @@ import Professionnels from "./subpages/professionnels";
 import Materiels from "./subpages/materiels";
 import Infrastructures from "./subpages/infrastructures";
 import { ApolloClientCall } from "../components/apolloClient/ApolloClient";
+import { HEALTH_ACTOR_SEARCH } from "../components/gql/HealthActorSearch";
+import { INDUSTRIAL_SEARCH } from "../components/gql/IndustrialSearch";
+import { RESEARCHER_SEARCH } from "../components/gql/ResearcherSearch";
 
 type Tags = "healthActor" | "researcher" | "industrial" | "";
 
@@ -18,33 +21,57 @@ export default function Search() {
     chercheur: "researcher",
     industriel: "industrial",
   };
+  const queries = {
+    healthActor: HEALTH_ACTOR_SEARCH,
+    researcher: RESEARCHER_SEARCH,
+    industrial: INDUSTRIAL_SEARCH,
+    default: USERS,
+  };
   const tag = Object.values(tags)[
     Object.keys(tags).indexOf(pathname.split("/")[3])
   ] as Tags;
   const [noResult, setNoResult] = useState(false);
   const [users, setUsers] = useState<globalUserProps[]>([]);
   const [allUsers, setAllUsers] = useState<globalUserProps[]>([]);
+  const [input, setInput] = useState<string>("");
   const [filters, setFilters] = useState<string[]>([]);
   const [tagsCount, setTagsCount] = useState<{ [index: string]: number }>();
-
   useEffect(() => {
     ApolloClientCall.query({
-      query: USERS,
+      query: queries[tag ? tag : "default"],
+      variables: {
+        search: input,
+      },
     })
       .then((result) => {
-        const filterdUsers =
-          tag !== ""
-            ? result.data.users.filter(
-                (user: globalUserProps) => user[`${tag}`] !== null
-              )
-            : result.data.users;
-        setUsers(filterdUsers);
-        setAllUsers(filterdUsers);
+        console.log(result.data);
+        switch (tag) {
+          case "healthActor":
+            setUsers(result.data.healthActorsBySearch.rows);
+            setAllUsers(result.data.healthActorsBySearch.rows);
+            setNoResult(result.data.healthActorsBySearch.count === 0);
+            break;
+          case "researcher":
+            setUsers(result.data.researchersBySearch.rows);
+            setAllUsers(result.data.researchersBySearch.rows);
+            setNoResult(result.data.researchersBySearch.count === 0);
+            break;
+          case "industrial":
+            setUsers(result.data.industrialsBySearch.rows);
+            setAllUsers(result.data.industrialsBySearch.rows);
+            setNoResult(result.data.industrialBySearch.count === 0);
+            break;
+          default:
+            setUsers(result.data.users);
+            setAllUsers(result.data.users);
+            setNoResult(result.data.users.length === 0);
+            break;
+        }
       })
       .catch((error) => {
         console.error(error);
       });
-  }, [tag]);
+  }, [input, tag]);
 
   useEffect(() => {
     if (filters.length !== 0) {
@@ -84,22 +111,6 @@ export default function Search() {
       .toLowerCase(); // Convertit en minuscules
   }
 
-  const filteredUsers = (input: string) => {
-    const filtered = users.filter(
-      (user) =>
-        normalizeString(user.firstname).includes(normalizeString(input)) ||
-        normalizeString(user.lastname).includes(normalizeString(input)) ||
-        normalizeString(user.description ? user.description : "")
-          .split(" ")
-          .includes(normalizeString(input))
-    );
-
-    setUsers(filtered);
-    filtered.length === 0
-      ? (setNoResult(true), setUsers(allUsers))
-      : setNoResult(false);
-  };
-
   return (
     <>
       <Sidebar
@@ -131,7 +142,7 @@ export default function Search() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              filteredUsers(e.currentTarget.search.value);
+              setInput(e.currentTarget.search.value);
             }}
           >
             <input
