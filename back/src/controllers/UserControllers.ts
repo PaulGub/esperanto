@@ -128,10 +128,53 @@ export const getAllFollowers = async (userId: number) => {
 }
 
 export const addFollow = async ( args: { userId: number, followerId: number }) => {
-    const {userId, followerId} = args
-    const user = await User.findByPk(userId);
-    const follower = await User.findByPk(followerId);
-    user.addFollower(follower)
+    try {
+        const {userId, followerId} = args;
 
-    return "Votre abonnement a été pris en compte !"
+        if (userId === followerId) {
+            throw new Error("Un utilisateur ne peut pas se suivre lui-même");
+        }
+
+        const user = await User.findByPk(userId);
+        const follower = await User.findByPk(followerId);
+
+        if (!user) {
+            throw new Error(`Utilisateur avec l'ID ${userId} non trouvé`);
+        }
+
+        if (!follower) {
+            throw new Error(`Suiveur avec l'ID ${followerId} non trouvé`);
+        }
+
+        await user.addFollower(follower);
+
+        return "Votre abonnement a été pris en compte !"
+    } catch (error) {
+        console.error(error);
+        return `Une erreur est survenue: ${error.message}`;
+    }
 }
+
+export const removeFollow = async (args: { userId: number, followerId: number }) => {
+    try {
+        const { userId, followerId } = args;
+
+        const user = await User.findByPk(userId);
+        const follower = await User.findByPk(followerId);
+
+        if (!user) {
+            throw new Error(`Utilisateur avec l'ID ${userId} non trouvé`);
+        }
+
+        if (!follower) {
+            throw new Error(`Suiveur avec l'ID ${followerId} non trouvé`);
+        }
+
+        await user.removeFollower(follower);
+
+        return "Vous avez arrêté de suivre cet utilisateur.";
+    } catch (error) {
+        console.error(error);
+        return `Une erreur est survenue: ${error.message}`;
+    }
+};

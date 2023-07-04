@@ -1,28 +1,21 @@
 import { useEffect, useState } from "react";
-import { globalUserProps, needProps } from "../utils/types/data";
-import { ApolloClientCall } from "./apolloClient/ApolloClient";
-import { USERS_BY_NEED } from "./gql/GetUsersByTagNeed";
+import { needProps } from "../utils/types/data";
 import CardSuggestionVariant from "../components/CardSuggestionVariant";
+import { getUsersByTagNeed } from "./apolloClient/ApiCalls";
 
-export default function Need({ need, userId }: { need: needProps; userId: number }) {
-  const [needSuggestions, setNeedSuggestions] = useState<globalUserProps[]>([]);
+export default function Need({ need, userId }: { need: needProps, userId: number }) {
+  const [needSuggestions, setNeedSuggestions] = useState<needProps[]>([]);
   const NEED_ID = need.id;
+
   useEffect(() => {
-    ApolloClientCall.query({
-      query: USERS_BY_NEED,
-      variables: {
-        userId: userId,
-        needId: NEED_ID,
-      },
-    })
-      .then((result) => {
-        setNeedSuggestions(result.data.usersByTagNeed);
+    getUsersByTagNeed(userId, NEED_ID)
+      .then((needData) => {
+        setNeedSuggestions(needData);
       })
       .catch((error) => {
         console.error(error);
       });
   }, []);
-  console.log(need)
   return (
     <div className="p-4 bg-slate-50 rounded-lg w-full">
       <div className="flex flex-col items-start justify-center w-full mb-2 bg-gray-100 p-2 rounded">

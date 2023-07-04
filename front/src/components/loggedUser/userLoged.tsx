@@ -1,1 +1,1 @@
-export const CURRENT_USER = "12";
+export const CURRENT_USER = "1";

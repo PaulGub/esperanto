@@ -8,7 +8,8 @@ import {
   createHealthActor,
   createResearcher,
   getAllFollowers,
-  addFollow
+  addFollow,
+  removeFollow
 } from '@controllers/UserControllers';
 
 import { HealthActorTypes, UserInterface } from "@server/types";
@@ -34,6 +35,7 @@ export default {
     createResearcher: async (_, args) => {
       return createResearcher(args);
     },
-    addFollow: async (_, args: { userId: number, followerId: number }) => addFollow(args)
+    addFollow: async (_, args: { userId: number, followerId: number }) => addFollow(args),
+    removeFollow: async (_, args: { userId: number, followerId: number }) => removeFollow(args)
   }
 };
