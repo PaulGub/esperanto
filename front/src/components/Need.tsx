@@ -17,10 +17,11 @@ export default function Need({ need, userId }: { need: needProps, userId: number
         console.error(error);
       });
   }, []);
-  console.log(need);
+  console.log(CURRENT_USER);
+  console.log(userId);
   return (
     <div className="p-4 bg-slate-50 rounded-lg w-full">
-      {CURRENT_USER !== userId && (
+      {CURRENT_USER != userId ? (
         <div className="flex flex-col items-start justify-center w-full mb-2 bg-primary-100 p-5 rounded mb-4">
           <div className="flex w-full">
             <div className='w-1/6 mr-2'>
@@ -50,7 +51,7 @@ export default function Need({ need, userId }: { need: needProps, userId: number
             </div>
           </div>
         </div>
-      )}
+      ):""}
       <div className="flex flex-col items-start justify-center w-full mb-2 bg-gray-100 p-2 rounded">
         <h3 className="text-sm pb-1">Titre de votre besoin :</h3>
         <div className="bg-white p-2 w-full rounded mt-2">{need?.title}</div>
