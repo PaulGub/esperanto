@@ -79,21 +79,15 @@ export default function AddNeed() {
     }, []);
 
     return (
-        <div className="flex flex-col gap-8 justify-start bg-white border border-solid rounded-lg p-4 relative">
-            <div className="flex justify-between items-center w-full">
-                <div className="flex flex-col">
-                    <h3 className="text-sm pb-1">Ajouter un besoin</h3>
-                    <span className="w-1/4 bg-primary-300 rounded h-1"></span>
-                </div>
-                <div
-                    className="flex justify-center items-center w-[35px] h-[35px] rounded-full hover:bg-gray-100 cursor-pointer"
-                    onClick={toggleFormVisibility}
-                >
+        <div className="flex flex-col gap-8 justify-start bg-white border border-solid rounded-lg relative hover:border hover:border-1 hover:border-primary-400 cursor-pointer">
+            <div className="flex justify-between items-center w-full rounded-lg p-4 hover:bg-primary-100" onClick={toggleFormVisibility}>
+                <h3 className="text-sm pb-1">Ajouter un besoin</h3>
+                <div className="flex justify-center items-center w-[35px] h-[35px] rounded-full hover:bg-gray-100 cursor-pointer">
                     <img className="w-[30px] h-[30px]" src={isFormVisible ? "/src/assets/minus.png" : "/src/assets/plus.png"} alt="add" />
                 </div>
             </div>
             {isFormVisible && (
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2 px-4 pb-4">
                     <FormInput
                         id="title"
                         type="text"
