@@ -29,6 +29,7 @@ export interface UserT extends Model {
     addTag(tag: TagT): HasManyAddAssociationMixin<TagT, number>,
     getFollowers(): HasManyGetAssociationsMixin<UserT>,
     addFollower(user: UserT): HasManyAddAssociationMixin<UserT, number>
+    removeFollower(user: UserT): HasManyAddAssociationMixin<UserT, number>
 }
 
 export const User = SequelizeClient.define<UserT>(

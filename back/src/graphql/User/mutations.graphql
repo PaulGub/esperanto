@@ -29,4 +29,8 @@ type Mutation {
         userId: ID
         followerId: ID
     ): String
+    removeFollow(
+        userId: ID
+        followerId: ID
+    ): String
 }
