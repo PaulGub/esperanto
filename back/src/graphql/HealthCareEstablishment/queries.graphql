@@ -1,0 +1,4 @@
+type Query {
+    healthCareEstablishments(start: Int, limit: Int): HealthCareEstablishmentWithCount
+    healthCareEstablishmentsBySearch(start: Int, limit: Int, search: String): HealthCareEstablishmentWithCount
+}
