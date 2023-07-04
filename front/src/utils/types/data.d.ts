@@ -54,4 +54,5 @@ export type needProps = {
       description: string,
     }[];
     tags: Array<{ id: number; name: string }>;
+    user: { id: number };
   };

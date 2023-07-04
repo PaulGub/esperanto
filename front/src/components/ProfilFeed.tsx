@@ -5,20 +5,35 @@ import { useEffect, useState } from "react";
 import { CURRENT_USER } from "./loggedUser/userLoged";
 import { USER_NEED } from "./gql/GetUserNeed";
 import { needProps } from "../utils/types/data";
+import { USER_FEED } from "./gql/GetNeedByUserIdSuggestion";
 
 export default function ProfilFeed() {
   const pathname = useLocation().pathname;
   const [userNeed, setUserNeed] = useState<needProps[]>([]);
+  const [userFeed, setUserFeed] = useState<needProps[]>([]);
   useEffect(() => {
     ApolloClientCall.query({
       query: USER_NEED,
       variables: {
         userId: CURRENT_USER,
-        needId: "1",
       },
     })
       .then((result) => {
         setUserNeed(result.data.userById.needs);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+  useEffect(() => {
+    ApolloClientCall.query({
+      query: USER_FEED,
+      variables: {
+        userId: CURRENT_USER,
+      },
+    })
+      .then((result) => {
+        setUserFeed(result.data.needByUserIdSuggestion);
       })
       .catch((error) => {
         console.error(error);
@@ -31,9 +46,11 @@ export default function ProfilFeed() {
           <h3 className="text-sm pb-1">Mes besoins</h3>
           <span className="w-[50px] bg-primary-300 rounded h-1"></span>
           <div className="text-xxs flex flex-wrap my-2 w-full">
-            {userNeed?.map((need) => (
-              <Need key={need.id} need={need} />
-            ))}
+            {userNeed.length === 0 ? (
+                <p className="text-xs p-2 bg-gray-100 rounded w-full mt-2">Vous n'avez pas de besoins pour l'instant.</p>
+              ) : (
+                userNeed.map((need) => <Need key={need.id} need={need} userId={need.user.id}/>)
+            )}
           </div>
         </div>
       )}
@@ -55,7 +72,13 @@ export default function ProfilFeed() {
         <div className="flex flex-col items-start justify-center w-full mt-2">
           <h3 className="text-sm pb-1">Ils ont peut-être besoin de vous!</h3>
           <span className="w-[50px] bg-primary-300 rounded h-1"></span>
-          <div className="text-xxs flex flex-wrap my-2"></div>
+          <div className="text-xxs flex flex-wrap my-2 w-full">
+            {userFeed.length === 0 ? (
+              <p className="text-xs p-2 bg-gray-100 rounded w-full mt-2">Personne n'a besoin de votre aide pour l'instant.</p>
+            ) : (
+              userFeed.map((need) => <Need key={need.id} need={need} userId={need.user.id}/>)
+            )}
+          </div>
         </div>
       )}
     </div>

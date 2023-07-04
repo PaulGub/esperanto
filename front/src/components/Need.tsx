@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
 import { globalUserProps, needProps } from "../utils/types/data";
 import { ApolloClientCall } from "./apolloClient/ApolloClient";
-import { CURRENT_USER } from "./loggedUser/userLoged";
 import { USERS_BY_NEED } from "./gql/GetUsersByTagNeed";
 import CardSuggestionVariant from "../components/CardSuggestionVariant";
 
-export default function Need({ need }: { need: needProps }) {
+export default function Need({ need, userId }: { need: needProps; userId: number }) {
   const [needSuggestions, setNeedSuggestions] = useState<globalUserProps[]>([]);
   const NEED_ID = need.id;
   useEffect(() => {
     ApolloClientCall.query({
       query: USERS_BY_NEED,
       variables: {
-        userId: CURRENT_USER,
+        userId: userId,
         needId: NEED_ID,
       },
     })
@@ -23,7 +22,7 @@ export default function Need({ need }: { need: needProps }) {
         console.error(error);
       });
   }, []);
-  console.log(need);
+  console.log(need)
   return (
     <div className="p-4 bg-slate-50 rounded-lg w-full">
       <div className="flex flex-col items-start justify-center w-full mb-2 bg-gray-100 p-2 rounded">
@@ -55,15 +54,15 @@ export default function Need({ need }: { need: needProps }) {
           <p className="underline text-xs">{need?.type} : </p>
           <p className="text-xs">{need?.infrastructure}</p>
           {need?.professionals.map((needed) => (
-            <p className="text-xs"> {needed.name}</p>
+            <p className="text-xs" key={needed.id}> {needed.name}</p>
           ))}
           {need?.materials.map((needed) => (
-            <p className="text-xs"> {needed.name}</p>
+            <p className="text-xs" key={needed.id}> {needed.name}</p>
           ))}
         </div>
       </div>
       <div className="flex flex-col items-start justify-center w-full mt-5 mb-2 mb-2 p-2">
-        <h3 className="text-sm pb-1">Ils peuvent vous aider</h3>
+        <h3 className="text-sm pb-1">Ils peuvent peut-être vous aider :</h3>
         <div className="suggestions grid grid-cols-4 gap-2 mt-2">
           {needSuggestions?.map((user) => (
             <CardSuggestionVariant user={user} key={user.id} />

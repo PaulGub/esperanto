@@ -38,3 +38,26 @@ export const needUserTagsMatching = (userToMatch: UserInterface, users: UserInte
 
   return usersWithCommonTags.map((userAndNumberTagsMatched: UserAndNumberTagsMatched) => userAndNumberTagsMatched.user).slice(0, 10);
 };
+
+
+export const needByUserIdSuggestion = (currentUser: UserInterface, allNeeds: NeedInterface[]): NeedInterface[] => {
+  const userTags: string[] = currentUser.tags.map((tag: TagInterface) => tag.name);
+
+  const matchingNeeds: NeedInterface[] = [];
+
+  allNeeds.forEach((need: NeedInterface) => {
+      const needTags: string[] = need.tags.map((tag: TagInterface) => tag.name);
+      const commonTags: string[] = needTags.filter((tag: string) => userTags.includes(tag));
+      if (commonTags.length > 0) {
+          matchingNeeds.push(need);
+      }
+  });
+
+  matchingNeeds.sort((a: NeedInterface, b: NeedInterface) => {
+    const tagsInCommonA = a.tags.filter((tag: TagInterface) => userTags.includes(tag.name)).length;
+    const tagsInCommonB = b.tags.filter((tag: TagInterface) => userTags.includes(tag.name)).length;
+    return tagsInCommonB - tagsInCommonA;
+  });
+
+  return matchingNeeds;
+}

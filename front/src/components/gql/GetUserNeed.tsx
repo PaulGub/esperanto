@@ -23,6 +23,9 @@ export const USER_NEED = gql`
                     resourceLink
                     description
                 }    
+                user {
+                    id
+                }
             }      
         }
     }
