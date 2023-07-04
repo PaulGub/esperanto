@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { globalUserProps } from "../utils/types";
-import { getUserById } from "./apolloClient/Queries";
-import { useMutation } from "@apollo/client";
+import { checkIsFollowed, getUserById } from "./apolloClient/Queries";
+import { useMutation, useQuery } from "@apollo/client";
 import { ADD_FOLLOW } from "./gql/AddFollow";
 import { REMOVE_FOLLOW } from "./gql/RemoveFollow";
 import { CURRENT_USER } from "./loggedUser/userLoged";
 import { ApolloClientCall } from "./apolloClient/ApolloClient";
+import { CHECK_IS_FOLLOWED } from "./gql/CheckIsFollowed";
 
 export default function ProfilUser({ userId }: { userId: number }) {
   const [user, setUser] = useState<globalUserProps>();
@@ -27,6 +28,16 @@ export default function ProfilUser({ userId }: { userId: number }) {
   const [message, setMessage] = useState('');
   const [showMessage, setShowMessage] = useState(false);
   let messageTimer: number | null = null;
+
+  useEffect(() => {
+    checkIsFollowed(CURRENT_USER, userId)
+      .then((isFollowing) => {
+        setIsFollowing(isFollowing);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   const toggleFollow = () => {
     if (isFollowing) {

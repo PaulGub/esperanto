@@ -6,6 +6,7 @@ import { USERS_BY_TAG } from "../gql/GetUserByTagUser";
 import { USER_NEED } from "../gql/GetUserNeed";
 import { USERS_BY_NEED } from "../gql/GetUsersByTagNeed";
 import { ApolloClientCall } from "./ApolloClient";
+import { CHECK_IS_FOLLOWED } from "../gql/CheckIsFollowed";
 
 export async function getAllUsers(): Promise<any> {
   try {
@@ -87,6 +88,21 @@ export async function getUserNeeds(userId: number | string): Promise<any> {
     });
     console.log(result.data);
     return result.data.userById.needs;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function checkIsFollowed(userId: number, followerId: number): Promise<any> {
+  try {
+    const result = await ApolloClientCall.query({
+      query: CHECK_IS_FOLLOWED,
+      variables: {
+        userId: userId,
+        followerId: followerId
+      },
+    });
+    return result.data.checkIsFollowed;
   } catch (error) {
     console.error(error);
   }
