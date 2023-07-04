@@ -7,6 +7,8 @@ import { needProps } from "../utils/types/data";
 import { USER_FEED } from "./gql/GetNeedByUserIdSuggestion";
 import { ApolloClientCall } from "./apolloClient/ApolloClient";
 import AddNeed from "./AddNeed";
+import UserMenuSocial from "./UserSocialMenu";
+import SocialUser from "./SocialUser";
 
 export default function ProfilFeed() {
   const pathname = useLocation().pathname;
@@ -55,10 +57,24 @@ export default function ProfilFeed() {
           </div>
         )}
         {pathname.split("/")[2] === "suivis" && (
-          <div className="flex flex-col items-start justify-center w-full mt-2">
-            <h3 className="text-sm pb-1">Mes profils suivis</h3>
-            <span className="w-[50px] bg-primary-300 rounded h-1"></span>
-            <div className="text-xxs flex flex-wrap my-2"></div>
+          <div className="flex flex-col items-start justify-center w-full">
+            <div className="text-xxs flex flex-wrap w-full">
+              <UserMenuSocial />
+              {pathname.split("/")[3] === "abonnes" && (
+                <div className="flex flex-col items-start justify-center w-full">
+                  <div className="text-xxs flex flex-wrap w-full">
+                    <SocialUser tab="abonnes" userId={CURRENT_USER}/>
+                  </div>
+                </div>
+              )}
+              {pathname.split("/")[3] === "abonnements" && (
+                <div className="flex flex-col items-start justify-center w-full">
+                  <div className="text-xxs flex flex-wrap w-full">
+                    <SocialUser tab="abonnements" userId={CURRENT_USER}/>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         )}
         {pathname.split("/")[2] === "listes" && (

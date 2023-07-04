@@ -32,7 +32,7 @@ export default function UserMenu() {
               : "w-full text-center hover:bg-primary hover:text-white text-xs flex justify-center items-center p-1"
           }
         >
-          Profils suivis
+          Social
         </NavLink>
         <NavLink
           to={"/feed/listes"}
