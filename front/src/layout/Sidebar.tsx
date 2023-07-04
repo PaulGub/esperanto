@@ -11,6 +11,7 @@ import {
 import Filter from "../components/Filter";
 import { TAGS } from "../components/gql/GetAllTags";
 import { ApolloClientCall } from "../components/apolloClient/ApolloClient";
+import Loader from "../components/Loader";
 
 export default function Sidebar({
   setFilters,
@@ -90,21 +91,23 @@ export default function Sidebar({
             state.props.rotate90 ? "h-0" : "h-auto"
           } transition overflow-hidden`}
         >
-          {tagsCount
-            ? Object.keys(tagsCount).map((tag, index) => (
-                <Filter
-                  rotate={state.props.rotate90}
-                  info={{
-                    id: tags[index].id,
-                    name: tag,
-                    count: Object.values(tagsCount)[index],
-                  }}
-                  state={state}
-                  dispatch={dispatch}
-                  key={tag}
-                />
-              ))
-            : ""}
+          {tagsCount ? (
+            Object.keys(tagsCount).map((tag, index) => (
+              <Filter
+                rotate={state.props.rotate90}
+                info={{
+                  id: tags[index].id,
+                  name: tag,
+                  count: Object.values(tagsCount)[index],
+                }}
+                state={state}
+                dispatch={dispatch}
+                key={tag}
+              />
+            ))
+          ) : (
+            <Loader />
+          )}
         </div>
       </div>
     </form>
