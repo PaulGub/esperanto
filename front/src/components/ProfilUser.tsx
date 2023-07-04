@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { globalUserProps } from "../utils/types";
-import { checkIsFollowed, getUserById } from "./apolloClient/Queries";
-import { useMutation, useQuery } from "@apollo/client";
+import { checkIsFollowed, getAllFollowers, getAllFollows, getUserById } from "./apolloClient/Queries";
+import { useMutation } from "@apollo/client";
 import { ADD_FOLLOW } from "./gql/AddFollow";
 import { REMOVE_FOLLOW } from "./gql/RemoveFollow";
 import { CURRENT_USER } from "./loggedUser/userLoged";
 import { ApolloClientCall } from "./apolloClient/ApolloClient";
-import { CHECK_IS_FOLLOWED } from "./gql/CheckIsFollowed";
 
 export default function ProfilUser({ userId }: { userId: number }) {
   const [user, setUser] = useState<globalUserProps>();
@@ -39,6 +38,26 @@ export default function ProfilUser({ userId }: { userId: number }) {
       });
   }, []);
 
+  const [followerNumber, setFollowerNumber] = useState<number>(0);
+  const [followNumber, setFollowNumber] = useState<number>(0);
+
+  useEffect(() => {
+    getAllFollowers(userId)
+      .then((followerData) => {
+        setFollowerNumber(followerData.length);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    getAllFollows(userId)
+      .then((followData) => {
+        setFollowNumber(followData.length);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
   const toggleFollow = () => {
     if (isFollowing) {
       removeFollow({
@@ -50,6 +69,7 @@ export default function ProfilUser({ userId }: { userId: number }) {
       .then((result) => {
         const message = result.data.removeFollow;
         setIsFollowing(false);
+        setFollowerNumber(prevFollowerNumber => prevFollowerNumber - 1);
         showMessageWithTimeout(message, 2000);
       })
       .catch((error) => {
@@ -67,6 +87,7 @@ export default function ProfilUser({ userId }: { userId: number }) {
       .then((result) => {
         const message = result.data.addFollow;
         setIsFollowing(true);
+        setFollowerNumber(prevFollowerNumber => prevFollowerNumber + 1);
         showMessageWithTimeout(message, 2000);
       })
       .catch((error) => {
@@ -76,6 +97,7 @@ export default function ProfilUser({ userId }: { userId: number }) {
       });
     }
   };
+  
   const showMessageWithTimeout = (message: string, duration: number) => {
     setMessage(message);
     setShowMessage(true);
@@ -122,17 +144,38 @@ export default function ProfilUser({ userId }: { userId: number }) {
               {userProfessionalStatus}
             </p>
           </div>
-          <div className="mt-2 ml-5 mr-5">
-            <a
-              className={`text-xs pt-1 pb-1 pr-2 pl-2 border rounded-lg cursor-pointer ${
-                isFollowing ? "bg-transparent border-red-500 text-red-500 hover:bg-red-500 hover:text-white" : "bg-primary-300 border-primary-300 text-white hover:bg-white hover:text-primary-300"
-              }`}
-              onClick={toggleFollow}
-            >
-              {isFollowing ? "Ne plus suivre" : "Suivre"}
-            </a>
-            <a className="text-xs bg-primary-300 pt-1 pb-1 pr-2 pl-2 hover:bg-white hover:text-primary-300 border border-primary-300 ml-1 rounded-lg text-white" href={`tel:${user?.phoneNumber}`}>Appeler</a>                 
-            <a className="text-xs bg-primary-300 pt-1 pb-1 pr-2 pl-2 hover:bg-white hover:text-primary-300 border border-primary-300 ml-1 rounded-lg text-white" href='#'>Contacter</a>                 
+          <div className="mt-2 ml-5 mr-5 flex flex-col justify-between">
+            <div>
+              <a
+                className={`text-xs pt-1 pb-1 pr-2 pl-2 border rounded-lg cursor-pointer ${
+                  isFollowing ? "bg-transparent border-red-500 text-red-500 hover:bg-red-500 hover:text-white" : "bg-primary-300 border-primary-300 text-white hover:bg-white hover:text-primary-300"
+                }`}
+                onClick={toggleFollow}
+              >
+                {isFollowing ? "Ne plus suivre" : "Suivre"}
+              </a>
+              <a className="text-xs bg-primary-300 pt-1 pb-1 pr-2 pl-2 hover:bg-white hover:text-primary-300 border border-primary-300 ml-1 rounded-lg text-white" href={`tel:${user?.phoneNumber}`}>Appeler</a>               
+              <a className="text-xs bg-primary-300 pt-1 pb-1 pr-2 pl-2 hover:bg-white hover:text-primary-300 border border-primary-300 ml-1 rounded-lg text-white" href='#'>Contacter</a>
+            </div>
+            {userId === CURRENT_USER ? (
+              <div className="flex justify-end gap-4">
+                <a href="/feed/listes" className="text-[14px] text-primary hover:underline">
+                  {followerNumber} abonnés
+                </a>
+                <a href="/feed/listes" className="text-[14px] text-primary hover:underline">
+                  {followNumber} abonnements
+                </a>
+              </div>
+            ) : (
+              <div className="flex justify-end gap-4">
+                <span className="text-[14px] text-gray">
+                  {followerNumber} abonnés
+                </span>
+                <span className="text-[14px] text-gray">
+                  {followNumber} abonnements
+                </span>
+              </div>
+            )}
           </div>
         </div>
         <div className="ml-5 mr-5 pt-5 pb-5">

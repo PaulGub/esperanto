@@ -7,6 +7,8 @@ import { USER_NEED } from "../gql/GetUserNeed";
 import { USERS_BY_NEED } from "../gql/GetUsersByTagNeed";
 import { ApolloClientCall } from "./ApolloClient";
 import { CHECK_IS_FOLLOWED } from "../gql/CheckIsFollowed";
+import { USER_FOLLOWERS } from "../gql/GetFollowers";
+import { USER_FOLLOWINGS } from "../gql/GetFollowing";
 
 export async function getAllUsers(): Promise<any> {
   try {
@@ -88,6 +90,34 @@ export async function getUserNeeds(userId: number | string): Promise<any> {
     });
     console.log(result.data);
     return result.data.userById.needs;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function getAllFollowers(userId: number): Promise<any> {
+  try {
+    const result = await ApolloClientCall.query({
+      query: USER_FOLLOWERS,
+      variables: {
+        userId: userId,
+      },
+    });
+    return result.data.getAllFollowers;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function getAllFollows(userId: number): Promise<any> {
+  try {
+    const result = await ApolloClientCall.query({
+      query: USER_FOLLOWINGS,
+      variables: {
+        userId: userId,
+      },
+    });
+    return result.data.getAllFollowing;
   } catch (error) {
     console.error(error);
   }

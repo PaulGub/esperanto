@@ -9,8 +9,8 @@ export const USER_FOLLOWERS = gql`
             healthActor {
                 id
                 professional {
-                id
-                name
+                    id
+                    name
                 }
                 careServiceType
                 supportServices
