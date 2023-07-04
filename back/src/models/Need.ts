@@ -1,5 +1,13 @@
-import { Model, DataTypes } from 'sequelize';
+import {
+  Model,
+  DataTypes,
+  NonAttribute,
+  HasOneSetAssociationMixin,
+  HasManyAddAssociationMixin,
+} from 'sequelize';
 import { SequelizeClient } from '@clients/sequelize';
+import {TagT} from "@models/Tag";
+import {UserT} from "@models/User";
 
 export interface NeedT extends Model {
     id: number,
@@ -7,6 +15,11 @@ export interface NeedT extends Model {
     type: string,
     description?: string,
     infrastructure?: string,
+
+    tags?: NonAttribute<TagT[]>;
+
+    addTag(tag: TagT): HasManyAddAssociationMixin<TagT, number>,
+    setUser(user: UserT): HasOneSetAssociationMixin<UserT, number>
 }
 
 export const Need = SequelizeClient.define<NeedT>(

@@ -1,0 +1,7 @@
+input NeedInput {
+    title: String!
+    type: String!
+    description: String
+    infrastructure: String
+    tags: [TagInput]
+}
