@@ -36,6 +36,23 @@ export default function Search() {
   const [input, setInput] = useState<string>("");
   const [filters, setFilters] = useState<string[]>([]);
   const [tagsCount, setTagsCount] = useState<{ [index: string]: number }>();
+
+  function getUsersByTagFilters(filters: string[], users: globalUserProps[]) {
+    return users.filter((user) => {
+      const userTags = user.tags.map((tag) => tag.name);
+      return filters.every((filter) => userTags.includes(filter));
+    });
+  }
+
+  function normalizeString(input: string): string {
+    input ? input : (input = " ");
+    return input
+      .normalize("NFD") // Décompose les caractères accentués en base et accents séparés
+      .replace(/[\u0300-\u036f]/g, "") // Supprime les caractères d'accent
+      .replace(/[^\w\s]/gi, "") // Supprime les caractères spéciaux
+      .toLowerCase(); // Convertit en minuscules
+  }
+
   useEffect(() => {
     getSearchedUser(queries[tag ? tag : "default"], input).then((result) => {
       switch (tag) {
@@ -65,16 +82,8 @@ export default function Search() {
 
   useEffect(() => {
     if (filters.length !== 0) {
-      const filtered: globalUserProps[] = [];
-      const tempFilter = users.map((user) => {
-        return user.tags
-          .map((tag) => (filters.includes(tag.name) ? user : null))
-          .filter((item) => item !== null);
-      }) as globalUserProps[][];
-      tempFilter
-        .filter((item) => item.length !== 0)
-        .forEach((item) => filtered.push(item[0]));
-      filtered.length !== 0 ? setUsers(filtered) : setUsers(allUsers);
+      const matchedUsers = getUsersByTagFilters(filters, users);
+      setUsers(matchedUsers);
     } else {
       setUsers(allUsers);
     }
@@ -91,15 +100,6 @@ export default function Search() {
       setTagsCount(tagsCountTemp);
     }
   }, [users]);
-
-  function normalizeString(input: string): string {
-    input ? input : (input = " ");
-    return input
-      .normalize("NFD") // Décompose les caractères accentués en base et accents séparés
-      .replace(/[\u0300-\u036f]/g, "") // Supprime les caractères d'accent
-      .replace(/[^\w\s]/gi, "") // Supprime les caractères spéciaux
-      .toLowerCase(); // Convertit en minuscules
-  }
 
   return (
     <>
