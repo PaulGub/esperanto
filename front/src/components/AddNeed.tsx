@@ -1,17 +1,32 @@
 import { useEffect, useState } from "react";
 import FormInput from "./FormInput";
-import { Tag, needProps } from "../utils/types/data";
 import { getAllTags } from "./apolloClient/Queries";
 import { createNeed } from "./apolloClient/Mutations";
 import { CURRENT_USER } from "./loggedUser/userLoged";
+import { useNavigate } from "react-router-dom";
 
-enum NeedType {
+export interface Tag {
+    id: number,
+    name: string,
+}
+
+export enum NeedType {
     Material = "Material",
     Professional = "Professional", 
     Infrastructure = "Infrastructure"
 }
+  
+export interface Need {
+    title: string,
+    type: string,
+    infrastructure: string,
+    description: string,
+    tags: Tag[],
+}
 
 export default function AddNeed() {
+    const navigate = useNavigate();
+
     const [isFormVisible, setIsFormVisible] = useState(false);
     const [allTags, setAllTags] = useState<Tag[]>([]);
     const [isSelectTagOpen, setIsSelectTagOpen] = useState(false);
@@ -32,19 +47,25 @@ export default function AddNeed() {
 
     const handleTagSelection = (tag: Tag): void => {
         setIsSelectTagOpen(false);
-        setTags([...tags, tag]);
+        setTags([...tags, { id: tag.id, name: tag.name }]);
         setAllTags(allTags.filter((t) => t.id !== tag.id));
     };
 
     const submitForm = (): void => {
-        let needData: any = {
+        let needData: Need = {
             title: title,
             type: type,
             infrastructure: infrastructure,
             description: description,
             tags: tags,
         };
-        createNeed(CURRENT_USER, needData);
+        createNeed(CURRENT_USER, needData)
+            .then((data) => {
+                navigate(0);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     };
     
     useEffect(() => {
