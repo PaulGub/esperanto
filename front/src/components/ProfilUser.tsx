@@ -1,27 +1,22 @@
-import { USER } from "./gql/GetUserById";
 import { useState, useEffect } from "react";
 import { userProps } from "../utils/types";
-import { ApolloClientCall } from './apolloClient/ApolloClient';
+import { getUserById } from "./apolloClient/ApiCalls";
 
 export default function ProfilUser({ userId }: { userId: number }) {
   const [user, setUser] = useState<userProps>();
+
   useEffect(() => {
-    ApolloClientCall
-      .query({
-        query: USER,
-        variables: {
-          userId: userId,
-        },
-      })
-      .then((result) => {
-        console.log(result.data.userById);
-        setUser(result.data.userById);
+    getUserById(userId)
+      .then((userData) => {
+        setUser(userData);
       })
       .catch((error) => {
         console.error(error);
       });
   }, []);
+
   const userProfessionalStatus = user?.healthActor?.professional?.name || user?.professionalStatus || "";
+  
   return (
     <div className="flex flex-col items-center justify-start bg-white border border-solid rounded-lg col-span-3">
       <div className="w-full">

@@ -11,6 +11,7 @@ import "./index.css";
 import Search from "./pages/search.tsx";
 import Profil from "./pages/profil.tsx";
 import User from "./pages/user.tsx";
+import AccountCreation from "./pages/AccountCreation.tsx";
 
 const root = createRoot(
   document.getElementById("root") as Element | DocumentFragment
@@ -20,6 +21,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route path="/" element={<App />}>
+        <Route path="account" element={<AccountCreation />} />
         <Route index element={<Navigate to={"feed/actualites"} />} />
         <Route path="feed" element={<Profil />}>
           <Route path="actualites" element={<Profil />} />
