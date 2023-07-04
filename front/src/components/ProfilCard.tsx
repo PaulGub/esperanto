@@ -1,29 +1,24 @@
-import { USER } from "./gql/GetUserById";
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { globalUserProps } from "../utils/types";
-import { ApolloClientCall } from "./apolloClient/ApolloClient";
 import { CURRENT_USER } from "./loggedUser/userLoged";
+import { getUserById } from "./apolloClient/ApiCalls";
 
 export default function ProfilCard() {
   const [user, setUser] = useState<globalUserProps>();
   const [showAllTags, setShowAllTags] = useState(false);
 
   useEffect(() => {
-    ApolloClientCall.query({
-      query: USER,
-      variables: {
-        userId: CURRENT_USER,
-      },
-    })
-      .then((result) => {
-        setUser(result.data.userById);
+    getUserById(CURRENT_USER)
+      .then((userData) => {
+        setUser(userData);
       })
       .catch((error) => {
         console.error(error);
       });
   }, []);
-  const userProfessionalStatus =
-    user?.healthActor?.professional?.name || user?.professionalStatus || "";
+
+  const userProfessionalStatus = user?.healthActor?.professional?.name || user?.professionalStatus || "";
+
   return (
     <div className="flex flex-col items-center justify-start bg-white border border-solid rounded-lg relative">
       <div className="w-full">

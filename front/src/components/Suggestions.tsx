@@ -1,27 +1,22 @@
 import { useEffect, useState } from "react";
 import CardSuggestion from "../components/CardSuggestion";
-import { USERS_BY_TAG } from "./gql/GetUserByTagUser";
 import { globalUserProps } from "../utils/types";
-import { ApolloClientCall } from './apolloClient/ApolloClient';
+import { getUsersByTagUser } from "./apolloClient/ApiCalls";
 
 export default function Suggestions({ userId, title }: { userId: number, title:string }) {
   const [users, setUsers] = useState<globalUserProps[]>([]);
   const pageTitle = title ?? "Profils suggérés";
+
   useEffect(() => {
-    ApolloClientCall
-      .query({
-        query: USERS_BY_TAG,
-        variables: {
-          userId: userId,
-        },
-      })
-      .then((result) => {
-        setUsers(result.data.usersByTagUser);
+    getUsersByTagUser(userId)
+      .then((userData) => {
+        setUsers(userData);
       })
       .catch((error) => {
         console.error(error);
       });
   }, []);
+
   return (
     <div className="bg-white p-2 rounded-lg max-h-[550px]">
       <div className="flex flex-col p-2">
