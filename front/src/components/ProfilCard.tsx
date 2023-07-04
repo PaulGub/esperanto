@@ -20,7 +20,7 @@ export default function ProfilCard() {
   const userProfessionalStatus = user?.healthActor?.professional?.name || user?.professionalStatus || "";
 
   return (
-    <div className="flex flex-col items-center justify-start bg-white border border-solid rounded-lg relative">
+    <div className="flex flex-col items-center justify-start bg-white border border-solid rounded-lg relative h-fit">
       <div className="w-full">
         <img
           src={user?.profileBanner}
