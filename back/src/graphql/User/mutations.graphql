@@ -13,13 +13,13 @@ type Mutation {
         profilePicture: String
     ): User
     createIndustrial(
-        careSector: String,
-        otherSector: String
-    ): Industrial
+        userId: ID,
+        industrialData: IndustrialData
+    ): User
     createHealthActor(
         userId: ID,
         healthActorData: HealthActorData
-    ): HealthActor
+    ): User
     createResearcher(
         userId: ID,
         researcherData: ResearcherData

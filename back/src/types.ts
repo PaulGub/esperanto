@@ -11,6 +11,17 @@ export interface ResearcherData {
     researchArea: String
 }
 
+export interface IndustrialData {
+    careSector: string,
+    otherSector: string,
+}
+
+export interface HealthActorData {
+    careServiceType: string,
+    supportServices: string,
+}
+
+
 export interface UserInterface {
     id: number,
     firstname: string,

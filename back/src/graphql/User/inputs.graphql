@@ -8,3 +8,8 @@ input ResearcherData {
     researchDepartment: String
     researchArea: String
 }
+
+input IndustrialData {
+    careSector: String,
+    otherSector: String,
+}

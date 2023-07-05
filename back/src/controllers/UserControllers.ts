@@ -113,19 +113,18 @@ export const createUser = async (userData) => {
     return user;
 }
 
-export const createIndustrial = async (industrialData) => {
+export const createIndustrial = async (userId: number, industrialData) => {
+    const user = await User.findByPk(userId)
     const industrial = await Industrial.create(industrialData);
-    return industrial;
+    await user.setIndustrial(industrial)
+    return user;
 }
 
-export const createHealthActor = async (userId: number, healthActorData: HealthActorTypes) => {
-    const data = {
-        userId: userId,
-        ...healthActorData
-    }
-    return await HealthActor.create(data, {
-        include: [User]
-    });
+export const createHealthActor = async (userId: number, healthActorData) => {
+    const user = await User.findByPk(userId)
+    const researcher = await HealthActor.create(healthActorData);
+    await user.setHealthActor(researcher)
+    return user;
 }
 
 export const createResearcher = async (userId: number, researcherData) => {
