@@ -17,7 +17,7 @@ export default function Need({ need, userId }: { need: needProps, userId: number
         console.error(error);
       });
   }, []);
-  
+
   return (
     <div className="p-4 bg-slate-50 rounded-lg w-full mt-2">
       {CURRENT_USER != userId ? (
@@ -52,17 +52,17 @@ export default function Need({ need, userId }: { need: needProps, userId: number
         </div>
       ):""}
       <div className="flex flex-col items-start justify-center w-full mb-2 bg-gray-100 p-2 rounded">
-        <h3 className="text-sm pb-1">Titre de votre besoin :</h3>
+        <h3 className="text-sm pb-1">Titre du besoin :</h3>
         <div className="bg-white p-2 w-full rounded mt-2">{need?.title}</div>
       </div>
       <div className="flex flex-col items-start justify-center w-full mt-5 mb-2 bg-gray-100 p-2 rounded">
-        <h3 className="text-sm pb-1">Description de votre besoin :</h3>
+        <h3 className="text-sm pb-1">Description du besoin :</h3>
         <div className="bg-white p-2 w-full rounded mt-2">
           {need?.description}
         </div>
       </div>
       <div className="flex flex-col items-start justify-center w-full mt-5 mb-2 bg-gray-100 p-2 rounded">
-        <h3 className="text-sm pb-1">Tags de votre besoin :</h3>
+        <h3 className="text-sm pb-1">Tags du besoin :</h3>
         <div className="w-full rounded mt-2 p-2 bg-white">
           {need?.tags?.map((tag) => (
             <span
@@ -75,7 +75,7 @@ export default function Need({ need, userId }: { need: needProps, userId: number
         </div>
       </div>
       <div className="flex flex-col items-start justify-center w-full mt-5 mb-2 bg-gray-100 p-2 rounded">
-        <h3 className="text-sm pb-1">Valeur votre besoin :</h3>
+        <h3 className="text-sm pb-1">Valeur du besoin :</h3>
         <div className="bg-white p-2 w-full rounded mt-2">
           <p className="underline text-xs">{need?.type} : </p>
           <p className="text-xs">{need?.infrastructure}</p>
@@ -89,7 +89,7 @@ export default function Need({ need, userId }: { need: needProps, userId: number
       </div>
       <div className="flex flex-col items-start justify-center w-full mt-5 mb-2 mb-2 p-2">
         {CURRENT_USER !== userId ? (
-          <h3 className="text-sm pb-1">Ils peuvent peut-être vous aider :</h3>
+          <h3 className="text-sm pb-1">Ils peuvent peut-être aider :</h3>
         ) : (
           <h3 className="text-sm pb-1">Profils associés au besoin :</h3>
         )}

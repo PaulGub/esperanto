@@ -62,3 +62,11 @@ export type needProps = {
       email: string,
     };
   };
+
+  export type materialProps  = {
+    description: string,
+    id: string,
+    name: string,
+    resourceImage: string, 
+    resourceLink: string,
+  }
