@@ -10,7 +10,7 @@ import Material from "./Material";
 
 export default function UserLists({ userId, type }: { userId: number, type: string }) {
     const [lists, setLists] = useState<any[]>([]);
-    const [displayList, setDisplayList] = useState(false);
+    const [displayedListId, setDisplayedListId] = useState<number | null>(null);
 
     useEffect(() => {
         let query;
@@ -60,44 +60,58 @@ export default function UserLists({ userId, type }: { userId: number, type: stri
         }
     }, [userId, type]);
 
-    const toggleDisplayList = (): void => {
-        setDisplayList(!displayList);
+    const toggleDisplayList = (listId: number): void => {
+        setDisplayedListId((prevListId) => (prevListId === listId ? null : listId));
     };
-
-    console.log(lists)
 
     return (
         <div className="flex flex-col items-center justify-start bg-white w-full mt-1">
             {lists.length === 0 ? (
-                <p className="text-xs p-2 bg-gray-100 rounded w-full mt-2">Il n'y a rien a voir ici pour le moment.</p>
+                <p className="text-xs p-2 bg-gray-100 rounded w-full mt-2">Il n'y a rien à voir ici pour le moment.</p>
             ) : (
                 lists.map((list) => (
-                    <div className="w-full rounded mt-5" onClick={toggleDisplayList} key={list.id}>
-                        <h3 className="text-sm bg-primary-100 p-2 rounded">{list.name}</h3>
-                        {type === "utilisateurs" && (
-                            <div className="grid grid-cols-4 gap-2 bg-white rounded my-5">
-                                {list?.users?.map((user) => (
-                                    <CardSuggestionVariant user={user} key={user.id} />
-                                ))}
-                            </div>
-                        )}
-                        {type === "materiels" && 
-                            <div className="p-4 bg-slate-50 rounded-lg w-full mt-2">
-                                {list.materials?.map((material) => (
-                                    <Material key={material.id} material={material}/>
-                                ))}
-                            </div>
-                        }
-                        {type === "besoins" && (
+                    <div className="w-full rounded mt-5" key={list.id}>
+                        <div 
+                            className={`text-sm bg-primary-100 p-2 rounded cursor-pointer flex items-center justify-between ${
+                                displayedListId === list.id ? "bg-primary-200" : ""
+                            }`}
+                            onClick={() => toggleDisplayList(list.id)}
+                        >
+                            <h3>
+                                {list.name}
+                            </h3>
+                            <p className="text-lg -mt-1">
+                                {displayedListId === list.id ? "-" : "+"}
+                            </p>
+                        </div>
+                        {displayedListId === list.id && (
                             <div>
-                                {list.needs?.map((need) => (
-                                    <Need key={need.id} need={need} userId={need.user.id} />
-                                ))}
+                                {type === "utilisateurs" && (
+                                    <div className="grid grid-cols-4 gap-2 bg-white rounded my-5">
+                                        {list?.users?.map((user) => (
+                                            <CardSuggestionVariant user={user} key={user.id} />
+                                        ))}
+                                    </div>
+                                )}
+                                {type === "materiels" && (
+                                    <div className="p-4 bg-slate-50 rounded-lg w-full mt-2">
+                                        {list.materials?.map((material) => (
+                                            <Material key={material.id} material={material} />
+                                        ))}
+                                    </div>
+                                )}
+                                {type === "besoins" && (
+                                    <div>
+                                        {list.needs?.map((need) => (
+                                            <Need key={need.id} need={need} userId={need.user.id} />
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                         )}
                     </div>
                 ))
             )}
         </div>
-    );    
+    );
 }
