@@ -7,7 +7,9 @@ import { ApolloClientCall } from "./apolloClient/ApolloClient";
 
 export default function SocialUser({ tab, userId }: { tab: string, userId: number }) {
     const [usersArray, setUsersArray] = useState<needProps[]>([]);
-  
+    const [followerNumber, setFollowerNumber] = useState<number>(0);
+    const [followNumber, setFollowNumber] = useState<number>(0);
+
     useEffect(() => {
       const query = tab === 'abonnes' ? USER_FOLLOWERS : USER_FOLLOWINGS;
         
@@ -18,7 +20,8 @@ export default function SocialUser({ tab, userId }: { tab: string, userId: numbe
         },
       })
         .then((result) => {
-        const data = tab === 'abonnes' ? result.data.getAllFollowers : result.data.getAllFollowing;
+          const data = tab === 'abonnes' ? result.data.getAllFollowers : result.data.getAllFollowing;
+          tab === 'abonnes' ? setFollowerNumber(data.length) : setFollowNumber(data.length);
           setUsersArray(data);
           console.log(result);
         })
@@ -26,9 +29,13 @@ export default function SocialUser({ tab, userId }: { tab: string, userId: numbe
           console.error(error);
         });
     }, [tab, userId]);
-  
+
+    const counter = tab === 'abonnes' ? followerNumber : followNumber;
+    const counterText = tab === 'abonnes' ? `abonnés` : `abonnements`;
+
     return (
         <div className="flex flex-col items-start justify-center w-full">
+            <h3 className="text-xs mb-1"><span className="text-primary-400">{counter} </span>{counterText}</h3>
             {usersArray.length === 0 ? (
                 <p className="text-xs p-2 bg-gray-100 rounded w-full mt-2">Il n'y a rien a voir ici pour le moment.</p>
             ) : (

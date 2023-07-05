@@ -10,6 +10,7 @@ import { HEALTH_ACTOR_SEARCH } from "../components/gql/HealthActorSearch";
 import { INDUSTRIAL_SEARCH } from "../components/gql/IndustrialSearch";
 import { RESEARCHER_SEARCH } from "../components/gql/ResearcherSearch";
 import { getSearchedUser } from "../components/apolloClient/Queries";
+import AddButton from "../components/AddButton";
 
 type Tags = "healthActor" | "researcher" | "industrial" | "";
 
@@ -134,12 +135,18 @@ export default function Search() {
               e.preventDefault();
               setInput(e.currentTarget.search.value);
             }}
+            className="flex justify-between items-center w-full"
           >
             <input
               type="search"
               name="search"
-              className=" bg-white !m-0"
+              className=" bg-white !w-3/4"
               placeholder="Rechercher un profil..."
+            />
+            <input
+              type="submit"
+              value="Rechercher"
+              className="!w-1/4 !bg-primary"
             />
           </form>
           <div className=" px-12 mt-24 w-full">
@@ -156,6 +163,7 @@ export default function Search() {
             )}
           </div>
         </div>
+        <AddButton />
       </div>
     </>
   );

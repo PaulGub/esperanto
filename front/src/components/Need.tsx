@@ -19,7 +19,7 @@ export default function Need({ need, userId }: { need: needProps, userId: number
   }, []);
   
   return (
-    <div className="p-4 bg-slate-50 rounded-lg w-full">
+    <div className="p-4 bg-slate-50 rounded-lg w-full mt-2">
       {CURRENT_USER != userId ? (
         <div className="flex flex-col items-start justify-center w-full mb-2 bg-primary-100 p-5 rounded mb-4">
           <div className="flex w-full">

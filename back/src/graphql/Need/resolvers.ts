@@ -1,4 +1,10 @@
-import {createNeed, getAllNeeds, getNeedByUserIdSuggestion, getNeedsById} from '@controllers/NeedControllers';
+import {
+    createNeed,
+    deleteNeed,
+    getAllNeeds,
+    getNeedByUserIdSuggestion,
+    getNeedsById
+} from '@controllers/NeedControllers';
 import {NeedT} from "@models/Need";
 import {NeedData} from "@server/types";
 
@@ -10,5 +16,6 @@ export default {
     },
     Mutation: {
         createNeed: async (_, args: { userId: number, needData: NeedData }): Promise<NeedT> => createNeed(args),
+        deleteNeed: async (_, args: { userId: number, needId: number }): Promise<String|Error> => deleteNeed(args),
     },
 };

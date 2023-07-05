@@ -61,3 +61,21 @@ export const createNeed = async (args : { userId: number, needData: NeedData }):
         return null;
     }
 }
+
+export const deleteNeed = async (args: { userId: number, needId: number }): Promise<String|Error> => {
+    const { userId, needId } = args;
+
+    try {
+        const need: NeedT = await Need.findByPk(needId);
+
+        if (+userId === need.userId) {
+            await need.destroy();
+
+            return "Besoin supprimé avec succès !"
+        } else {
+            return new Error("Le besoin ne peut être supprimé")
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}

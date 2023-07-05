@@ -11,10 +11,13 @@ import {
   addFollow,
   removeFollow,
   getAllFollowing,
-  checkIsFollowed
+  checkIsFollowed,
+  logUser
 } from '@controllers/UserControllers';
 
 import { HealthActorTypes, UserInterface } from "@server/types";
+import { UserT } from "@models/User";
+
 export default {
   Query: {
     users: async (): Promise<UserInterface[]> => getAllUsers(),
@@ -39,6 +42,7 @@ export default {
       return createResearcher(args);
     },
     addFollow: async (_, args: { userId: number, followerId: number }) => addFollow(args),
-    removeFollow: async (_, args: { userId: number, followerId: number }) => removeFollow(args)
+    removeFollow: async (_, args: { userId: number, followerId: number }) => removeFollow(args),
+    logUser: async (_, args: { email: string, password: string }): Promise<UserT|Error> => logUser(args),
   }
 };
