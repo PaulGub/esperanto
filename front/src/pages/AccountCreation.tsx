@@ -25,7 +25,8 @@ const steps = [
 ];
 
 export default function AccountCreation() {
-  let [currentStepIndex, setCurrentStepIndex] = useState(0);
+  let [message, setMessage] = useState<string>("");
+  let [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
 
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
@@ -67,9 +68,12 @@ export default function AccountCreation() {
       console.log(userData);
       createUser({
         variables: userData
+      }).then((userData) => {
+        setMessage("Votre compte a bien été créé !");
       })
       .catch((error) => {
         console.error(error);
+        setMessage("Erreur lors de la création du compte.");
       });
     }
   }
@@ -141,7 +145,7 @@ export default function AccountCreation() {
                     </div>
                   </div>
                 ) : (
-                  <div>Votre compte a bien été créé !</div>
+                  <div>{message}</div>
                 )}
                 <div className="pt-4 flex items-center space-x-4">
                   {(currentStepIndex > 0 && currentStepIndex <= steps.length) ? (
