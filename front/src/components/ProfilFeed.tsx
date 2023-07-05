@@ -8,6 +8,7 @@ import { USER_FEED } from "./gql/GetNeedByUserIdSuggestion";
 import { ApolloClientCall } from "./apolloClient/ApolloClient";
 import AddNeed from "./AddNeed";
 import UserMenuSocial from "./UserSocialMenu";
+import UserMenuList from "./UserMenuList";
 import SocialUser from "./SocialUser";
 import UserLists from "./UserLists";
 
@@ -82,8 +83,29 @@ export default function ProfilFeed() {
           <div className="flex flex-col items-start justify-center w-full mt-2">
             <h3 className="text-sm pb-1">Mes listes</h3>
             <span className="w-[50px] bg-primary-300 rounded h-1"></span>
-            <div className="text-xxs flex flex-wrap my-2 w-full">
-              <UserLists userId={CURRENT_USER}/>
+            <div className="text-xxs flex flex-wrap my-2 w-full">              
+              <UserMenuList />
+              {pathname.split("/")[3] === "utilisateurs" && (
+                <div className="flex flex-col items-start justify-center w-full">
+                  <div className="text-xxs flex flex-wrap w-full">
+                    <UserLists userId={CURRENT_USER} type="utilisateurs"/>
+                  </div>
+                </div>
+              )}
+              {pathname.split("/")[3] === "materiels" && (
+                <div className="flex flex-col items-start justify-center w-full">
+                  <div className="text-xxs flex flex-wrap w-full">
+                    <UserLists userId={CURRENT_USER} type="materiels"/>
+                  </div>
+                </div>
+              )}
+              {pathname.split("/")[3] === "besoins" && (
+                <div className="flex flex-col items-start justify-center w-full">
+                  <div className="text-xxs flex flex-wrap w-full">
+                    <UserLists userId={CURRENT_USER} type="besoins"/>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         )}

@@ -31,6 +31,8 @@ export const NEEDS_LISTS_USER = gql`
                     firstname
                     lastname
                     email
+                    profilePicture
+                    profileBanner
                 }
             }
         }

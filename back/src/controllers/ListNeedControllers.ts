@@ -17,6 +17,12 @@ import {userTagsMatching, needUserTagsMatching} from "@helpers/matching";
 export const getListNeedByUserId = async (userId: number): Promise<ListNeedT[]> => {
     return await ListNeed.findAll({
         where: {userId: userId},
-        include: [Need]
+        include: 
+        [
+            {
+                model: Need,
+                include: [Tag, Material, Professional, User]
+            }
+        ]
     })
 };
