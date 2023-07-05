@@ -2,6 +2,7 @@ import ProfilFeed from "../components/ProfilFeed";
 import UserMenu from "../components/UserMenu";
 import ProfilCard from "../components/ProfilCard";
 import Suggestions from "../components/Suggestions";
+import AddButton from "../components/AddButton";
 import { Navigate, redirect, useLocation } from "react-router-dom";
 
 export default function Profil() {
@@ -19,6 +20,7 @@ export default function Profil() {
             <ProfilFeed />
           </div>
           <Suggestions userId={current ? +current : 0} />
+          <AddButton/>
         </div>
       )}
     </>

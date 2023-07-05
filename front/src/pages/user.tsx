@@ -1,3 +1,4 @@
+import AddButton from "../components/AddButton";
 import ProfilUser from "../components/ProfilUser";
 import Suggestions from "../components/Suggestions";
 import { useParams } from "react-router-dom";
@@ -11,6 +12,7 @@ export default function User() {
             <Suggestions userId={id ? +id : 0} title={title} />
             <ProfilUser userId={id?+id:0}/>
             <Suggestions userId={current?+current:0}/>
+            <AddButton/>
         </div>
     );
 }
