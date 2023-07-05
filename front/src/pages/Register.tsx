@@ -32,7 +32,7 @@ const steps = [
   { label: Labels.Step4, isOptional: false }
 ];
 
-export default function AccountCreation() {
+export default function Register() {
   let [message, setMessage] = useState<string>("");
   let [errorMessage, setErrorMessage] = useState<string>("");
   let [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
