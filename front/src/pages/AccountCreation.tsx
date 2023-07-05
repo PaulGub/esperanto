@@ -68,7 +68,7 @@ export default function AccountCreation() {
       console.log(userData);
       createUser({
         variables: userData
-      }).then((userData) => {
+      }).then(() => {
         setMessage("Votre compte a bien été créé !");
       })
       .catch((error) => {
@@ -148,21 +148,19 @@ export default function AccountCreation() {
                   <div>{message}</div>
                 )}
                 <div className="pt-4 flex items-center space-x-4">
-                  {(currentStepIndex > 0 && currentStepIndex <= steps.length) ? (
-                    <button
-                      onClick={() => actionForm(Navigation.Previous)}
-                      className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm"
-                    >
-                      Précédent
-                    </button>
+                  {(currentStepIndex > 0 && currentStepIndex <= steps.length - 1) ? (
+                    <button onClick={() => actionForm(Navigation.Previous)} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm">Précédent</button>
                   ) : null}
                   {currentStepIndex < steps.length ? 
                     currentStepIndex === steps.length - 1 ? (
-                      <button onClick={() => actionForm(Navigation.Next)} className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm">Créer le compte</button>
+                      <button onClick={() => actionForm(Navigation.Next)} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm">Créer le compte</button>
                     ) : steps[currentStepIndex].isOptional ? (
-                      <button onClick={() => actionForm(Navigation.Next)} className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm">Passer cette étape</button>
+                      <div className="w-2/3 flex gap-4">
+                        <button onClick={() => actionForm(Navigation.Next)} className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm">Passer cette étape</button>
+                        <button onClick={() => actionForm(Navigation.Next)} className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm">Suivant</button>
+                      </div>
                     ) : (
-                      <button onClick={() => actionForm(Navigation.Next)} className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm">Suivant</button>
+                      <button onClick={() => actionForm(Navigation.Next)} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm">Suivant</button>
                     )
                   : null}
                 </div>
