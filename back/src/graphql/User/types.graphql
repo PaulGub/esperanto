@@ -32,7 +32,7 @@ type HealthActor {
 type Researcher {
     id: ID!
     researchUnitName: String
-    otherSector: String
+    researchDepartment: String
     researchArea: String
 }
 type Tag {

@@ -1,5 +1,16 @@
-import {HealthActor, Industrial, Material, Need, Professional, Researcher, Tag, User, UserT} from "@models/index"
-import {Op} from "sequelize";
+import {
+    HealthActor,
+    Industrial,
+    Material,
+    Need,
+    Professional,
+    Researcher,
+    ResearcherT,
+    Tag,
+    User,
+    UserT
+} from "@models/index"
+import {BelongsToSetAssociationMixin, Op} from "sequelize";
 import {HealthActorTypes, UserInterface, NeedInterface} from "@server/types";
 import {userTagsMatching, needUserTagsMatching} from "@helpers/matching";
 import bcrypt from "bcrypt";
@@ -117,9 +128,11 @@ export const createHealthActor = async (userId: number, healthActorData: HealthA
     });
 }
 
-export const createResearcher = async (researcherData) => {
+export const createResearcher = async (userId: number, researcherData) => {
+    const user = await User.findByPk(userId)
     const researcher = await Researcher.create(researcherData);
-    return researcher;
+    await user.setResearcher(researcher)
+    return user;
 }
 
 export const getAllFollowers = async (userId: number) => {

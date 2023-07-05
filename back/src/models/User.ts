@@ -1,8 +1,18 @@
-import {DataTypes, HasManyAddAssociationMixin, HasManyGetAssociationsMixin, Model, NonAttribute,} from 'sequelize';
+import {
+    BelongsToSetAssociationMixin,
+    DataTypes,
+    HasManyAddAssociationMixin,
+    HasManyGetAssociationsMixin,
+    Model,
+    NonAttribute,
+} from 'sequelize';
 import {SequelizeClient} from '@clients/sequelize';
 import CONST from "@server/CONST";
 import {TagT} from "@models/Tag";
 import bcrypt from "bcrypt";
+import {ResearcherT} from "@models/Researcher";
+import {HealthActorT} from "@models/HealthActor";
+import {IndustrialT} from "@models/Industrial";
 
 export interface UserT extends Model {
     id: number,
@@ -28,6 +38,9 @@ export interface UserT extends Model {
     getFollowing(): HasManyGetAssociationsMixin<UserT>,
     addFollower(user: UserT): HasManyAddAssociationMixin<UserT, number>
     removeFollower(user: UserT): HasManyAddAssociationMixin<UserT, number>
+    setIndustrial(industrial: IndustrialT): BelongsToSetAssociationMixin<IndustrialT, number>
+    setResearcher(researcher: ResearcherT): BelongsToSetAssociationMixin<ResearcherT, number>
+    setHealthActor(healthActor: HealthActorT): BelongsToSetAssociationMixin<HealthActorT, number>
 }
 
 export const User = SequelizeClient.define<UserT>(

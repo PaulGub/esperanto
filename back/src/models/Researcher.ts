@@ -23,7 +23,6 @@ export const Researcher = SequelizeClient.define<ResearcherT>(
         researchArea: {
             type: DataTypes.STRING,
             allowNull: false,
-        },
-        description: DataTypes.TEXT,
+        }
     },
 );
