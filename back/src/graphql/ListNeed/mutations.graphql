@@ -1,0 +1,4 @@
+type Mutation {
+    createListNeed(userId: ID, listName: String, arrayNeedId: [ID]): ListNeed
+    addNeedToList(userId: ID, listId: ID, arrayNeedId: [ID]): ListNeed
+}

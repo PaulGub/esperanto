@@ -6,6 +6,7 @@ import { CREATE_USER } from "../components/gql/CreateUser";
 import { ApolloClientCall } from "../components/apolloClient/ApolloClient";
 import { useMutation } from "@apollo/client";
 import { CREATE_HEALTH_ACTOR, CREATE_INDUSTRIAL, CREATE_RESEARCHER } from "../components/gql/CreateRole";
+import { NavLink } from "react-router-dom";
 
 function isValidEmail(email: string) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -265,7 +266,12 @@ export default function Register() {
                 <div className="pt-4 flex items-center space-x-4">
                   {(currentStepIndex > 0 && currentStepIndex <= steps.length - 1) ? (
                     <button onClick={() => actionForm(Navigation.Previous)} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm">Précédent</button>
-                  ) : null}
+                  ) : (
+                    <NavLink
+                        to={"/login"}
+                        className="w-full text-center bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm"
+                    >Se connecter</NavLink>
+                  )}
                   {currentStepIndex < steps.length ? 
                     currentStepIndex === steps.length - 1 ? (
                       <button onClick={() => actionForm(Navigation.Next)} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm">Créer le compte</button>
