@@ -27,7 +27,7 @@ export const USERS_BY_TAG = gql`
             professionalStatus
             researcher {
                 id
-                otherSector
+                researchDepartment
                 researchArea
                 researchUnitName
             }

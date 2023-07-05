@@ -31,7 +31,7 @@ export const USER = gql`
             professionalStatus
             researcher {
                 id
-                otherSector
+                researchDepartment
                 researchArea
                 researchUnitName
             }
