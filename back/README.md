@@ -53,3 +53,9 @@ npm run dev-alt
 ```bash
 npm run dev-windows
 ```
+
+## Exécuter les tests
+
+```bash
+npm run test
+```

@@ -59,3 +59,13 @@ Veuillez vous référer au fichier `README.md` dans les répertoires `front/` et
 - **Lucas Faget** (frontend)
 - **Romain Thibaud** (frontend)
 - **Samuel Rappy** (backend et frontend)
+
+## Répartition des tâches
+| Tâches          | Lucas | Samuel | Romain | Théo | Paul |
+| --------------- | ----- | ------ | ------ | ---- | ---- |
+| Gestion projet  | 20%   | 20%    | 20%    | 20%  | 20%  |
+| Maquette        | 40%   | 20%    | 40%    | 0%   | 0%   |
+| Modèle de données| 0%   | 20%    | 0%     | 40%  | 40%  |
+| Back            | 0%    | 20%    | 0%     | 40%  | 40%  |
+| Front           | 40%   | 20%    | 40%    | 0%   | 0%   |
+| Moyenne globale | 20%   | 20%    | 20%    | 20%  | 20%  |

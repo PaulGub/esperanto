@@ -2,6 +2,9 @@ import { useState } from "react";
 import ProgressSteps from "../components/ProgressSteps";
 import { Roles } from "../utils/types/Roles";
 import FormInput from "../components/FormInput";
+import { CREATE_USER } from "../components/gql/CreateUser";
+import { ApolloClientCall } from "../components/apolloClient/ApolloClient";
+import { useMutation } from "@apollo/client";
 
 enum Navigation {
   Previous,
@@ -15,14 +18,15 @@ enum Labels {
   Step4 = "Step 4"
 }
 
-const labels = [
-  Labels.Step1,
-  Labels.Step2,
-  Labels.Step3
-]
+const steps = [
+  { label: Labels.Step1, isOptional: false },
+  { label: Labels.Step2, isOptional: true },
+  { label: Labels.Step3, isOptional: false }
+];
 
 export default function AccountCreation() {
-  let [currentStepIndex, setCurrentStepIndex] = useState(0);
+  let [message, setMessage] = useState<string>("");
+  let [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
 
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
@@ -36,17 +40,42 @@ export default function AccountCreation() {
   const [experiences, setExperiences] = useState<string>("");
   const [description, setDescription] = useState<string>("");
 
+  const [createUser] = useMutation(CREATE_USER, { client: ApolloClientCall });
+
   function actionForm(navigation: Navigation) {
     if (navigation === Navigation.Previous) {
       if (currentStepIndex > 0) {
         setCurrentStepIndex(--currentStepIndex);
       }
     } else {
-      if (currentStepIndex < labels.length) {
+      if (currentStepIndex < steps.length) {
         setCurrentStepIndex(++currentStepIndex);
       }
     }
-    // createUser(firstName, lastName, email, password, phoneNumber, role, healthNetwork, professionalStatus, experiences, description);
+    if (currentStepIndex === steps.length) {
+      let userData = {
+        firstname: firstName,
+        lastname: lastName,
+        email: email,
+        password: password1,
+        phoneNumber: phoneNumber !== "" ? phoneNumber : null,
+        role: role,
+        healthNetwork: healthNetwork,
+        professionalStatus: professionalStatus,
+        experiences: experiences,
+        description: description
+      }
+      console.log(userData);
+      createUser({
+        variables: userData
+      }).then(() => {
+        setMessage("Votre compte a bien été créé !");
+      })
+      .catch((error) => {
+        console.error(error);
+        setMessage("Erreur lors de la création du compte.");
+      });
+    }
   }
 
   const inputClassName = "shadow-none peer placeholder-transparent h-10 w-full border-t-0 border-r-0 border-l-0 border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-blue-600 text-sm";
@@ -59,13 +88,13 @@ export default function AccountCreation() {
         <div className="absolute inset-0 bg-gradient-to-r from-blue-300 to-blue-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-3 sm:rounded-3xl"></div>
         <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
           <div className="max-w-md mx-auto">
-            <ProgressSteps currentStepIndex={currentStepIndex} labels={labels}></ProgressSteps>
+            <ProgressSteps currentStepIndex={currentStepIndex} labels={steps.map((step) => step.label)}></ProgressSteps>
             <div>
               <h1 className="text-2xl font-semibold">Créer un compte</h1>
             </div>
             <div className="divide-y divide-gray-200">
               <div className="pt-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
-                {labels[currentStepIndex] === Labels.Step1 ? (
+                {steps[currentStepIndex]?.label === Labels.Step1 ? (
                   <div>
                     <div className="flex gap-4">
                       <FormInput id="lastName" type="text" label="Nom" value={lastName} setValue={setLastName}></FormInput>
@@ -79,7 +108,7 @@ export default function AccountCreation() {
                       <FormInput id="password2" type="password" label="Répétition du mot de passe" value={password2} setValue={setPassword2}></FormInput>
                     </div>
                   </div>
-                ) : labels[currentStepIndex] === Labels.Step3 ? (
+                ) : steps[currentStepIndex]?.label === Labels.Step2 ? (
                   <div>
                     <div className="flex gap-4">
                       <FormInput id="phoneNumber" type="tel" label="Numéro de téléphone" value={phoneNumber} setValue={setPhoneNumber}></FormInput>
@@ -93,7 +122,7 @@ export default function AccountCreation() {
                       <FormInput id="description" type="textarea" label="Description" value={description} setValue={setDescription}></FormInput>
                     </div>
                   </div>
-                ) : labels[currentStepIndex] === Labels.Step2 ? (
+                ) : steps[currentStepIndex]?.label === Labels.Step3 ? (
                   <div>
                     <div className="relative">
                       <select
@@ -116,25 +145,24 @@ export default function AccountCreation() {
                     </div>
                   </div>
                 ) : (
-                  <div>Votre compte a bien été créé !</div>
+                  <div>{message}</div>
                 )}
                 <div className="pt-4 flex items-center space-x-4">
-                  {(currentStepIndex > 0 && currentStepIndex < labels.length) ? (
-                    <button
-                      onClick={() => actionForm(Navigation.Previous)}
-                      className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm"
-                    >
-                      Précédent
-                    </button>
+                  {(currentStepIndex > 0 && currentStepIndex <= steps.length - 1) ? (
+                    <button onClick={() => actionForm(Navigation.Previous)} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm">Précédent</button>
                   ) : null}
-                  {currentStepIndex < labels.length ? (
-                    <button
-                      onClick={() => actionForm(Navigation.Next)}
-                      className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm"
-                    >
-                      {currentStepIndex === labels.length - 1 ? "Créer le compte" : "Suivant"}
-                    </button>
-                  ) : null}
+                  {currentStepIndex < steps.length ? 
+                    currentStepIndex === steps.length - 1 ? (
+                      <button onClick={() => actionForm(Navigation.Next)} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm">Créer le compte</button>
+                    ) : steps[currentStepIndex].isOptional ? (
+                      <div className="w-2/3 flex gap-4">
+                        <button onClick={() => actionForm(Navigation.Next)} className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm">Passer cette étape</button>
+                        <button onClick={() => actionForm(Navigation.Next)} className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm">Suivant</button>
+                      </div>
+                    ) : (
+                      <button onClick={() => actionForm(Navigation.Next)} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm">Suivant</button>
+                    )
+                  : null}
                 </div>
               </div>
             </div>
