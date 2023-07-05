@@ -2,6 +2,7 @@ import {HealthActor, Industrial, Material, Need, Professional, Researcher, Tag, 
 import {Op} from "sequelize";
 import {HealthActorTypes, UserInterface, NeedInterface} from "@server/types";
 import {userTagsMatching, needUserTagsMatching} from "@helpers/matching";
+import bcrypt from "bcrypt";
 
 export const getAllUsers = async (): Promise<UserInterface[]> => {
     return User.findAll({
@@ -196,4 +197,24 @@ export const checkIsFollowed = async (args: { userId: number, followerId: number
 
     return followingsIdArr.includes(+followerId);
 
+}
+
+export const logUser = async (args: { email: string, password: string }): Promise<UserT|Error> => {
+    const { email, password } = args;
+
+    try {
+        const user = await User.findOne({
+            where : { email: email }
+        })
+
+        const isCorrectPassword = await bcrypt.compare(password, user.password)
+
+        if (isCorrectPassword) {
+            return user;
+        } else {
+            return new Error('Email ou mot de passe incorrect')
+        }
+    } catch (e) {
+        console.log(e)
+    }
 }
