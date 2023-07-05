@@ -1,16 +1,46 @@
 import { useState } from "react";
 import FormInput from "../components/FormInput";
-import { NavLink, redirect } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import { LOG_USER } from "../components/gql/LogUser";
+import { ApolloClientCall } from "../components/apolloClient/ApolloClient";
 
 export default function Login() {
+    const navigate = useNavigate();
+
     let [message, setMessage] = useState<string>("");
     let [errorMessage, setErrorMessage] = useState<string>("");
 
     let [email, setEmail] = useState<string>("");
     let [password, setPassword] = useState<string>("");
 
+    const [logUser] = useMutation(LOG_USER, { client: ApolloClientCall });
+
     function actionForm() {
-        
+        if (email === "" || password === "") {
+            setErrorMessage("Veuillez entrer votre email et votre mot de passe");
+            return;
+        }
+        logUser({
+            variables: {
+                email: email,
+                password: password
+            }
+        }).then((data) => {
+            const userData = data.data.logUser;
+            console.log(userData);
+            if (userData) {
+                console.log(userData.id);
+                console.log(userData.email);
+                setMessage("Connection réussi !");
+                navigate("/feed/actualites");
+                return;
+            }
+            setErrorMessage("Email ou mot de passe incorrect");
+        }).catch((error) => {
+            console.error(error);
+            setErrorMessage(error.message);
+        });
     }
 
     return (
@@ -26,13 +56,13 @@ export default function Login() {
                         <div className="divide-y divide-gray-200">
                             <div className="pt-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
                                 {errorMessage && (
-                                <div className="text-red-400 text-sm mb-4">{errorMessage}</div>
+                                    <div className="text-red-400 text-sm mb-4">{errorMessage}</div>
                                 )}
                                 {!errorMessage && message && (
-                                <div className="text-primary-400 text-sm mb-4">{message}</div>
+                                    <div className="text-primary-400 text-sm mb-4">{message}</div>
                                 )}
                                 <div className="flex flex-col gap-4">
-                                    <FormInput id="email" label="Email" value={email} setValue={setEmail} isOptional={false}></FormInput>
+                                    <FormInput id="email" type="email" label="Email" value={email} setValue={setEmail} isOptional={false}></FormInput>
                                     <FormInput id="password" label="Password" value={password} setValue={setPassword} isOptional={false}></FormInput>
                                 </div>
                                 <div className="pt-4 flex flex-col items-center gap-2">
