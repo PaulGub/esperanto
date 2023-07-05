@@ -21,10 +21,9 @@ type Mutation {
         healthActorData: HealthActorData
     ): HealthActor
     createResearcher(
-        researchUnitName: String,
-        otherSector: String,
-        researchArea: String
-    ): Researcher
+        userId: ID,
+        researcherData: ResearcherData
+    ): User
     addFollow(
         userId: ID
         followerId: ID

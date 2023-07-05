@@ -2,3 +2,9 @@ input HealthActorData {
     careServiceType: String
     supportServices: String
 }
+
+input ResearcherData {
+    researchUnitName: String
+    researchDepartment: String
+    researchArea: String
+}

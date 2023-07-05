@@ -14,7 +14,8 @@ import {
   checkIsFollowed
 } from '@controllers/UserControllers';
 
-import { HealthActorTypes, UserInterface } from "@server/types";
+import {HealthActorTypes, ResearcherData, UserInterface} from "@server/types";
+
 export default {
   Query: {
     users: async (): Promise<UserInterface[]> => getAllUsers(),
@@ -35,9 +36,7 @@ export default {
     createHealthActor: async (_, args: { userId: number, healthActorData: HealthActorTypes }) => {
       return createHealthActor(args.userId, args.healthActorData);
     },
-    createResearcher: async (_, args) => {
-      return createResearcher(args);
-    },
+    createResearcher: async (_, args:{ userId: number, researcherData: ResearcherData}) => createResearcher(args.userId , args.researcherData),
     addFollow: async (_, args: { userId: number, followerId: number }) => addFollow(args),
     removeFollow: async (_, args: { userId: number, followerId: number }) => removeFollow(args)
   }

@@ -5,6 +5,12 @@ export interface HealthActorTypes {
     supportServices: string
 }
 
+export interface ResearcherData {
+    researchUnitName: String
+    researchDepartment: String
+    researchArea: String
+}
+
 export interface UserInterface {
     id: number,
     firstname: string,
