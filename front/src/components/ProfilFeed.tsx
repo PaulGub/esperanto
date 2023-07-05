@@ -85,7 +85,7 @@ export default function ProfilFeed() {
           </div>
         )}
         {pathname.split("/")[2] === "actualites" && (
-          <div className="flex flex-col gap-4 items-start justify-center w-full mt-2">
+          <div className={`flex flex-col ${userFeed && userFeed.length > 0 ? 'gap-4' : ''} items-start justify-center w-full mt-2`}>
             <h3 className="text-sm pb-1">Ils ont peut-être besoin de vous!</h3>
             <span className="w-[50px] bg-primary-300 rounded h-1"></span>
             <div className="text-xxs flex flex-wrap my-2 w-full gap-8">
