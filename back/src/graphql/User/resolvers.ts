@@ -11,8 +11,10 @@ import {
   addFollow,
   removeFollow,
   getAllFollowing,
-  checkIsFollowed
+  checkIsFollowed,
+  logUser
 } from '@controllers/UserControllers';
+import { UserT } from "@models/User";
 
 import {HealthActorTypes, ResearcherData, UserInterface} from "@server/types";
 
@@ -38,6 +40,7 @@ export default {
     },
     createResearcher: async (_, args:{ userId: number, researcherData: ResearcherData}) => createResearcher(args.userId , args.researcherData),
     addFollow: async (_, args: { userId: number, followerId: number }) => addFollow(args),
-    removeFollow: async (_, args: { userId: number, followerId: number }) => removeFollow(args)
+    removeFollow: async (_, args: { userId: number, followerId: number }) => removeFollow(args),
+    logUser: async (_, args: { email: string, password: string }): Promise<UserT|Error> => logUser(args),
   }
 };

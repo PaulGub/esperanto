@@ -159,20 +159,20 @@ export default function ProfilUser({ userId }: { userId: number }) {
             </div>
             {userId === CURRENT_USER ? (
               <div className="flex justify-end gap-4">
-                <a href="/feed/listes" className="text-[14px] text-primary hover:underline">
-                  {followerNumber} abonnés
+                <a href="/feed/suivis/abonnes" className="text-[14px] text-primary hover:underline">
+                  <span className="text-primary-400">{followerNumber}</span> abonnés
                 </a>
-                <a href="/feed/listes" className="text-[14px] text-primary hover:underline">
-                  {followNumber} abonnements
+                <a href="/feed/suivis/abonnements" className="text-[14px] text-primary hover:underline">
+                  <span className="text-primary-400">{followNumber}</span> abonnements
                 </a>
               </div>
             ) : (
               <div className="flex justify-end gap-4">
                 <span className="text-[14px] text-gray">
-                  {followerNumber} abonnés
+                  <span className="text-primary-400">{followerNumber}</span> abonnés
                 </span>
                 <span className="text-[14px] text-gray">
-                  {followNumber} abonnements
+                  <span className="text-primary-400">{followNumber}</span> abonnements
                 </span>
               </div>
             )}

@@ -8,7 +8,9 @@ import { USER_FEED } from "./gql/GetNeedByUserIdSuggestion";
 import { ApolloClientCall } from "./apolloClient/ApolloClient";
 import AddNeed from "./AddNeed";
 import UserMenuSocial from "./UserSocialMenu";
+import UserMenuList from "./UserMenuList";
 import SocialUser from "./SocialUser";
+import UserLists from "./UserLists";
 
 export default function ProfilFeed() {
   const pathname = useLocation().pathname;
@@ -81,11 +83,34 @@ export default function ProfilFeed() {
           <div className="flex flex-col items-start justify-center w-full mt-2">
             <h3 className="text-sm pb-1">Mes listes</h3>
             <span className="w-[50px] bg-primary-300 rounded h-1"></span>
-            <div className="text-xxs flex flex-wrap my-2"></div>
+            <div className="text-xxs flex flex-wrap my-2 w-full">              
+              <UserMenuList />
+              {pathname.split("/")[3] === "utilisateurs" && (
+                <div className="flex flex-col items-start justify-center w-full">
+                  <div className="text-xxs flex flex-wrap w-full">
+                    <UserLists userId={CURRENT_USER} type="utilisateurs"/>
+                  </div>
+                </div>
+              )}
+              {pathname.split("/")[3] === "materiels" && (
+                <div className="flex flex-col items-start justify-center w-full">
+                  <div className="text-xxs flex flex-wrap w-full">
+                    <UserLists userId={CURRENT_USER} type="materiels"/>
+                  </div>
+                </div>
+              )}
+              {pathname.split("/")[3] === "besoins" && (
+                <div className="flex flex-col items-start justify-center w-full">
+                  <div className="text-xxs flex flex-wrap w-full">
+                    <UserLists userId={CURRENT_USER} type="besoins"/>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         )}
         {pathname.split("/")[2] === "actualites" && (
-          <div className="flex flex-col gap-4 items-start justify-center w-full mt-2">
+          <div className={`flex flex-col ${userFeed && userFeed.length > 0 ? 'gap-4' : ''} items-start justify-center w-full mt-2`}>
             <h3 className="text-sm pb-1">Ils ont peut-être besoin de vous!</h3>
             <span className="w-[50px] bg-primary-300 rounded h-1"></span>
             <div className="text-xxs flex flex-wrap my-2 w-full gap-8">
@@ -98,7 +123,9 @@ export default function ProfilFeed() {
           </div>
         )}
       </div>
-      <AddNeed></AddNeed>
+      <div >
+        <AddNeed></AddNeed>
+      </div>
     </div>
   );
 }

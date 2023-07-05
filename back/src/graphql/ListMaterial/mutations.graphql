@@ -1,0 +1,4 @@
+type Mutation {
+    createListMaterial(userId: ID, listName: String, arrayMaterialId: [ID]): ListMaterial
+    addMaterialToList(userId: ID, listId: ID, arrayMaterialId: [ID]): ListMaterial
+}

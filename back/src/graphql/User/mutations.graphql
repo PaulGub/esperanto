@@ -32,4 +32,5 @@ type Mutation {
         userId: ID
         followerId: ID
     ): String
+    logUser(email: String, password: String): User
 }

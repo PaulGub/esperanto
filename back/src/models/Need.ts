@@ -16,6 +16,7 @@ export interface NeedT extends Model {
     description?: string,
     infrastructure?: string,
 
+    userId?: number
     tags?: NonAttribute<TagT[]>;
 
     addTag(tag: TagT): HasManyAddAssociationMixin<TagT, number>,

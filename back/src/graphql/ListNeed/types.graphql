@@ -3,3 +3,32 @@ type ListNeed {
     name: String!
     needs: [Need]
 }
+type Need {
+    id: ID!
+    title: String!
+    description: String!
+    type: String!
+    infrastructure: String
+    tags: [Tag]
+    professionals: [Professional]
+    materials: [Material]
+    user: User!
+}
+type Tag {
+    id: ID!
+    name: String!
+}
+type Professional {
+    id: ID!
+    name: String!
+}
+type Material {
+    id: ID!
+    name: String!
+    resourceLink: String!
+    resourceImage: String
+    description: String
+}
+type User {
+    id: ID!
+}
