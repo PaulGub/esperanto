@@ -98,7 +98,7 @@ export default function ProfilFeed() {
           </div>
         )}
       </div>
-      <div id="add-need">
+      <div >
         <AddNeed></AddNeed>
       </div>
     </div>
