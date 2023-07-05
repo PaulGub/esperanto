@@ -135,12 +135,18 @@ export default function Search() {
               e.preventDefault();
               setInput(e.currentTarget.search.value);
             }}
+            className="flex justify-between items-center w-full"
           >
             <input
               type="search"
               name="search"
-              className=" bg-white !m-0"
+              className=" bg-white !w-3/4"
               placeholder="Rechercher un profil..."
+            />
+            <input
+              type="submit"
+              value="Rechercher"
+              className="!w-1/4 !bg-primary"
             />
           </form>
           <div className=" px-12 mt-24 w-full">
@@ -157,7 +163,7 @@ export default function Search() {
             )}
           </div>
         </div>
-        <AddButton/>
+        <AddButton />
       </div>
     </>
   );
