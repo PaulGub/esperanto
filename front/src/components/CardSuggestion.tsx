@@ -1,7 +1,8 @@
 import { globalUserProps } from "../utils/types";
 
 export default function CardSuggestion({ user }: { user: globalUserProps }) {
-  const userProfessionalStatus = user?.healthActor?.professional?.name || user?.professionalStatus || "";
+  const userProfessionalStatus =
+    user?.healthActor?.professional?.name || user?.professionalStatus || "";
   return (
     <div className="flex items-center bg-slate-50 p-2 mb-2 rounded-lg">
       <img
@@ -14,7 +15,7 @@ export default function CardSuggestion({ user }: { user: globalUserProps }) {
           {user.firstname} {user.lastname}
         </p>
         <p className="text-xxs text-slate-500 line-clamp-1">
-          {userProfessionalStatus}
+          {user.role}
         </p>
         <a
           href={`/user/${user.id}`}

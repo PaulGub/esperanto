@@ -1,3 +1,4 @@
 type Mutation {
     createNeed(userId: ID, needData: NeedInput): Need
+    deleteNeed(userId: ID, needId: ID): String
 }
