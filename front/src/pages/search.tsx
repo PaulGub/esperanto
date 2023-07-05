@@ -10,6 +10,7 @@ import { HEALTH_ACTOR_SEARCH } from "../components/gql/HealthActorSearch";
 import { INDUSTRIAL_SEARCH } from "../components/gql/IndustrialSearch";
 import { RESEARCHER_SEARCH } from "../components/gql/ResearcherSearch";
 import { getSearchedUser } from "../components/apolloClient/Queries";
+import AddButton from "../components/AddButton";
 
 type Tags = "healthActor" | "researcher" | "industrial" | "";
 
@@ -156,6 +157,7 @@ export default function Search() {
             )}
           </div>
         </div>
+        <AddButton/>
       </div>
     </>
   );
