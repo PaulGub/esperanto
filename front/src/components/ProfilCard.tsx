@@ -78,7 +78,7 @@ export default function ProfilCard() {
         </div>
       </div>
       <a
-        href="#"
+        href={`/user/${user?.id}`}
         className="text-xs text-primary my-2 hover:underline mt-5 mb-5"
       >
         Voir le profil complet

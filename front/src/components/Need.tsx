@@ -19,7 +19,7 @@ export default function Need({ need, userId }: { need: needProps, userId: number
   }, []);
 
   return (
-    <div className="p-4 bg-primary-100 rounded-lg w-full mt-2">
+    <div className="p-4 bg-gray-100 rounded-lg w-full mt-2">
       {CURRENT_USER != userId ? (
         <div className="flex flex-col items-start justify-center w-full mb-2 bg-primary-100 p-5 rounded mb-4">
           <div className="flex w-full">
@@ -56,7 +56,7 @@ export default function Need({ need, userId }: { need: needProps, userId: number
           <h3 className="text-sm pb-1">Titre du besoin :</h3>
           <div className="bg-white p-2 w-full rounded mt-2">{need?.title}</div>
         </div>
-        <div className="flex flex-col items-start justify-center w-full mb-2 bg-primary-200 p-2 rounded">
+        <div className="flex flex-col items-start justify-center w-full mb-2 bg-primary-300 p-2 rounded">
           <h3 className="text-sm pb-1">Description du besoin :</h3>
           <div className="bg-white p-2 w-full rounded mt-2">
             {need?.description}
@@ -64,7 +64,7 @@ export default function Need({ need, userId }: { need: needProps, userId: number
         </div>
       </div>
       <div className="flex items-start gap-4 mt-2">
-        <div className="flex flex-col items-start justify-center w-full mb-2 bg-primary-200 p-2 rounded">
+        <div className="flex flex-col items-start justify-center w-full mb-2 bg-primary-300 p-2 rounded">
           <h3 className="text-sm pb-1">Tags du besoin :</h3>
           <div className="w-full rounded mt-2 p-2 bg-white">
             {need?.tags?.map((tag) => (
