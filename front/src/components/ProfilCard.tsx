@@ -23,7 +23,7 @@ export default function ProfilCard() {
     <div className="flex flex-col items-center justify-start bg-white border border-solid rounded-lg relative h-fit">
       <div className="w-full">
         <img
-          src={user?.profileBanner}
+          src={user?.profileBanner ?? "/public/background.jpg"}
           alt=""
           className="h-[100px] w-full rounded-t-lg"
         />
@@ -31,7 +31,7 @@ export default function ProfilCard() {
       <div className="flex flex-col items-center justify-start w-full px-4">
         <div className="flex flex-col items-center justify-center">
           <img
-            src={user?.profilePicture}
+            src={user?.profilePicture ?? "/public/profile.jpg"}
             alt=""
             className="rounded-full w-24 h-24 border-4 border-solid border-white -mt-10"
           />

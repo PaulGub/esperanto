@@ -137,7 +137,6 @@ export default function Register() {
       createUser({
         variables: userData
       }).then((userData) => {
-        console.log(userData.data.createUser.id);
         let userId = userData.data.createUser.id;
         if (role === Roles.HEALTH_ACTOR) {
           return createHealthActor({

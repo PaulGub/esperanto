@@ -25,7 +25,7 @@ export default function Need({ need, userId }: { need: needProps, userId: number
           <div className="flex w-full">
             <div className='w-1/6 mr-2'>
               <img
-                src={need?.user?.profilePicture}
+                src={need?.user?.profilePicture ?? "/public/profile.jpg"}
                 alt=""
                 className="rounded-full w-16 h-16 border-4 border-solid border-white"
               />          

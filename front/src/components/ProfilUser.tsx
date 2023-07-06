@@ -123,13 +123,13 @@ export default function ProfilUser({ userId }: { userId: number }) {
           </div>
       )}
       <div className="w-full">
-        <img src={user?.profileBanner} alt="" className="h-[200px] w-full rounded-t-lg object-cover" />
+        <img src={user?.profileBanner ?? "/public/background.jpg"} alt="" className="h-[200px] w-full rounded-t-lg object-cover" />
       </div>
       <div className="flex flex-col items-center justify-between w-full px-4">
         <div className="flex justify-between w-full">
           <div className="flex flex-col items-start justify-center ml-5 mr-5">
             <img
-              src={user?.profilePicture}
+              src={user?.profilePicture ?? "/public/profile.jpg"}
               alt=""
               className="rounded-full w-24 h-24 border-4 border-solid border-white -mt-12"
             />
@@ -178,7 +178,7 @@ export default function ProfilUser({ userId }: { userId: number }) {
             )}
           </div>
         </div>
-        <div className="ml-5 mr-5 pt-5 pb-5">
+        <div className="ml-5 mr-5 pt-5 pb-5 w-full">
           <div className="flex flex-col items-start justify-center w-full mt-2 border-t py-2">
             <h3 className="text-sm pb-1">Tags</h3>
             <span className="w-[50px] bg-primary-300 rounded h-1"></span>

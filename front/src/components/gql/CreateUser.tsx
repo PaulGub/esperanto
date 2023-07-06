@@ -15,6 +15,8 @@ export const CREATE_USER = gql`
             description: $description
         ) {
             id
+            email
+            firstname
         }
     }
 `;

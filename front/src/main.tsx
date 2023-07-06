@@ -14,6 +14,14 @@ import User from "./pages/user.tsx";
 import Register from "./pages/Register.tsx";
 import Login from "./pages/Login.tsx";
 
+function isAuthenticated() {
+  const userId = localStorage.getItem('userId'); // Récupérez l'ID de l'utilisateur à partir du local storage
+  const userEmail = localStorage.getItem('userEmail'); // Récupérez l'e-mail de l'utilisateur à partir du local storage
+
+  // Vérifiez si l'utilisateur est connecté en fonction des valeurs récupérées du local storage
+  return userId && userEmail;
+}
+
 const root = createRoot(
   document.getElementById("root") as Element | DocumentFragment
 );
@@ -24,8 +32,16 @@ const router = createBrowserRouter(
       <Route path="/" element={<App />}>
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
-        <Route index element={<Navigate to={"feed/actualites"} />} />
-        <Route path="feed" element={<Profil />}>
+        <Route index
+          element={
+            isAuthenticated() ? <Navigate to={"feed/actualites"} /> : <Navigate to="/login" />
+          }
+        ></Route>
+        <Route path="feed"
+          element={
+            isAuthenticated() ? <Profil /> : <Navigate to="/login" />
+          }
+        >
           <Route path="actualites" element={<Profil />} />
           <Route path="besoins" element={<Profil />} />
           <Route path="suivis" element={<Profil />} >
@@ -55,7 +71,11 @@ const router = createBrowserRouter(
             <Route path="industriel" element={<Search />} />
           </Route>
         </Route>
-        <Route path="user/:id" element={<User />} />
+        <Route path="user/:id"
+          element={
+            isAuthenticated() ? <User /> : <Navigate to="/login" />
+          }
+        />
       </Route>
     </Route>
   )

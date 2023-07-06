@@ -6,7 +6,7 @@ export default function CardSuggestion({ user }: { user: globalUserProps }) {
   return (
     <div className="flex items-center bg-slate-50 p-2 mb-2 rounded-lg">
       <img
-        src={user?.profilePicture}
+        src={user?.profilePicture ?? "/public/profile.jpg"}
         alt=""
         className="w-10 h-10 rounded-full border-2 border-white border-solid "
       />

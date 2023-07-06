@@ -17,6 +17,9 @@ export default function Login() {
     const [logUser] = useMutation(LOG_USER, { client: ApolloClientCall });
 
     function actionForm() {
+        setMessage("");
+        setErrorMessage("");
+
         if (email === "" || password === "") {
             setErrorMessage("Veuillez entrer votre email et votre mot de passe");
             return;
@@ -28,12 +31,21 @@ export default function Login() {
             }
         }).then((data) => {
             const userData = data.data.logUser;
-            console.log(userData);
             if (userData) {
-                console.log(userData.id);
-                console.log(userData.email);
+                const userId = userData.id;
+                const userEmail = userData.email;
+                const userFirstname = userData.firstname;
+                console.log(userId);
+                console.log(userEmail);
+                console.log(userFirstname);
+                
+                localStorage.setItem('userId', userId); // Stockez l'ID de l'utilisateur dans le local storage
+                localStorage.setItem('userEmail', userEmail); // Stockez l'e-mail de l'utilisateur dans le local storage
+                localStorage.setItem('userFirstname', userFirstname);
+
                 setMessage("Connection réussi !");
-                navigate("/feed/actualites");
+                navigate('/');
+                window.location.reload();
                 return;
             }
             setErrorMessage("Email ou mot de passe incorrect");
