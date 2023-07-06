@@ -214,7 +214,7 @@ export default function ProfilUser({ userId }: { userId: number }) {
           <div className="mt-2 mr-5 flex flex-col justify-between">
             <div className={"flex"}>
               <a
-                className={`text-xs pt-1 pb-1 pr-2 pl-2 border rounded-lg cursor-pointer ${
+                className={`text-xs pt-1 pb-1 pr-2 pl-2 border rounded-lg cursor-pointer whitespace-nowrap ${
                   isFollowing ? "bg-transparent border-red-500 text-red-500 hover:bg-red-500 hover:text-white" : "bg-primary-300 border-primary-300 text-white hover:bg-white hover:text-primary-300"
                 }`}
                 onClick={toggleFollow}
