@@ -1,4 +1,5 @@
 type Mutation {
-    createListUser(userId: ID, listName: String, arrayUserId: [ID]): ListUser
+    createListUser(userId: ID, listName: String, arrayUserId: [ID]): [ListUser]
     addUserToList(userId: ID, listId: ID, arrayUserId: [ID]): ListUser
+    removeUserFromListUser(userId: ID, listId: ID, userToRemoveId: ID): String
 }

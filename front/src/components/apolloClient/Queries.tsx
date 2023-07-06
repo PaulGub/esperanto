@@ -9,6 +9,7 @@ import { ApolloClientCall } from "./ApolloClient";
 import { CHECK_IS_FOLLOWED } from "../gql/CheckIsFollowed";
 import { USER_FOLLOWERS } from "../gql/GetFollowers";
 import { USER_FOLLOWINGS } from "../gql/GetFollowing";
+import { ARRAY_OF_USERS_LIST } from "../gql/GetUserList.tsx";
 
 export async function getAllUsers(): Promise<any> {
   try {
@@ -150,6 +151,21 @@ export async function getSearchedUser(
       },
     });
     return result.data;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
+
+export async function getArrayOfUsersList(userId: number) {
+  try {
+    const result = await ApolloClientCall.query({
+      query: ARRAY_OF_USERS_LIST,
+      variables: {
+        userId: userId,
+      },
+    });
+    return result.data.listUserByUserId;
   } catch (error) {
     console.error(error);
     return [];
