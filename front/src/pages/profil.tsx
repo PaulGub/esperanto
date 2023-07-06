@@ -13,7 +13,7 @@ export default function Profil() {
       {pathname.split("/")[pathname.split("/").length - 1] === "suivis" ? (
         <Navigate to="/feed/suivis/abonnements"/>
       ) : (
-        <div className="grid grid-cols-5 gap-4 px-28 pt-2 mt-20 w-full">
+        <div className="grid grid-cols-5 gap-4 px-20 pt-2 mt-20 w-full">
           <ProfilCard />
           <div className="col-span-3">
             <UserMenu />
