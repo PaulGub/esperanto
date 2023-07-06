@@ -51,40 +51,44 @@ export default function Need({ need, userId }: { need: needProps, userId: number
           </div>
         </div>
       ):""}
-      <div className="flex flex-col items-start justify-center w-full mb-2 bg-gray-100 p-2 rounded">
-        <h3 className="text-sm pb-1">Titre du besoin :</h3>
-        <div className="bg-white p-2 w-full rounded mt-2">{need?.title}</div>
-      </div>
-      <div className="flex flex-col items-start justify-center w-full mt-5 mb-2 bg-gray-100 p-2 rounded">
-        <h3 className="text-sm pb-1">Description du besoin :</h3>
-        <div className="bg-white p-2 w-full rounded mt-2">
-          {need?.description}
+      <div className="flex items-baseline gap-2">
+        <div className="flex flex-col items-start justify-center w-full mb-2 bg-gray-100 p-2 rounded">
+          <h3 className="text-sm pb-1">Titre du besoin :</h3>
+          <div className="bg-white p-2 w-full rounded mt-2">{need?.title}</div>
+        </div>
+        <div className="flex flex-col items-start justify-center w-full mt-5 mb-2 bg-gray-100 p-2 rounded">
+          <h3 className="text-sm pb-1">Description du besoin :</h3>
+          <div className="bg-white p-2 w-full rounded mt-2">
+            {need?.description}
+          </div>
         </div>
       </div>
-      <div className="flex flex-col items-start justify-center w-full mt-5 mb-2 bg-gray-100 p-2 rounded">
-        <h3 className="text-sm pb-1">Tags du besoin :</h3>
-        <div className="w-full rounded mt-2 p-2 bg-white">
-          {need?.tags?.map((tag) => (
-            <span
-              key={tag.id}
-              className="bg-primary-100 rounded py-0.5 px-1 m-0.5"
-            >
-              {tag.name}
-            </span>
-          ))}
+      <div className="flex items-baseline gap-2">
+        <div className="flex flex-col items-start justify-center w-full mt-5 mb-2 bg-gray-100 p-2 rounded">
+          <h3 className="text-sm pb-1">Tags du besoin :</h3>
+          <div className="w-full rounded mt-2 p-2 bg-white">
+            {need?.tags?.map((tag) => (
+              <span
+                key={tag.id}
+                className="bg-primary-100 rounded py-0.5 px-1 m-0.5"
+              >
+                {tag.name}
+              </span>
+            ))}
+          </div>
         </div>
-      </div>
-      <div className="flex flex-col items-start justify-center w-full mt-5 mb-2 bg-gray-100 p-2 rounded">
-        <h3 className="text-sm pb-1">Valeur du besoin :</h3>
-        <div className="bg-white p-2 w-full rounded mt-2">
-          <p className="underline text-xs">{need?.type} : </p>
-          <p className="text-xs">{need?.infrastructure}</p>
-          {need?.professionals.map((needed) => (
-            <p className="text-xs" key={needed.id}> {needed.name}</p>
-          ))}
-          {need?.materials.map((needed) => (
-            <p className="text-xs" key={needed.id}> {needed.name}</p>
-          ))}
+        <div className="flex flex-col items-start justify-center w-full mt-5 mb-2 bg-gray-100 p-2 rounded">
+          <h3 className="text-sm pb-1">Valeur du besoin :</h3>
+          <div className="bg-white p-2 w-full rounded mt-2">
+            <p className="underline text-xs">{need?.type} : </p>
+            <p className="text-xs">{need?.infrastructure}</p>
+            {need?.professionals.map((needed) => (
+              <p className="text-xs" key={needed.id}> {needed.name}</p>
+            ))}
+            {need?.materials.map((needed) => (
+              <p className="text-xs" key={needed.id}> {needed.name}</p>
+            ))}
+          </div>
         </div>
       </div>
       <div className="flex flex-col items-start justify-center w-full mt-5 mb-2 mb-2 p-2">
