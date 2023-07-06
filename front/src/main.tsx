@@ -34,12 +34,12 @@ const router = createBrowserRouter(
         <Route path="login" element={<Login />} />
         <Route index
           element={
-            isAuthenticated() ? <Navigate to={"feed/actualites"} /> : <Navigate to="/login" />
+            <Navigate to={"feed/actualites"} />
           }
         ></Route>
         <Route path="feed"
           element={
-            isAuthenticated() ? <Profil /> : <Navigate to="/login" />
+            <Profil />
           }
         >
           <Route path="actualites" element={<Profil />} />
@@ -73,7 +73,7 @@ const router = createBrowserRouter(
         </Route>
         <Route path="user/:id"
           element={
-            isAuthenticated() ? <User /> : <Navigate to="/login" />
+            <User />
           }
         />
       </Route>
