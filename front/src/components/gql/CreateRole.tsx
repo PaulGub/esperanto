@@ -1,37 +1,25 @@
 import { gql } from '@apollo/client';
 
 export const CREATE_HEALTH_ACTOR = gql`
-    mutation CreateHealthActor($careServiceType: String, $supportServices: String, $professional: String) {
-        createHealthActor(careServiceType: $careServiceType, supportServices: $supportServices, professional: $professional) {
+    mutation CreateHealthActor($userId: ID, $healthActorData: HealthActorData) {
+        createHealthActor(userId: $userId, healthActorData: $healthActorData) {
             id
-            careServiceType
-            supportServices
-            professional {
-                id
-                name
-            }
         }
     }
 `;
 
 export const CREATE_INDUSTRIAL = gql`
-    mutation CreateIndustrial($careSector: String, $otherSector: String) {
-        createIndustrial(careSector: $careSector, otherSector: $otherSector) {
+    mutation CreateIndustrial($userId: ID, $industrialData: IndustrialData) {
+        createIndustrial(userId: $userId, industrialData: $industrialData) {
             id
-            careSector
-            otherSector
         }
     }
 `;
 
 export const CREATE_RESEARCHER = gql`
-    mutation CreateResearcher($researchUnitName: String, $researchDepartment: String, $otherSector: String, $researchArea: String) {
-        createResearcher(researchUnitName: $researchUnitName, researchDepartment: $researchDepartment, otherSector: $otherSector, researchArea: $researchArea) {
+    mutation CreateResearcher($userId: ID, $researcherData: ResearcherData) {
+        createResearcher(userId: $userId, researcherData: $researcherData) {
             id
-            researchUnitName
-            researchDepartment
-            otherSector
-            researchArea
         }
     }
 `;

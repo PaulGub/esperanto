@@ -15,16 +15,6 @@ export const CREATE_USER = gql`
             description: $description
         ) {
             id
-            firstname
-            lastname
-            email
-            password
-            phoneNumber
-            role
-            healthNetwork
-            professionalStatus
-            experiences
-            description
         }
     }
 `;

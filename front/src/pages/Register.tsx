@@ -52,7 +52,6 @@ export default function Register() {
 
   const [careServiceType, setCareServiceType] = useState<string>("");
   const [supportServices, setSupportServices] = useState<string>("");
-  const [professional, setProfessional] = useState<string>("");
   const [careSector, setCareSector] = useState<string>("");
   const [otherSector, setOtherSector] = useState<string>("");
   const [researchUnitName, setResearchUnitName] = useState<string>("");
@@ -114,24 +113,20 @@ export default function Register() {
         case (Roles.HEALTH_ACTOR):
           roleData = {
             careServiceType: careServiceType,
-            supportServices: supportServices,
-            professional: {
-              name: professional
-            },
+            supportServices: supportServices
           }
           break;
         case (Roles.INDUSTRIAL):
           roleData = {
             careSector: careSector,
-            otherSector: otherSector,
+            otherSector: otherSector
           }
           break;
         case (Roles.RESEARCHER):
           roleData = {
             researchUnitName: researchUnitName,
             researchDepartment: researchDepartment,
-            researchArea: researchArea,
-            otherSector: otherSector,
+            researchArea: researchArea
           }
           break;
       }
@@ -141,18 +136,29 @@ export default function Register() {
 
       createUser({
         variables: userData
-      }).then(() => {
+      }).then((userData) => {
+        console.log(userData.data.createUser.id);
+        let userId = userData.data.createUser.id;
         if (role === Roles.HEALTH_ACTOR) {
           return createHealthActor({
-            variables: roleData
+            variables: {
+              userId: userId,
+              healthActorData: roleData
+            }
           });
         } else if (role === Roles.INDUSTRIAL) {
           return createIndustrial({
-            variables: roleData
+            variables: {
+              userId: userId,
+              industrialData: roleData
+            }
           });
         } else if (role === Roles.RESEARCHER) {
           return createResearcher({
-            variables: roleData
+            variables: {
+              userId: userId,
+              researcherData: roleData
+            }
           });
         }
       }).then(() => {
@@ -244,7 +250,6 @@ export default function Register() {
                       <div>
                         <FormInput id="careServiceType" label="Type de service de soin" value={careServiceType} setValue={setCareServiceType}></FormInput>
                         <FormInput id="supportServices" label="Services de soutien" value={supportServices} setValue={setSupportServices}></FormInput>
-                        <FormInput id="professional" label="Professionnel" value={professional} setValue={setProfessional}></FormInput>
                       </div>
                     ) : role === Roles.INDUSTRIAL ? (
                       <div>
@@ -256,7 +261,6 @@ export default function Register() {
                         <FormInput id="researchUnitName" label="Nom de l'unité de recherche" value={researchUnitName} setValue={setResearchUnitName}></FormInput>
                         <FormInput id="researchDepartment" label="Département de recherche" value={researchDepartment} setValue={setResearchDepartment}></FormInput>
                         <FormInput id="researchArea" label="Domaine de recherche" value={researchArea} setValue={setResearchArea}></FormInput>
-                        <FormInput id="otherSector" label="Autre secteur" value={otherSector} setValue={setOtherSector}></FormInput>
                       </div>
                     )}
                   </div>
@@ -267,10 +271,15 @@ export default function Register() {
                   {(currentStepIndex > 0 && currentStepIndex <= steps.length - 1) ? (
                     <button onClick={() => actionForm(Navigation.Previous)} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm">Précédent</button>
                   ) : (
+                    null
+                  )}
+                  {(currentStepIndex > steps.length - 1) ? (
                     <NavLink
-                        to={"/login"}
-                        className="w-full text-center bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm"
+                      to={"/login"}
+                      className="w-full text-center bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm"
                     >Se connecter</NavLink>
+                  ) : (
+                    null
                   )}
                   {currentStepIndex < steps.length ? 
                     currentStepIndex === steps.length - 1 ? (
