@@ -29,7 +29,8 @@ export default function Nav() {
       <div className="flex justify-end items-center bg-gray-200 h-8">
         {isAuthenticated() ? (
           <div className="flex gap-2 text-[16px] pr-8">
-            <div className="cursor-pointer">Bonjour {localStorage.getItem('userFirstname')} !</div>
+            <div className="cursor-pointer">Vous êtes connecté !</div>
+            {/* <div className="cursor-pointer">Bonjour {localStorage.getItem('userFirstname')} !</div> */}
             <span>|</span>
             <div className="cursor-pointer" onClick={() => removeSession()}>Se deconnecter</div>
           </div>

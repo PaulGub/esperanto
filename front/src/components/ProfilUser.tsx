@@ -243,7 +243,7 @@ export default function ProfilUser({ userId }: { userId: number }) {
               <a className="text-xs bg-primary-300 pt-1 pb-1 pr-2 pl-2 hover:bg-white hover:text-primary-300 border border-primary-300 ml-1 rounded-lg text-white" href={`tel:${user?.phoneNumber}`}>Appeler</a>
               <a className="text-xs bg-primary-300 pt-1 pb-1 pr-2 pl-2 hover:bg-white hover:text-primary-300 border border-primary-300 ml-1 rounded-lg text-white" href='#'>Contacter</a>
             </div>
-            {userId === CURRENT_USER ? (
+            {userId == CURRENT_USER ? (
               <div className="flex justify-end gap-4">
                 <a href="/feed/suivis/abonnes" className="text-[14px] text-primary hover:underline">
                   <span className="text-primary-400">{followerNumber}</span> abonnés

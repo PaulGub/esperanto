@@ -92,7 +92,7 @@ export default function Need({ need, userId }: { need: needProps, userId: number
         </div>
       </div>
       <div className="flex flex-col items-start justify-center w-full mt-5 mb-2 mb-2 p-2">
-        {CURRENT_USER !== userId ? (
+        {CURRENT_USER != userId ? (
           <h3 className="text-sm pb-1">Ils peuvent peut-être aider :</h3>
         ) : (
           <h3 className="text-sm pb-1">Profils associés au besoin :</h3>

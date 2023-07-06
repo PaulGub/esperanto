@@ -1,1 +1,1 @@
-export const CURRENT_USER: string|null = localStorage.getItem('userId');
+export const CURRENT_USER: any = localStorage.getItem('userId');
