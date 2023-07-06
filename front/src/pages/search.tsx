@@ -112,7 +112,7 @@ export default function Search() {
           }
         }
       />
-      <div className="mt-16 ml-64">
+      <div className="ml-64">
         <div className="flex">
           {["Santé", "Industriel", "Chercheur"].map((role) => (
             <NavLink

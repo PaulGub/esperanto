@@ -26,32 +26,32 @@ export default function Nav() {
   // const submit = useSubmit();
   return (
     <div className="flex flex-col top-0 left-0 fixed z-50 w-full">
-      <div className="flex justify-end items-center bg-gray-200 h-6">
+      <div className="flex justify-end items-center bg-gray-200 h-8">
         {isAuthenticated() ? (
-          <div className="flex gap-2 text-[14px] pr-8">
-            <span className="cursor-pointer">Bonjour {localStorage.getItem('userFirstname')} !</span>
-            <span className="cursor-pointer">|</span>
-            <span className="cursor-pointer" onClick={() => removeSession()}>Se deconnecter</span>
+          <div className="flex gap-2 text-[16px] pr-8">
+            <div className="cursor-pointer">Bonjour {localStorage.getItem('userFirstname')} !</div>
+            <span>|</span>
+            <div className="cursor-pointer" onClick={() => removeSession()}>Se deconnecter</div>
           </div>
         ) : (
           <div className="flex gap-2 text-[14px] pr-8">
-            <span className="cursor-pointer">
+            <div className="cursor-pointer">
               <NavLink
                 to="/login"
                 className={({ isActive }) =>
-                  isActive ? "bg-primary text-white" : ""
+                  isActive ? "bg-primary text-white p-2" : "p-2"
                 }
               >Se connecter</NavLink>
-            </span>
-            <span className="cursor-pointer">|</span>
-            <span className="cursor-pointer">
+            </div>
+            <span>|</span>
+            <div className="cursor-pointer">
               <NavLink
                 to="/register"
                 className={({ isActive }) =>
-                  isActive ? "bg-primary text-white" : ""
+                  isActive ? "bg-primary text-white p-2" : "h-full w-full p-2"
                 }
               >S'enregistrer</NavLink>
-            </span>
+            </div>
           </div>
         )}
       </div>

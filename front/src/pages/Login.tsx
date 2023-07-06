@@ -56,7 +56,7 @@ export default function Login() {
     }
 
     return (
-        <div className="mt-16 min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-">
+        <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-">
             <div className="relative py-3 sm:max-w-xl sm:mx-auto">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-300 to-blue-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-300 to-blue-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-3 sm:rounded-3xl"></div>
@@ -75,7 +75,7 @@ export default function Login() {
                                 )}
                                 <div className="flex flex-col gap-4">
                                     <FormInput id="email" type="email" label="Email" value={email} setValue={setEmail} isOptional={false}></FormInput>
-                                    <FormInput id="password" label="Password" value={password} setValue={setPassword} isOptional={false}></FormInput>
+                                    <FormInput id="password" type="password" label="Password" value={password} setValue={setPassword} isOptional={false}></FormInput>
                                 </div>
                                 <div className="pt-4 flex flex-col items-center gap-2">
                                     <button onClick={() => actionForm()} className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm">Se connecter</button>
