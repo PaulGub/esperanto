@@ -1,6 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import profil from "../assets/profile.svg";
 import { useState } from "react";
+import Logo from "../components/Logo";
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
@@ -16,7 +17,8 @@ export default function Nav() {
               isActive ? "bg-primary text-white" : ""
             }
           >
-            <strong>Esperanto</strong>
+            {/* <strong>Esperanto</strong> */}
+            <Logo/>
           </NavLink>
         </li>
       </ul>
