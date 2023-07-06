@@ -25,3 +25,15 @@ export const USERS_LISTS_USER = gql`
     }
   }
 `;
+
+export const ARRAY_OF_USERS_LIST = gql`
+    query ListUserByUserId($userId: ID) {
+        listUserByUserId(userId: $userId) {
+            name
+            id
+            users {
+                id
+            }
+        }
+    }
+`;

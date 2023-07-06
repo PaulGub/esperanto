@@ -1,11 +1,19 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect, ChangeEvent} from "react";
 import { globalUserProps } from "../utils/types";
-import { checkIsFollowed, getAllFollowers, getAllFollows, getUserById } from "./apolloClient/Queries";
+import {
+  checkIsFollowed,
+  getAllFollowers,
+  getAllFollows,
+  getArrayOfUsersList,
+  getUserById
+} from "./apolloClient/Queries";
 import { useMutation } from "@apollo/client";
 import { ADD_FOLLOW } from "./gql/AddFollow";
 import { REMOVE_FOLLOW } from "./gql/RemoveFollow";
 import { CURRENT_USER } from "./loggedUser/userLoged";
 import { ApolloClientCall } from "./apolloClient/ApolloClient";
+import ListModal from "./ListModal.tsx";
+import {addUserToUserList, createListUser, removeUserFromUserList} from "./apolloClient/Mutations.tsx";
 
 export default function ProfilUser({ userId }: { userId: number }) {
   const [user, setUser] = useState<globalUserProps>();
@@ -17,7 +25,7 @@ export default function ProfilUser({ userId }: { userId: number }) {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  }, [userId]);
   const userProfessionalStatus = user?.healthActor?.professional?.name || user?.professionalStatus || "";
   
 
@@ -36,7 +44,7 @@ export default function ProfilUser({ userId }: { userId: number }) {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  }, [userId]);
 
   const [followerNumber, setFollowerNumber] = useState<number>(0);
   const [followNumber, setFollowNumber] = useState<number>(0);
@@ -56,7 +64,7 @@ export default function ProfilUser({ userId }: { userId: number }) {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  }, [userId]);
 
   const toggleFollow = () => {
     if (isFollowing) {
@@ -111,6 +119,65 @@ export default function ProfilUser({ userId }: { userId: number }) {
       setShowMessage(false);
     }, duration);
   };
+
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  interface ListUser {
+    id: number,
+    name: string,
+    users?: {id: string}[]
+  }
+  const [userList, setUserList] = useState<ListUser[]>([]);
+
+  useEffect(() => {
+    getArrayOfUsersList(CURRENT_USER)
+      .then((result) => {
+        console.log(result)
+        console.log(userId.toString())
+        setUserList(result);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [userId]);
+
+  const openModal = () => {
+    setIsOpen(true);
+  }
+
+  const closeModal = () => {
+    setIsOpen(false);
+  }
+
+  const handleCreateList = async (listName: string) => {
+    const listUserArray = await createListUser(CURRENT_USER, listName, [userId]);
+
+    if (listUserArray) {
+      setUserList(listUserArray);
+    }
+  }
+
+  const checkUserInList = (users: { id: string }[] | undefined): boolean => {
+    if (users) {
+      const idArray = users.map((user) => +user.id);
+      return idArray.includes(userId);
+    } else {
+      return false;
+    }
+  }
+
+  const handleOnChange = async (event: ChangeEvent<HTMLInputElement>, listId: number) => {
+    const isChecked = event.target.checked;
+
+    if (isChecked) {
+      const result = await addUserToUserList(CURRENT_USER, listId, [userId])
+      console.log(result);
+    } else {
+      const result = await removeUserFromUserList(CURRENT_USER, listId, userId)
+      console.log(result);
+    }
+  }
+
   return (
     <div className="flex flex-col items-center justify-start bg-white border border-solid rounded-lg col-span-3 relative">
       {showMessage && (
@@ -144,17 +211,36 @@ export default function ProfilUser({ userId }: { userId: number }) {
               {userProfessionalStatus}
             </p>
           </div>
-          <div className="mt-2 ml-5 mr-5 flex flex-col justify-between">
-            <div>
+          <div className="mt-2 mr-5 flex flex-col justify-between">
+            <div className={"flex"}>
               <a
-                className={`text-xs pt-1 pb-1 pr-2 pl-2 border rounded-lg cursor-pointer ${
+                className={`text-xs pt-1 pb-1 pr-2 pl-2 border rounded-lg cursor-pointer whitespace-nowrap ${
                   isFollowing ? "bg-transparent border-red-500 text-red-500 hover:bg-red-500 hover:text-white" : "bg-primary-300 border-primary-300 text-white hover:bg-white hover:text-primary-300"
                 }`}
                 onClick={toggleFollow}
               >
                 {isFollowing ? "Ne plus suivre" : "Suivre"}
               </a>
-              <a className="text-xs bg-primary-300 pt-1 pb-1 pr-2 pl-2 hover:bg-white hover:text-primary-300 border border-primary-300 ml-1 rounded-lg text-white" href={`tel:${user?.phoneNumber}`}>Appeler</a>               
+              <button onClick={openModal} className="cursor-pointer inline-flex gap-1 items-center text-xxs bg-primary-300 pt-1 pb-1 pr-2 pl-2 hover:bg-white hover:text-primary-300 border border-primary-300 ml-1 rounded-lg text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                Ajouter à une liste
+              </button>
+              <ListModal closeModal={closeModal} modalIsOpen={modalIsOpen} createLabel={"d'utilisateur"} createList={handleCreateList} >
+                <div className={"flex flex-col px-4 py-3 gap-4"}>
+                  {userList.length > 0
+                    ? userList.map((list) => (
+                      <div key={`userList-${list.id}`} className={"flex gap-2 items-center"}>
+                        <input onChange={(event) => handleOnChange(event, list.id)} className={"w-4 h-4 border-2"} id={`userList-${list.id}`} type={"checkbox"} defaultChecked={checkUserInList(list.users)} />
+                        <label htmlFor={`userList-${list.id}`} className={"text-xs"}>{list.name}</label>
+                      </div>
+                    ))
+                    : <p className={"text-xs text-center"}>Aucune liste d'utilisateur</p>
+                  }
+                </div>
+              </ListModal>
+              <a className="text-xs bg-primary-300 pt-1 pb-1 pr-2 pl-2 hover:bg-white hover:text-primary-300 border border-primary-300 ml-1 rounded-lg text-white" href={`tel:${user?.phoneNumber}`}>Appeler</a>
               <a className="text-xs bg-primary-300 pt-1 pb-1 pr-2 pl-2 hover:bg-white hover:text-primary-300 border border-primary-300 ml-1 rounded-lg text-white" href='#'>Contacter</a>
             </div>
             {userId === CURRENT_USER ? (

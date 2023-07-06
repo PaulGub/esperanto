@@ -1,6 +1,7 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import profil from "../assets/profile.svg";
 import { useState } from "react";
+import Logo from "../components/Logo";
 
 export default function Nav() {
   const navigate = useNavigate();
@@ -63,7 +64,7 @@ export default function Nav() {
                 isActive ? "bg-primary text-white" : ""
               }
             >
-              <strong>Esperanto</strong>
+              <Logo/>
             </NavLink>
           </li>
         </ul>
